@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
-                color: Colors.yellow,
+                color: Colors.yellowAccent,
                 shadows: [
                   Shadow(
                     offset: Offset(1.75, 1.75),
@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
                   )
                 ]),
           ),
-          backgroundColor: Colors.red.shade600,
+          backgroundColor: Colors.red.shade800,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(50),
@@ -35,6 +35,89 @@ class _HomeState extends State<Home> {
           )),
         ),
       ),
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: [
+              buildCard("ความรู้วิศวกรรมในงานก่อสร้าง"),
+              buildCard("เทคนิคการก่อสร้าง"),
+              Expanded(
+                child: GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  children: [
+                    buildGridview("งานโครงสร้าง"),
+                    buildGridview("งานสถาปัตยกรรม"),
+                    buildGridview("งานวิศวกรรมระบบ"),
+                    buildGridview("กฏหมายเทศบัญญัติ"),
+                    buildGridview("มาตรฐานการทำงาน"),
+                    buildGridview("สัญญาการก่อสร้าง"),
+                    buildGridview("วัสดุก่อสร้าง"),
+                    buildGridview("Code of Practice"),
+                    buildGridview("จรรยาบรรณ"),
+                  ],
+                ),
+              ),
+              buildCard("พบช่างและถามตอบ"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card buildCard(String str) {
+    return Card(
+      color: Colors.blue.shade900,
+      margin: EdgeInsets.all(8.0),
+      child: ListTile(
+        onTap: () {},
+        title: Center(
+          child: Text(
+            str,
+            style: TextStyle(
+                color: Colors.yellowAccent,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                shadows: [
+                  Shadow(
+                    offset: Offset(1.75, 1.75),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  )
+                ]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildGridview(String str) {
+    return Container(
+      child: Card(
+        margin: EdgeInsets.all(0.0),
+        child: ListTile(
+          onTap: () {},
+          title: Center(
+            child: Text(
+              str,
+              style: TextStyle(
+                  color: Colors.yellowAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(1.75, 1.75),
+                      blurRadius: 3.0,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    )
+                  ]),
+            ),
+          ),
+        ),
+        color: Colors.blue.shade900,
+      ),
+      margin: EdgeInsets.all(10.0),
     );
   }
 }
