@@ -1,3 +1,4 @@
+import 'package:engineeronline/screens/general.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -71,7 +72,13 @@ class _HomeState extends State<Home> {
       color: Colors.blue.shade900,
       margin: EdgeInsets.all(8.0),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
+            MaterialPageRoute materialPageRoute =
+                MaterialPageRoute(builder: (BuildContext context) => General());
+            Navigator.of(context).push(materialPageRoute);
+          }
+        },
         title: Center(
           child: Text(
             str,
