@@ -3,6 +3,7 @@ import 'package:engineeronline/screens/general.dart';
 import 'package:engineeronline/screens/technique.dart';
 import 'package:engineeronline/screens/structure.dart';
 import 'package:engineeronline/screens/architecture.dart';
+import 'package:engineeronline/screens/system.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -124,6 +125,10 @@ class _HomeState extends State<Home> {
             } else if (str == "งานสถาปัตยกรรม") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Architecture());
+              Navigator.of(context).push(materialPageRoute);
+            } else if (str == "งานวิศวกรรมระบบ") {
+              MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => System());
               Navigator.of(context).push(materialPageRoute);
             }
           },
