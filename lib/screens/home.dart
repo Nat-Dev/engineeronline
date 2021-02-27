@@ -1,4 +1,5 @@
 import 'package:engineeronline/screens/general.dart';
+import 'package:engineeronline/screens/technique.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -76,6 +77,10 @@ class _HomeState extends State<Home> {
           if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
             MaterialPageRoute materialPageRoute =
                 MaterialPageRoute(builder: (BuildContext context) => General());
+            Navigator.of(context).push(materialPageRoute);
+          } else if (str == "เทคนิคการก่อสร้าง") {
+            MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                builder: (BuildContext context) => Technique());
             Navigator.of(context).push(materialPageRoute);
           }
         },
