@@ -1,6 +1,7 @@
 import 'package:engineeronline/screens/contact.dart';
 import 'package:engineeronline/screens/general.dart';
 import 'package:engineeronline/screens/technique.dart';
+import 'package:engineeronline/screens/structure.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -114,7 +115,13 @@ class _HomeState extends State<Home> {
       child: Card(
         margin: EdgeInsets.all(0.0),
         child: ListTile(
-          onTap: () {},
+          onTap: () {
+            if (str == "งานโครงสร้าง") {
+              MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => Structure());
+              Navigator.of(context).push(materialPageRoute);
+            }
+          },
           title: Center(
             child: Text(
               str,
