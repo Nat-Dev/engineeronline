@@ -1,3 +1,4 @@
+import 'package:engineeronline/screens/contact.dart';
 import 'package:engineeronline/screens/general.dart';
 import 'package:engineeronline/screens/technique.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,10 @@ class _HomeState extends State<Home> {
           } else if (str == "เทคนิคการก่อสร้าง") {
             MaterialPageRoute materialPageRoute = MaterialPageRoute(
                 builder: (BuildContext context) => Technique());
+            Navigator.of(context).push(materialPageRoute);
+          } else if (str == "พบช่างและถามตอบ") {
+            MaterialPageRoute materialPageRoute =
+                MaterialPageRoute(builder: (BuildContext context) => Contact());
             Navigator.of(context).push(materialPageRoute);
           }
         },
