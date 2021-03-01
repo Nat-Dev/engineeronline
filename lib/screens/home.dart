@@ -9,6 +9,7 @@ import 'package:engineeronline/screens/system.dart';
 import 'package:engineeronline/screens/legislation.dart';
 import 'package:engineeronline/screens/materials.dart';
 import 'package:engineeronline/screens/codeofpractice.dart';
+import 'package:engineeronline/screens/ethics.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -154,6 +155,10 @@ class _HomeState extends State<Home> {
             } else if (str == "Code of Practice") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => CodeOfPractice());
+              Navigator.of(context).push(materialPageRoute);
+            } else if (str == "จรรยาบรรณ") {
+              MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => Ethics());
               Navigator.of(context).push(materialPageRoute);
             }
           },
