@@ -1,5 +1,6 @@
 import 'package:engineeronline/screens/contact.dart';
 import 'package:engineeronline/screens/general.dart';
+import 'package:engineeronline/screens/standard.dart';
 import 'package:engineeronline/screens/technique.dart';
 import 'package:engineeronline/screens/structure.dart';
 import 'package:engineeronline/screens/architecture.dart';
@@ -134,6 +135,10 @@ class _HomeState extends State<Home> {
             } else if (str == "กฏหมายเทศบัญญัติ") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Legislation());
+              Navigator.of(context).push(materialPageRoute);
+            } else if (str == "มาตรฐานการทำงาน") {
+              MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => Standard());
               Navigator.of(context).push(materialPageRoute);
             }
           },
