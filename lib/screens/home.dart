@@ -8,6 +8,7 @@ import 'package:engineeronline/screens/architecture.dart';
 import 'package:engineeronline/screens/system.dart';
 import 'package:engineeronline/screens/legislation.dart';
 import 'package:engineeronline/screens/materials.dart';
+import 'package:engineeronline/screens/codeofpractice.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -149,6 +150,10 @@ class _HomeState extends State<Home> {
             } else if (str == "วัสดุก่อสร้าง") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Materials());
+              Navigator.of(context).push(materialPageRoute);
+            } else if (str == "Code of Practice") {
+              MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                  builder: (BuildContext context) => CodeOfPractice());
               Navigator.of(context).push(materialPageRoute);
             }
           },
