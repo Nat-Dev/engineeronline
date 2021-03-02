@@ -14,7 +14,7 @@ class _CodeOfPracticeState extends State<CodeOfPractice> {
         child: AppBar(
           centerTitle: true,
           title: Text(
-            "วิศวกร Online",
+            "วิศวกร EIT Online",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
