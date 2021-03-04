@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
   Card buildCard(String str) {
     return Card(
       color: Colors.blue.shade900,
-      margin: EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(12.5),
       child: ListTile(
         onTap: () {
           if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
             style: TextStyle(
                 color: Colors.yellowAccent,
                 fontWeight: FontWeight.bold,
-                fontSize: 20.0,
+                fontSize: 14.5,
                 shadows: [
                   Shadow(
                     offset: Offset(1.75, 1.75),
@@ -120,6 +120,7 @@ class _HomeState extends State<Home> {
 
   Container buildGridview(String str) {
     return Container(
+      padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: Card(
         margin: EdgeInsets.all(0.0),
         child: ListTile(
@@ -168,7 +169,7 @@ class _HomeState extends State<Home> {
               style: TextStyle(
                   color: Colors.yellowAccent,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
+                  fontSize: 14.5,
                   shadows: [
                     Shadow(
                       offset: Offset(1.75, 1.75),
@@ -181,7 +182,7 @@ class _HomeState extends State<Home> {
         ),
         color: Colors.blue.shade900,
       ),
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(4.0),
     );
   }
 }
