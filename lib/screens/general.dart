@@ -1,6 +1,7 @@
 import 'package:engineeronline/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:engineeronline/models/general_model.dart';
 import 'package:flutter/material.dart';
 
 class General extends StatefulWidget {
@@ -9,6 +10,8 @@ class General extends StatefulWidget {
 }
 
 class _GeneralState extends State<General> {
+  List<Widget> widgets = [];
+
   @override
   void initState() {
     super.initState();
@@ -20,16 +23,27 @@ class _GeneralState extends State<General> {
       print("initialize success");
       await FirebaseFirestore.instance
           .collection("General")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
-        print('snapshot = ${event.docs}');
+        // print('snapshot = ${event.docs}');
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
-          print("map = $map");
+          // print("map = $map");
+          GeneralModel model = GeneralModel.fromMap(map);
+          print("name = ${model.name}");
+          setState(() {
+            widgets.add(createWidget(model));
+          });
         }
       });
     });
   }
+
+  Widget createWidget(GeneralModel model) => Container(
+        width: 100,
+        child: Image.network(model.thumbnail),
+      );
 
   Widget backButton() {
     return IconButton(
@@ -70,6 +84,12 @@ class _GeneralState extends State<General> {
           ),
         ),
       ),
+      body: widgets.length == 0
+          ? CircularProgressIndicator()
+          : GridView.extent(
+              maxCrossAxisExtent: 160,
+              children: widgets,
+            ),
     );
   }
 }
