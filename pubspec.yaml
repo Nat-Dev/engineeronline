@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.8.1
   webview_flutter: ^2.0.2
+  firebase_core: ^1.0.0
 
 flutter_icons:
   image_path: "images/logo.png"

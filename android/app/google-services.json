@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "430508057033",
+    "project_id": "engineeronline-bbac9",
+    "storage_bucket": "engineeronline-bbac9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430508057033:android:01ea24ba74fd4b68f78818",
+        "android_client_info": {
+          "package_name": "com.example.engineeronline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "430508057033-t7vjk76l2vbdst6isq3ssjegd6jnhuvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlHdUQhjJLNOua0EP3Bf49BHW1QrvAwPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430508057033-t7vjk76l2vbdst6isq3ssjegd6jnhuvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
