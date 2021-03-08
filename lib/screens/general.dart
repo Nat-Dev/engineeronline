@@ -1,4 +1,6 @@
 import 'package:engineeronline/screens/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class General extends StatefulWidget {
@@ -7,6 +9,28 @@ class General extends StatefulWidget {
 }
 
 class _GeneralState extends State<General> {
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  Future<Null> readData() async {
+    await Firebase.initializeApp().then((value) async {
+      print("initialize success");
+      await FirebaseFirestore.instance
+          .collection("General")
+          .snapshots()
+          .listen((event) {
+        print('snapshot = ${event.docs}');
+        for (var snapshot in event.docs) {
+          Map<String, dynamic> map = snapshot.data();
+          print("map = $map");
+        }
+      });
+    });
+  }
+
   Widget backButton() {
     return IconButton(
       icon: Icon(
