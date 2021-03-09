@@ -11,7 +11,6 @@ class Webview extends StatefulWidget {
 
 class _WebviewState extends State<Webview> {
   GeneralModel model;
-  bool isLoading = true;
 
   @override
   void initState() {
@@ -40,24 +39,12 @@ class _WebviewState extends State<Webview> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          buildWebView(),
-          isLoading ? Center(child: CircularProgressIndicator()) : Stack(),
-        ],
-      ),
-    );
-  }
-
-  WebView buildWebView() {
-    return WebView(
-      initialUrl: model.url,
-      javascriptMode: JavascriptMode.unrestricted,
-      onPageFinished: (finish) {
-        setState(() {
-          isLoading = false;
-        });
-      },
+      body: model.url == null
+          ? Center(child: CircularProgressIndicator())
+          : WebView(
+              initialUrl: model.url,
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
     );
   }
 }
