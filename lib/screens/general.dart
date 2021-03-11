@@ -68,7 +68,7 @@ class _GeneralState extends State<General> {
                 ),
                 Text(
                   model.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
