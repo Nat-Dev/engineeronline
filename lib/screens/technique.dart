@@ -1,4 +1,8 @@
 import 'package:engineeronline/screens/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:engineeronline/models/webview_model.dart';
+import 'package:engineeronline/screens/webview.dart';
 import 'package:flutter/material.dart';
 
 class Technique extends StatefulWidget {
@@ -7,6 +11,71 @@ class Technique extends StatefulWidget {
 }
 
 class _TechniqueState extends State<Technique> {
+  List<Widget> widgets = [];
+  List<WebViewModel> techniqueModels = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  Future<Null> readData() async {
+    await Firebase.initializeApp().then((value) async {
+      print("initialize technique success");
+      await FirebaseFirestore.instance
+          .collection("Technique")
+          .snapshots()
+          .listen((event) {
+        // print('snapshot = ${event.docs}');
+        int index = 0;
+        for (var snapshot in event.docs) {
+          Map<String, dynamic> map = snapshot.data();
+          // print("map = $map");
+          WebViewModel model = WebViewModel.fromMap(map);
+          techniqueModels.add(model);
+          print("name = ${model.name}");
+          setState(() {
+            widgets.add(createWidget(model, index));
+          });
+          index++;
+        }
+      });
+    });
+  }
+
+  Widget createWidget(WebViewModel model, int index) => GestureDetector(
+        onTap: () {
+          print("${model.name} clicked index = $index");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    Webview(webviewModel: techniqueModels[index]),
+              ));
+        },
+        child: Card(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 180,
+                  child: Image.network(model.thumbnail),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  model.name,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
   Widget backButton() {
     return IconButton(
       icon: Icon(
@@ -46,6 +115,15 @@ class _TechniqueState extends State<Technique> {
           ),
         ),
       ),
+      body: widgets.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              decoration: BoxDecoration(color: Colors.grey.shade200),
+              child: GridView.extent(
+                maxCrossAxisExtent: 260,
+                children: widgets,
+              ),
+            ),
     );
   }
 }

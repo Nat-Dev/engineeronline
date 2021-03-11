@@ -44,6 +44,8 @@ class _WebviewState extends State<Webview> {
           : WebView(
               initialUrl: model.url,
               javascriptMode: JavascriptMode.unrestricted,
+              initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy
+                  .require_user_action_for_all_media_types,
             ),
     );
   }
