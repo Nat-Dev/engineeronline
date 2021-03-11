@@ -1,21 +1,21 @@
-import 'package:engineeronline/models/general_model.dart';
+import 'package:engineeronline/models/webview_model.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Webview extends StatefulWidget {
-  final GeneralModel generalModel;
-  Webview({Key key, this.generalModel}) : super(key: key);
+  final WebViewModel webviewModel;
+  Webview({Key key, this.webviewModel}) : super(key: key);
   @override
   _WebviewState createState() => _WebviewState();
 }
 
 class _WebviewState extends State<Webview> {
-  GeneralModel model;
+  WebViewModel model;
 
   @override
   void initState() {
     super.initState();
-    model = widget.generalModel;
+    model = widget.webviewModel;
   }
 
   @override
