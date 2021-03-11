@@ -68,6 +68,7 @@ class _TechniqueState extends State<Technique> {
                 ),
                 Text(
                   model.name,
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ],

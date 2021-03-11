@@ -104,6 +104,7 @@ class _HomeState extends State<Home> {
         title: Center(
           child: Text(
             str,
+            textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.yellowAccent,
                 fontWeight: FontWeight.bold,
@@ -178,6 +179,7 @@ class _HomeState extends State<Home> {
           title: Center(
             child: Text(
               str,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.yellowAccent,
                   fontWeight: FontWeight.bold,
