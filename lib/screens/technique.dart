@@ -55,6 +55,7 @@ class _TechniqueState extends State<Technique> {
               ));
         },
         child: Card(
+          elevation: 5,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,

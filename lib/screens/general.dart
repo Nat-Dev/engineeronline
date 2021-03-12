@@ -55,6 +55,7 @@ class _GeneralState extends State<General> {
               ));
         },
         child: Card(
+          elevation: 5,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
