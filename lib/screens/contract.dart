@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:engineeronline/screens/home.dart';
 
 class Contract extends StatefulWidget {
   @override
@@ -7,28 +6,11 @@ class Contract extends StatefulWidget {
 }
 
 class _ContractState extends State<Contract> {
-  Widget backButton() {
-    return IconButton(
-      icon: Icon(
-        Icons.navigate_before,
-        size: 36.0,
-        color: Colors.white,
-      ),
-      onPressed: () {
-        MaterialPageRoute materialPageRoute =
-            MaterialPageRoute(builder: (BuildContext context) => Home());
-        Navigator.of(context).pushAndRemoveUntil(
-            materialPageRoute, (Route<dynamic> route) => false);
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: backButton(),
         backgroundColor: Colors.blue.shade900,
         title: Text(
           "สัญญาการก่อสร้าง",

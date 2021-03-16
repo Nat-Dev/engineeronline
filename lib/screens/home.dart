@@ -87,18 +87,15 @@ class _HomeState extends State<Home> {
           if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
             MaterialPageRoute materialPageRoute =
                 MaterialPageRoute(builder: (BuildContext context) => General());
-            Navigator.of(context).pushAndRemoveUntil(
-                materialPageRoute, (Route<dynamic> route) => false);
+            Navigator.of(context).push(materialPageRoute);
           } else if (str == "เทคนิคการก่อสร้าง") {
             MaterialPageRoute materialPageRoute = MaterialPageRoute(
                 builder: (BuildContext context) => Technique());
-            Navigator.of(context).pushAndRemoveUntil(
-                materialPageRoute, (Route<dynamic> route) => false);
+            Navigator.of(context).push(materialPageRoute);
           } else if (str == "พบช่างและถามตอบ") {
             MaterialPageRoute materialPageRoute =
                 MaterialPageRoute(builder: (BuildContext context) => Contact());
-            Navigator.of(context).pushAndRemoveUntil(
-                materialPageRoute, (Route<dynamic> route) => false);
+            Navigator.of(context).push(materialPageRoute);
           }
         },
         title: Center(
@@ -132,48 +129,39 @@ class _HomeState extends State<Home> {
             if (str == "งานโครงสร้าง") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Structure());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "งานสถาปัตยกรรม") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Architecture());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "งานวิศวกรรมระบบ") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => System());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "กฏหมายเทศบัญญัติ") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Legislation());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "มาตรฐานการทำงาน") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Standard());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "สัญญาการก่อสร้าง") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Contract());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "วัสดุก่อสร้าง") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Materials());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "Code of Practice") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => CodeOfPractice());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             } else if (str == "จรรยาบรรณ") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
                   builder: (BuildContext context) => Ethics());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
+              Navigator.of(context).push(materialPageRoute);
             }
           },
           title: Center(
