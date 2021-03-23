@@ -1,3 +1,4 @@
+import 'package:engineeronline/screens/post/general_post.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:engineeronline/models/webview_model.dart';
@@ -98,6 +99,15 @@ class _GeneralState extends State<General> {
             ],
           ),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                    builder: (BuildContext context) => GeneralPost());
+                Navigator.of(context).push(materialPageRoute);
+              })
+        ],
       ),
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
