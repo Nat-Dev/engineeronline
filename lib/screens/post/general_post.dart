@@ -119,7 +119,7 @@ class _GeneralPostState extends State<GeneralPost> {
           padding: EdgeInsets.all(30.0),
           children: <Widget>[
             SizedBox(
-              height: 20.0,
+              height: 60.0,
             ),
             topicText(),
             SizedBox(
@@ -127,20 +127,20 @@ class _GeneralPostState extends State<GeneralPost> {
             ),
             urlText(),
             SizedBox(
-              height: 60.0,
+              height: 100.0,
             ),
-            (img != null)
-                ? Image.network(img)
-                : Placeholder(
-                    fallbackHeight: 220,
-                    fallbackWidth: double.minPositive,
-                  ),
-            SizedBox(
-              height: 20.0,
-            ),
-            RaisedButton(
-              child: Text('Upload thumbnail image'),
-              color: Colors.lightBlue,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.greenAccent.shade400,
+                onPrimary: Colors.white,
+              ),
+              child: Text(
+                'เพิ่มหัวข้อนี้',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () {},
             ),
           ],
