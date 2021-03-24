@@ -32,6 +32,9 @@ dependencies:
   cloud_firestore: ^0.14.4
   flutter_launcher_icons: ^0.8.1
   webview_flutter: ^0.3.22+1
+  firebase_storage: ^5.2.0
+  image_picker: ^0.6.7+15
+  permission_handler: ^5.0.1+2
 
 flutter_icons:
   image_path: "images/logo.png"

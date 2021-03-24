@@ -6,6 +6,82 @@ class GeneralPost extends StatefulWidget {
 }
 
 class _GeneralPostState extends State<GeneralPost> {
+  String name = "";
+  String url = "";
+  String img;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget topicText() {
+    return TextFormField(
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+        icon: Icon(
+          Icons.book,
+          color: Colors.blue.shade700,
+          size: 48.0,
+        ),
+        labelText: "ชื่อหัวข้อ :",
+        labelStyle: TextStyle(
+          color: Colors.blue.shade700,
+          fontWeight: FontWeight.bold,
+        ),
+        helperText: "กรุณาใส่ชื่อหัวข้อ",
+        helperStyle: TextStyle(
+          color: Colors.blue.shade700,
+          fontStyle: FontStyle.italic,
+          fontSize: 16.0,
+        ),
+      ),
+      validator: (String value) {
+        if (value.isNotEmpty) {
+          return null;
+        } else {
+          return "กรุณาใส่ชื่อหัวข้อให้ถูกต้อง";
+        }
+      },
+      onSaved: (String value) {
+        name = value.trim();
+      },
+    );
+  }
+
+  Widget urlText() {
+    return TextFormField(
+      keyboardType: TextInputType.url,
+      decoration: InputDecoration(
+        icon: Icon(
+          Icons.web_asset,
+          color: Colors.blue.shade700,
+          size: 48.0,
+        ),
+        labelText: "URL :",
+        labelStyle: TextStyle(
+          color: Colors.blue.shade700,
+          fontWeight: FontWeight.bold,
+        ),
+        helperText: "กรุณาใส่ URL ของเว็บไซต์อ้างอิง",
+        helperStyle: TextStyle(
+          color: Colors.blue.shade700,
+          fontStyle: FontStyle.italic,
+          fontSize: 16.0,
+        ),
+      ),
+      validator: (String value) {
+        if (value.contains('http') &&
+            value.contains('://') &&
+            value.contains('.')) {
+          return null;
+        } else {
+          return "กรุณาใส่ URL ให้ถูกต้อง";
+        }
+      },
+      onSaved: (String value) {
+        url = value.trim();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +102,48 @@ class _GeneralPostState extends State<GeneralPost> {
               )
             ],
           ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.upload_file,
+              size: 40.0,
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.all(30.0),
+          children: <Widget>[
+            SizedBox(
+              height: 20.0,
+            ),
+            topicText(),
+            SizedBox(
+              height: 60.0,
+            ),
+            urlText(),
+            SizedBox(
+              height: 60.0,
+            ),
+            (img != null)
+                ? Image.network(img)
+                : Placeholder(
+                    fallbackHeight: 220,
+                    fallbackWidth: double.minPositive,
+                  ),
+            SizedBox(
+              height: 20.0,
+            ),
+            RaisedButton(
+              child: Text('Upload thumbnail image'),
+              color: Colors.lightBlue,
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
