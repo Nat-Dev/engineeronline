@@ -1,8 +1,8 @@
-import 'package:engineeronline/screens/post/general_post.dart';
+import 'package:engineeronline/screens/posts/general_post.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/models/webview_model.dart';
-import 'package:engineeronline/screens/webview.dart';
+import 'package:engineeronline/models/youtube_model.dart';
+import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:flutter/material.dart';
 
 class General extends StatefulWidget {
@@ -12,7 +12,7 @@ class General extends StatefulWidget {
 
 class _GeneralState extends State<General> {
   List<Widget> widgets = [];
-  List<WebViewModel> generalModels = [];
+  List<YoutubeModel> generalModels = [];
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _GeneralState extends State<General> {
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
           // print("map = $map");
-          WebViewModel model = WebViewModel.fromMap(map);
+          YoutubeModel model = YoutubeModel.fromMap(map);
           generalModels.add(model);
           print("name = ${model.name}");
           setState(() {
@@ -44,14 +44,14 @@ class _GeneralState extends State<General> {
     });
   }
 
-  Widget createWidget(WebViewModel model, int index) => GestureDetector(
+  Widget createWidget(YoutubeModel model, int index) => GestureDetector(
         onTap: () {
           print("${model.name} clicked index = $index");
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Webview(webviewModel: generalModels[index]),
+                    Youtube(youtubeModel: generalModels[index]),
               ));
         },
         child: Card(

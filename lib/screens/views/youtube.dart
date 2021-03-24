@@ -1,21 +1,21 @@
-import 'package:engineeronline/models/webview_model.dart';
+import 'package:engineeronline/models/youtube_model.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Webview extends StatefulWidget {
-  final WebViewModel webviewModel;
-  Webview({Key key, this.webviewModel}) : super(key: key);
+class Youtube extends StatefulWidget {
+  final YoutubeModel youtubeModel;
+  Youtube({Key key, this.youtubeModel}) : super(key: key);
   @override
-  _WebviewState createState() => _WebviewState();
+  _YoutubeState createState() => _YoutubeState();
 }
 
-class _WebviewState extends State<Webview> {
-  WebViewModel model;
+class _YoutubeState extends State<Youtube> {
+  YoutubeModel model;
 
   @override
   void initState() {
     super.initState();
-    model = widget.webviewModel;
+    model = widget.youtubeModel;
   }
 
   @override

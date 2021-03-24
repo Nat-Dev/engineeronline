@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/models/webview_model.dart';
-import 'package:engineeronline/screens/webview.dart';
+import 'package:engineeronline/models/youtube_model.dart';
+import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:flutter/material.dart';
 
 class Technique extends StatefulWidget {
@@ -11,7 +11,7 @@ class Technique extends StatefulWidget {
 
 class _TechniqueState extends State<Technique> {
   List<Widget> widgets = [];
-  List<WebViewModel> techniqueModels = [];
+  List<YoutubeModel> techniqueModels = [];
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _TechniqueState extends State<Technique> {
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
           // print("map = $map");
-          WebViewModel model = WebViewModel.fromMap(map);
+          YoutubeModel model = YoutubeModel.fromMap(map);
           techniqueModels.add(model);
           print("name = ${model.name}");
           setState(() {
@@ -43,14 +43,14 @@ class _TechniqueState extends State<Technique> {
     });
   }
 
-  Widget createWidget(WebViewModel model, int index) => GestureDetector(
+  Widget createWidget(YoutubeModel model, int index) => GestureDetector(
         onTap: () {
           print("${model.name} clicked index = $index");
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Webview(webviewModel: techniqueModels[index]),
+                    Youtube(youtubeModel: techniqueModels[index]),
               ));
         },
         child: Card(

@@ -103,15 +103,6 @@ class _GeneralPostState extends State<GeneralPost> {
             ],
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.upload_file,
-              size: 40.0,
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Form(
         key: _formKey,
