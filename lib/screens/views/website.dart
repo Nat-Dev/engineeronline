@@ -1,21 +1,21 @@
-import 'package:engineeronline/models/youtube_model.dart';
+import 'package:engineeronline/models/website_model.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Youtube extends StatefulWidget {
-  final YoutubeModel youtubeModel;
-  Youtube({Key key, this.youtubeModel}) : super(key: key);
+class Website extends StatefulWidget {
+  final WebsiteModel websiteModel;
+  Website({Key key, this.websiteModel}) : super(key: key);
   @override
-  _YoutubeState createState() => _YoutubeState();
+  _WebsiteState createState() => _WebsiteState();
 }
 
-class _YoutubeState extends State<Youtube> {
-  YoutubeModel model;
+class _WebsiteState extends State<Website> {
+  WebsiteModel model;
 
   @override
   void initState() {
     super.initState();
-    model = widget.youtubeModel;
+    model = widget.websiteModel;
   }
 
   @override
@@ -24,7 +24,7 @@ class _YoutubeState extends State<Youtube> {
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          model.name == null ? "Open Youtube" : model.name,
+          model.name == null ? "Open Website" : model.name,
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,

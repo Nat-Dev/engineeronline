@@ -1,8 +1,8 @@
 import 'package:engineeronline/screens/posts/general_post.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/models/youtube_model.dart';
-import 'package:engineeronline/screens/views/youtube.dart';
+import 'package:engineeronline/models/website_model.dart';
+import 'package:engineeronline/screens/views/website.dart';
 import 'package:flutter/material.dart';
 
 class General extends StatefulWidget {
@@ -12,7 +12,7 @@ class General extends StatefulWidget {
 
 class _GeneralState extends State<General> {
   List<Widget> widgets = [];
-  List<YoutubeModel> generalModels = [];
+  List<WebsiteModel> generalModels = [];
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _GeneralState extends State<General> {
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
           // print("map = $map");
-          YoutubeModel model = YoutubeModel.fromMap(map);
+          WebsiteModel model = WebsiteModel.fromMap(map);
           generalModels.add(model);
           print("name = ${model.name}");
           setState(() {
@@ -44,33 +44,27 @@ class _GeneralState extends State<General> {
     });
   }
 
-  Widget createWidget(YoutubeModel model, int index) => GestureDetector(
+  Widget createWidget(WebsiteModel model, int index) => GestureDetector(
         onTap: () {
           print("${model.name} clicked index = $index");
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Youtube(youtubeModel: generalModels[index]),
+                    Website(websiteModel: generalModels[index]),
               ));
         },
         child: Card(
+          color: Colors.amber.shade100,
           elevation: 5,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 80,
-                  child: Image.network(model.thumbnail),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
                 Text(
                   model.name,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
