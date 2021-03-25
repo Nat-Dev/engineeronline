@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class GeneralPost extends StatefulWidget {
@@ -9,6 +10,7 @@ class _GeneralPostState extends State<GeneralPost> {
   String name = "";
   String url = "";
   String img;
+  final firestore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -132,7 +134,25 @@ class _GeneralPostState extends State<GeneralPost> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+                  try {
+                    await firestore.collection("General").add({
+                      'name': name,
+                      'url': url,
+                    });
+                  } catch (e) {
+                    String code = e.code;
+                    String message = e.message;
+                    print("ERROR : $message CODE: $code");
+                  }
+                  // firestore.collection("General").add({
+                  //   'name': name,
+                  //   'url': url,
+                  // });
+                }
+              },
             ),
           ],
         ),
