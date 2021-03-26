@@ -106,6 +106,7 @@ class _GeneralState extends State<General> {
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
+              margin: EdgeInsets.all(6.0),
               decoration: BoxDecoration(color: Colors.grey.shade200),
               child: GridView.extent(
                 maxCrossAxisExtent: 180,

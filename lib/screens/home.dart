@@ -20,9 +20,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: Size.fromHeight(screenHeight * 0.09),
         child: AppBar(
           centerTitle: true,
           title: Text(
