@@ -106,7 +106,7 @@ class _GeneralPostState extends State<GeneralPost> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("กด OK เพื่อกลับหน้าหลัก"),
+          content: Text("กด OK เพื่อไปยัง ความรู้วิศวกรรมในงานก่อสร้าง"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
