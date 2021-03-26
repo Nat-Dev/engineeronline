@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:engineeronline/screens/general.dart';
+import 'package:engineeronline/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class GeneralPost extends StatefulWidget {
@@ -84,8 +86,49 @@ class _GeneralPostState extends State<GeneralPost> {
     );
   }
 
+  void postSuccessAlert() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_turned_in,
+              color: Colors.lightGreenAccent.shade400,
+              size: 48.0,
+            ),
+            title: Text(
+              "เพิ่มหัวข้อสำเร็จ",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text("กด OK เพื่อกลับหน้าหลัก"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                MaterialPageRoute materialPageRouteHome = MaterialPageRoute(
+                    builder: (BuildContext context) => Home());
+                Navigator.of(context).pushAndRemoveUntil(
+                    materialPageRouteHome, (Route<dynamic> route) => false);
+                MaterialPageRoute materialPageRouteGeneral = MaterialPageRoute(
+                    builder: (BuildContext context) => General());
+                Navigator.of(context).push(materialPageRouteGeneral);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -108,53 +151,52 @@ class _GeneralPostState extends State<GeneralPost> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.all(30.0),
-          children: <Widget>[
-            SizedBox(
-              height: 60.0,
-            ),
-            topicText(),
-            SizedBox(
-              height: 60.0,
-            ),
-            urlText(),
-            SizedBox(
-              height: 100.0,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.greenAccent.shade400,
-                onPrimary: Colors.white,
+        child: Container(
+          child: ListView(
+            padding: EdgeInsets.all(30.0),
+            children: <Widget>[
+              SizedBox(
+                height: screenHeight * 0.08,
               ),
-              child: Text(
-                'เพิ่มหัวข้อนี้',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+              topicText(),
+              SizedBox(
+                height: screenHeight * 0.17,
+              ),
+              urlText(),
+              SizedBox(
+                height: screenHeight * 0.23,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.greenAccent.shade400,
+                  onPrimary: Colors.white,
                 ),
-              ),
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-                  try {
-                    await firestore.collection("General").add({
-                      'name': name,
-                      'url': url,
-                    });
-                  } catch (e) {
-                    String code = e.code;
-                    String message = e.message;
-                    print("ERROR : $message CODE: $code");
+                child: Text(
+                  'เพิ่มหัวข้อนี้',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    try {
+                      await firestore.collection("General").add({
+                        'name': name,
+                        'url': url,
+                      });
+                      postSuccessAlert();
+                    } catch (e) {
+                      String code = e.code;
+                      String message = e.message;
+                      print("ERROR : $message CODE: $code");
+                    }
                   }
-                  // firestore.collection("General").add({
-                  //   'name': name,
-                  //   'url': url,
-                  // });
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
