@@ -1,18 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/screens/general.dart';
 import 'package:engineeronline/screens/home.dart';
+import 'package:engineeronline/screens/technique.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class GeneralPost extends StatefulWidget {
+class TechniquePost extends StatefulWidget {
   @override
-  _GeneralPostState createState() => _GeneralPostState();
+  _TechniquePostState createState() => _TechniquePostState();
 }
 
-class _GeneralPostState extends State<GeneralPost> {
+class _TechniquePostState extends State<TechniquePost> {
   String name = "";
   String url = "";
+  String img = "";
   final firestore = FirebaseFirestore.instance;
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget topicText() {
@@ -54,16 +54,16 @@ class _GeneralPostState extends State<GeneralPost> {
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
         icon: Icon(
-          Icons.web_asset,
+          Icons.video_collection,
           color: Colors.blue.shade700,
           size: 48.0,
         ),
-        labelText: "Website URL :",
+        labelText: "Youtube URL :",
         labelStyle: TextStyle(
           color: Colors.blue.shade700,
           fontWeight: FontWeight.bold,
         ),
-        helperText: "กรุณาใส่ URL ของเว็บไซต์อ้างอิง",
+        helperText: "กรุณาใส่ URL ของ Youtube",
         helperStyle: TextStyle(
           color: Colors.blue.shade700,
           fontStyle: FontStyle.italic,
@@ -71,9 +71,10 @@ class _GeneralPostState extends State<GeneralPost> {
         ),
       ),
       validator: (String value) {
-        if (value.contains('http') &&
-            value.contains('://') &&
-            value.contains('.')) {
+        if (value.contains('https://') &&
+            value.contains('.') &&
+            value.contains('youtube') &&
+            value.contains('/watch?v=')) {
           return null;
         } else {
           return "กรุณาใส่ URL ให้ถูกต้อง";
@@ -83,6 +84,15 @@ class _GeneralPostState extends State<GeneralPost> {
         url = value.trim();
       },
     );
+  }
+
+  String getYoutubeThumbnail(String videoUrl) {
+    final Uri uri = Uri.tryParse(videoUrl);
+    if (uri == null) {
+      return null;
+    }
+    img = "https://img.youtube.com/vi/${uri.queryParameters['v']}/0.jpg";
+    return img;
   }
 
   void postSuccessAlert() {
@@ -105,7 +115,7 @@ class _GeneralPostState extends State<GeneralPost> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("กด OK เพื่อไปยัง ความรู้วิศวกรรมในงานก่อสร้าง"),
+          content: Text("กด OK เพื่อไปยัง เทคนิคการก่อสร้าง"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
@@ -115,7 +125,7 @@ class _GeneralPostState extends State<GeneralPost> {
                 Navigator.of(context).pushAndRemoveUntil(
                     materialPageRouteHome, (Route<dynamic> route) => false);
                 MaterialPageRoute materialPageRouteGeneral = MaterialPageRoute(
-                    builder: (BuildContext context) => General());
+                    builder: (BuildContext context) => Technique());
                 Navigator.of(context).push(materialPageRouteGeneral);
               },
             )
@@ -181,9 +191,11 @@ class _GeneralPostState extends State<GeneralPost> {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     try {
-                      await firestore.collection("General").add({
+                      print(getYoutubeThumbnail(url));
+                      await firestore.collection("Technique").add({
                         'name': name,
                         'url': url,
+                        'thumbnail': img,
                       });
                       postSuccessAlert();
                     } catch (e) {
