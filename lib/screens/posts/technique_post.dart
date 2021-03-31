@@ -76,6 +76,8 @@ class _TechniquePostState extends State<TechniquePost> {
             value.contains('youtube') &&
             value.contains('/watch?v=')) {
           return null;
+        } else if (value.contains('https://') && value.contains('youtu.be/')) {
+          return null;
         } else {
           return "กรุณาใส่ URL ให้ถูกต้อง";
         }
@@ -90,8 +92,14 @@ class _TechniquePostState extends State<TechniquePost> {
     final Uri uri = Uri.tryParse(videoUrl);
     if (uri == null) {
       return null;
+    } else if (videoUrl.contains("/watch?v=")) {
+      img = "https://img.youtube.com/vi/${uri.queryParameters['v']}/0.jpg";
+    } else if (videoUrl.contains("youtu.be/")) {
+      img = videoUrl.replaceAll(
+          "https://youtu.be/", 'https://img.youtube.com/vi/');
+      img = img + '/0.jpg';
     }
-    img = "https://img.youtube.com/vi/${uri.queryParameters['v']}/0.jpg";
+
     return img;
   }
 
@@ -143,7 +151,7 @@ class _TechniquePostState extends State<TechniquePost> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เพิ่มหัวข้อ",
+          "เพิ่ม เทคนิคการก่อสร้าง",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,

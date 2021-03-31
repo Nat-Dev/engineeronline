@@ -133,7 +133,7 @@ class _GeneralPostState extends State<GeneralPost> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เพิ่มหัวข้อ",
+          "เพิ่ม ความรู้วิศวกรรมในงานก่อสร้าง",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
