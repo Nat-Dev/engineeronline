@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:engineeronline/screens/posts/technique_post.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,8 +68,9 @@ class _TechniqueState extends State<Technique> {
                 SizedBox(
                   height: 8,
                 ),
-                Text(
+                AutoSizeText(
                   model.name,
+                  maxLines: 2,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:engineeronline/screens/posts/general_post.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,9 +62,10 @@ class _GeneralState extends State<General> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                AutoSizeText(
                   model.name,
                   textAlign: TextAlign.center,
+                  maxLines: 2,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ],

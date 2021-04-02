@@ -99,7 +99,6 @@ class _TechniquePostState extends State<TechniquePost> {
           "https://youtu.be/", 'https://img.youtube.com/vi/');
       img = img + '/0.jpg';
     }
-
     return img;
   }
 
