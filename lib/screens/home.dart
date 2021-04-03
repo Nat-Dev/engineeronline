@@ -46,6 +46,15 @@ class _HomeState extends State<Home> {
             bottomRight: Radius.circular(40),
             bottomLeft: Radius.circular(40),
           )),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 64),
+              child: Image.asset(
+                'images/logo.png',
+                width: 45,
+              ),
+            )
+          ],
         ),
       ),
       body: SafeArea(
