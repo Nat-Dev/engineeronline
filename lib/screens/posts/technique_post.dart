@@ -1,5 +1,5 @@
 import 'package:engineeronline/screens/home.dart';
-import 'package:engineeronline/screens/technique.dart';
+import 'package:engineeronline/screens/contents/technique.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

@@ -1,15 +1,15 @@
-import 'package:engineeronline/screens/contact.dart';
-import 'package:engineeronline/screens/contract.dart';
-import 'package:engineeronline/screens/general.dart';
-import 'package:engineeronline/screens/standard.dart';
-import 'package:engineeronline/screens/technique.dart';
-import 'package:engineeronline/screens/structure.dart';
-import 'package:engineeronline/screens/architecture.dart';
-import 'package:engineeronline/screens/system.dart';
-import 'package:engineeronline/screens/legislation.dart';
-import 'package:engineeronline/screens/materials.dart';
-import 'package:engineeronline/screens/codeofpractice.dart';
-import 'package:engineeronline/screens/ethics.dart';
+import 'package:engineeronline/screens/contents/contact.dart';
+import 'package:engineeronline/screens/contents/contract.dart';
+import 'package:engineeronline/screens/contents/general.dart';
+import 'package:engineeronline/screens/contents/standard.dart';
+import 'package:engineeronline/screens/contents/technique.dart';
+import 'package:engineeronline/screens/contents/structure.dart';
+import 'package:engineeronline/screens/contents/architecture.dart';
+import 'package:engineeronline/screens/contents/system.dart';
+import 'package:engineeronline/screens/contents/legislation.dart';
+import 'package:engineeronline/screens/contents/materials.dart';
+import 'package:engineeronline/screens/contents/codeofpractice.dart';
+import 'package:engineeronline/screens/contents/ethics.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -43,8 +43,8 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.red.shade800,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(50),
-            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(40),
+            bottomLeft: Radius.circular(40),
           )),
         ),
       ),
@@ -76,7 +76,12 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+      drawer: showDrawer(),
     );
+  }
+
+  Drawer showDrawer() {
+    return Drawer();
   }
 
   Card buildCard(String str) {
