@@ -8,7 +8,6 @@ class System extends StatefulWidget {
 Align buildChapter(String text) {
   return Align(
     alignment: Alignment(0, 0),
-    // alignment: Alignment.center,
     child: Text(
       text,
       style: TextStyle(
@@ -22,14 +21,13 @@ Align buildChapter(String text) {
 
 Align buildDetail(String text) {
   return Align(
-    alignment: FractionalOffset(0, 0),
+    alignment: Alignment(-1, 0),
     child: TextButton(
       onPressed: () {},
       child: Text(
         text,
         style: TextStyle(
           color: Colors.blue.shade700,
-          decoration: TextDecoration.underline,
           fontWeight: FontWeight.bold,
         ),
       ),
