@@ -19,6 +19,24 @@ Align buildChapter(String text) {
   );
 }
 
+Align buildChapterButton(String text) {
+  return Align(
+    alignment: Alignment(-1, 0),
+    child: TextButton(
+      onPressed: () {},
+      child: Text(
+        text,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontSize: 18,
+          color: Colors.green.shade900,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
+}
+
 Align buildSubChapter(String text) {
   return Align(
     alignment: Alignment(-1, 0),
@@ -88,6 +106,24 @@ class _StructureState extends State<Structure> {
           child: ListView(
             children: [
               buildSizedBox(20),
+              buildChapterButton("งานเตรียมสถานที่ก่อสร้าง"),
+              buildChapterButton("งานดินและรากฐาน"),
+              buildChapterButton("งานคอนกรีต"),
+              buildChapterButton("งานแบบหล่อและค้ำยัน"),
+              buildChapterButton("งานเหล็กเสริมคอนกรีต"),
+              buildChapterButton("งานเหล็กรูปพรรณ"),
+              buildChapterButton("การป้องกันความชื้น"),
+              buildChapterButton(
+                  "การทำแผ่นป้ายค่าการออกแบบการรับน้ำหนักของพื้นที่"),
+              buildSizedBox(10),
+              Divider(
+                height: 20,
+                thickness: 1.5,
+                color: Colors.black,
+                indent: 20,
+                endIndent: 20,
+              ),
+              buildSizedBox(20),
               buildChapter("งานเตรียมสถานที่ก่อสร้าง"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.การสำรวจวางแนวและหมุดระดับอ้างอิง"),
@@ -123,28 +159,28 @@ class _StructureState extends State<Structure> {
               buildDetail("3.การสกัดต่อหัวเสาเข็ม"),
               buildDetail("4.การเตรียมงานฐานราก"),
               buildSizedBox(20),
-              buildChapter("การก่อสร้างงานคอนกรีตเสริมเหล็ก"),
-              buildSubChapter("งานคอนกรีต"),
+              // buildChapter("การก่อสร้างงานคอนกรีตเสริมเหล็ก"),
+              buildChapter("งานคอนกรีต"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.บททั่วไป"),
               buildDetail(
                   "3.มาตรฐานงานคอนกรีต และคอนกรีตเสริมเหล็ก ตาม มยผ 1101-52"),
               buildDetail("4.มาตรฐานงานคอนกรีตอัดแรง ตามมาตรฐาน มยผ. 1102-52"),
               buildDetail("5.งานโครงสร้างคอนกรีตเสริมเหล็ก"),
-              buildSubChapter("งานแบบหล่อและค้ำยัน"),
+              buildChapter("งานแบบหล่อและค้ำยัน"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.บททั่วไป"),
               buildDetail("3.การคำนวณออกแบบ"),
               buildDetail("4.รูปแบบ"),
               buildDetail("5.กำหนดระยะเวลาถอดไม้"),
-              buildSubChapter("งานเหล็กเสริมคอนกรีต"),
+              buildChapter("งานเหล็กเสริมคอนกรีต"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.บททั่วไป"),
               buildDetail("3.ข้อกำหนดของวัสดุสำหรับเหล็กเสริมคอนกรีต"),
               buildDetail("4.การตัดและประกอบสำหรับเหล็กเสริมคอนกรีต"),
               buildDetail("5.การต่อเหล็ก"),
               buildDetail("6.การควบคุมคุณภาพ"),
-              buildSubChapter("งานเหล็กรูปพรรณ"),
+              buildChapter("งานเหล็กรูปพรรณ"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.บททั่วไป"),
               buildDetail("3.วัสดุ"),
@@ -153,15 +189,14 @@ class _StructureState extends State<Structure> {
               buildDetail("6.ฐานรองรับหรือจุดยึดโครงเหล็กรูปพรรณ"),
               buildDetail("7.การตรวจสอบคุณภาพ"),
               buildDetail("8.การป้องกันสนิมและทาสีป้องกันสนิม"),
-              buildSubChapter("การป้องกันความชื้น"),
+              buildChapter("การป้องกันความชื้น"),
               buildDetail("1.ขอบเขตของงาน"),
-              buildSubChapter("งานหลังคา"),
+              buildChapter("งานหลังคา"),
               buildDetail("1.ขอบเขตของงาน"),
               buildDetail("2.วัสดุ"),
               buildDetail("3.การติดตั้ง"),
               buildDetail("4.การป้องกันการซึม"),
-              buildSubChapter(
-                  "การทำแผ่นป้ายค่าการออกแบบการรับน้ำหนักของพื้นที่"),
+              buildChapter("การทำแผ่นป้ายค่าการออกแบบการรับน้ำหนักของพื้นที่"),
               buildDetail("1.ขอบเขตของงาน"),
             ],
           ),

@@ -10,6 +10,7 @@ import 'package:engineeronline/screens/contents/legislation.dart';
 import 'package:engineeronline/screens/contents/materials.dart';
 import 'package:engineeronline/screens/contents/codeofpractice.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -18,6 +19,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   checkStatus();
+  // }
+
+  // Future<void> checkStatus() async {
+  //   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  //   User firebaseUser = await firebaseAuth.currentUser;
+  //   if (firebaseUser != null) {
+  //     print("already log in");
+  //   } else {
+  //     print("not log in");
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -29,23 +46,25 @@ class _HomeState extends State<Home> {
           title: Text(
             "วิศวกร EIT Online",
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.yellowAccent,
-                shadows: [
-                  Shadow(
-                    offset: Offset(1.75, 1.75),
-                    blurRadius: 3.0,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  )
-                ]),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.yellowAccent,
+              shadows: [
+                Shadow(
+                  offset: Offset(1.75, 1.75),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                )
+              ],
+            ),
           ),
           backgroundColor: Colors.red.shade800,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(40),
-            bottomLeft: Radius.circular(40),
-          )),
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(40),
+              bottomLeft: Radius.circular(40),
+            ),
+          ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 64),
@@ -90,7 +109,11 @@ class _HomeState extends State<Home> {
   }
 
   Drawer showDrawer() {
-    return Drawer();
+    return Drawer(
+      child: Center(
+        child: Text("login"),
+      ),
+    );
   }
 
   Card buildCard(String str) {
@@ -118,16 +141,17 @@ class _HomeState extends State<Home> {
             str,
             textAlign: TextAlign.center,
             style: TextStyle(
-                color: Colors.yellowAccent,
-                fontWeight: FontWeight.bold,
-                fontSize: 14.5,
-                shadows: [
-                  Shadow(
-                    offset: Offset(1.75, 1.75),
-                    blurRadius: 3.0,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  )
-                ]),
+              color: Colors.yellowAccent,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.5,
+              shadows: [
+                Shadow(
+                  offset: Offset(1.75, 1.75),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -184,16 +208,17 @@ class _HomeState extends State<Home> {
               str,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.yellowAccent,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.5,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(1.75, 1.75),
-                      blurRadius: 3.0,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    )
-                  ]),
+                color: Colors.yellowAccent,
+                fontWeight: FontWeight.bold,
+                fontSize: 14.5,
+                shadows: [
+                  Shadow(
+                    offset: Offset(1.75, 1.75),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  )
+                ],
+              ),
             ),
           ),
         ),

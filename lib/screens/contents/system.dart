@@ -19,6 +19,42 @@ Align buildChapter(String text) {
   );
 }
 
+Align buildChapterButton(String text) {
+  return Align(
+    alignment: Alignment(-1, 0),
+    child: TextButton(
+      onPressed: () {},
+      child: Text(
+        text,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontSize: 18,
+          color: Colors.green.shade900,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
+}
+
+Align buildSubChapter(String text) {
+  return Align(
+    alignment: Alignment(-1, 0),
+    child: TextButton(
+      onPressed: null,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontSize: 18,
+          color: Colors.blue.shade900,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
+}
+
 Align buildDetail(String text) {
   return Align(
     alignment: Alignment(-1, 0),
@@ -69,6 +105,19 @@ class _SystemState extends State<System> {
           decoration: BoxDecoration(color: Colors.grey.shade200),
           child: ListView(
             children: [
+              buildSizedBox(20),
+              buildChapterButton(
+                  "งานวิศวกรรมระบบไฟฟ้า สื่อสาร ป้องกันอัคคีภัย"),
+              buildChapterButton("งานวิศวกรรมระบบปรับอากาศและระบายอากาศ"),
+              buildChapterButton("งานวิศวกรรมระบบสุขาภิบาลและดับเพลิง"),
+              buildSizedBox(10),
+              Divider(
+                height: 20,
+                thickness: 1.5,
+                color: Colors.black,
+                indent: 20,
+                endIndent: 20,
+              ),
               buildSizedBox(20),
               buildChapter("งานวิศวกรรมระบบไฟฟ้า สื่อสาร ป้องกันอัคคีภัย"),
               buildDetail("1.ข้อกำหนดเฉพาะ"),
