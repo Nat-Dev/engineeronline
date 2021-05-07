@@ -1,5 +1,5 @@
-import 'package:engineeronline/screens/contents/structure.dart';
 import 'package:flutter/material.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Architecture extends StatefulWidget {
   Architecture({Key key, this.title}) : super(key: key);
@@ -9,6 +9,61 @@ class Architecture extends StatefulWidget {
 }
 
 class _ArchitectureState extends State<Architecture> {
+  Future _scrollToOne() async {
+    await controller.scrollToIndex(12,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToTwo() async {
+    await controller.scrollToIndex(45,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToThree() async {
+    await controller.scrollToIndex(72,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToFour() async {
+    await controller.scrollToIndex(86,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToFive() async {
+    await controller.scrollToIndex(98,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToSix() async {
+    await controller.scrollToIndex(103,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToSeven() async {
+    await controller.scrollToIndex(116,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToEight() async {
+    await controller.scrollToIndex(124,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToNine() async {
+    await controller.scrollToIndex(125,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToTen() async {
+    await controller.scrollToIndex(129,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToEleven() async {
+    await controller.scrollToIndex(130,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
   Align buildChapter(String text) {
     return Align(
       alignment: Alignment(0, 0),
@@ -27,11 +82,46 @@ class _ArchitectureState extends State<Architecture> {
     );
   }
 
+// buildChapterButton("งานพื้น"),
+//       buildChapterButton("งานผนัง"),
+//       buildChapterButton("งานฝ้าเพดาน"),
+//       buildChapterButton("งานหลังคา"),
+//       buildChapterButton("งานบันได"),
+//       buildChapterButton("งานประตู หน้าต่าง วงกบ และกรอบบาน"),
+//       buildChapterButton("กระจก"),
+//       buildChapterButton("งานสุขภัณฑ์"),
+//       buildChapterButton("งานทาสีและพ่นสี"),
+//       buildChapterButton("งานป้องกันปลวก"),
+//       buildChapterButton("งานเบ็ดเตล็ด"),
   Align buildChapterButton(String text) {
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          if (text == "งานพื้น") {
+            _scrollToOne();
+          } else if (text == "งานผนัง") {
+            _scrollToTwo();
+          } else if (text == "งานฝ้าเพดาน") {
+            _scrollToThree();
+          } else if (text == "งานหลังคา") {
+            _scrollToFour();
+          } else if (text == "งานบันได") {
+            _scrollToFive();
+          } else if (text == "งานประตู หน้าต่าง วงกบ และกรอบบาน") {
+            _scrollToSix();
+          } else if (text == "กระจก") {
+            _scrollToSeven();
+          } else if (text == "งานสุขภัณฑ์") {
+            _scrollToEight();
+          } else if (text == "งานทาสีและพ่นสี") {
+            _scrollToNine();
+          } else if (text == "งานป้องกันปลวก") {
+            _scrollToTen();
+          } else if (text == "งานเบ็ดเตล็ด") {
+            _scrollToEleven();
+          }
+        },
         child: Text(
           text,
           style: TextStyle(
@@ -83,6 +173,19 @@ class _ArchitectureState extends State<Architecture> {
     return SizedBox(
       height: h,
     );
+  }
+
+  final scrollDirection = Axis.vertical;
+
+  AutoScrollController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        axis: scrollDirection);
   }
 
   @override
@@ -263,8 +366,20 @@ class _ArchitectureState extends State<Architecture> {
         child: Container(
           decoration: BoxDecoration(color: Colors.grey.shade200),
           child: ListView(
-              // children: contents,
-              ),
+            scrollDirection: scrollDirection,
+            controller: controller,
+            children: <Widget>[
+              ...List.generate(contents.length, (index) {
+                return AutoScrollTag(
+                  key: ValueKey(index),
+                  controller: controller,
+                  index: index,
+                  child: contents[index],
+                  highlightColor: Colors.black.withOpacity(0.1),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );
