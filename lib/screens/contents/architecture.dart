@@ -9,6 +9,9 @@ class Architecture extends StatefulWidget {
 }
 
 class _ArchitectureState extends State<Architecture> {
+  final scrollDirection = Axis.vertical;
+
+  AutoScrollController controller;
   Future _scrollToOne() async {
     await controller.scrollToIndex(12,
         preferPosition: AutoScrollPosition.begin);
@@ -165,10 +168,6 @@ class _ArchitectureState extends State<Architecture> {
       height: h,
     );
   }
-
-  final scrollDirection = Axis.vertical;
-
-  AutoScrollController controller;
 
   @override
   void initState() {
