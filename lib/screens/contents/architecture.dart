@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Architecture extends StatefulWidget {
-  Architecture({Key key, this.title}) : super(key: key);
-  final String title;
+  Architecture({Key key, this.keys}) : super(key: key);
+  final String keys;
   @override
   _ArchitectureState createState() => _ArchitectureState();
 }
@@ -82,17 +82,6 @@ class _ArchitectureState extends State<Architecture> {
     );
   }
 
-// buildChapterButton("งานพื้น"),
-//       buildChapterButton("งานผนัง"),
-//       buildChapterButton("งานฝ้าเพดาน"),
-//       buildChapterButton("งานหลังคา"),
-//       buildChapterButton("งานบันได"),
-//       buildChapterButton("งานประตู หน้าต่าง วงกบ และกรอบบาน"),
-//       buildChapterButton("กระจก"),
-//       buildChapterButton("งานสุขภัณฑ์"),
-//       buildChapterButton("งานทาสีและพ่นสี"),
-//       buildChapterButton("งานป้องกันปลวก"),
-//       buildChapterButton("งานเบ็ดเตล็ด"),
   Align buildChapterButton(String text) {
     return Align(
       alignment: Alignment(-1, 0),
@@ -120,6 +109,8 @@ class _ArchitectureState extends State<Architecture> {
             _scrollToTen();
           } else if (text == "งานเบ็ดเตล็ด") {
             _scrollToEleven();
+          } else {
+            print("text error");
           }
         },
         child: Text(

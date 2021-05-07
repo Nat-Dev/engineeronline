@@ -1,86 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class System extends StatefulWidget {
+  System({Key key, this.keys}) : super(key: key);
+  final String keys;
   @override
   _SystemState createState() => _SystemState();
 }
 
-Align buildChapter(String text) {
-  return Align(
-    alignment: Alignment(0, 0),
-    child: TextButton(
-      onPressed: null,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 18,
-          color: Colors.green.shade900,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  );
-}
-
-Align buildChapterButton(String text) {
-  return Align(
-    alignment: Alignment(-1, 0),
-    child: TextButton(
-      onPressed: () {},
-      child: Text(
-        text,
-        style: TextStyle(
-          fontStyle: FontStyle.italic,
-          fontSize: 18,
-          color: Colors.green.shade900,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  );
-}
-
-Align buildSubChapter(String text) {
-  return Align(
-    alignment: Alignment(-1, 0),
-    child: TextButton(
-      onPressed: null,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontStyle: FontStyle.italic,
-          fontSize: 18,
-          color: Colors.blue.shade900,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  );
-}
-
-Align buildDetail(String text) {
-  return Align(
-    alignment: Alignment(-1, 0),
-    child: TextButton(
-      onPressed: () {},
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.blue.shade700,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  );
-}
-
-SizedBox buildSizedBox(double h) {
-  return SizedBox(
-    height: h,
-  );
-}
-
 class _SystemState extends State<System> {
+  Future _scrollToOne() async {
+    await controller.scrollToIndex(5, preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToTwo() async {
+    await controller.scrollToIndex(27,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Future _scrollToThree() async {
+    await controller.scrollToIndex(52,
+        preferPosition: AutoScrollPosition.begin);
+  }
+
+  Align buildChapter(String text) {
+    return Align(
+      alignment: Alignment(0, 0),
+      child: TextButton(
+        onPressed: null,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.green.shade900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Align buildChapterButton(String text) {
+    return Align(
+      alignment: Alignment(-1, 0),
+      child: TextButton(
+        onPressed: () {
+          if (text == "งานวิศวกรรมระบบไฟฟ้า สื่อสาร ป้องกันอัคคีภัย") {
+            _scrollToOne();
+          } else if (text == "งานวิศวกรรมระบบปรับอากาศและระบายอากาศ") {
+            _scrollToTwo();
+          } else if (text == "งานวิศวกรรมระบบสุขาภิบาลและดับเพลิง") {
+            _scrollToThree();
+          }
+        },
+        child: Text(
+          text,
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            fontSize: 18,
+            color: Colors.green.shade900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Align buildSubChapter(String text) {
+    return Align(
+      alignment: Alignment(-1, 0),
+      child: TextButton(
+        onPressed: null,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            fontSize: 18,
+            color: Colors.blue.shade900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Align buildDetail(String text) {
+    return Align(
+      alignment: Alignment(-1, 0),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.blue.shade700,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  SizedBox buildSizedBox(double h) {
+    return SizedBox(
+      height: h,
+    );
+  }
+
+  final scrollDirection = Axis.vertical;
+
+  AutoScrollController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        axis: scrollDirection);
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> contents = [
@@ -186,7 +224,6 @@ class _SystemState extends State<System> {
       buildDetail("24.การรับประกัน"),
       buildDetail("25.ผลิตภัณฑ์ตัวอย่าง SANITARY & FIRE PROTECTION SYSTEM"),
     ];
-    int count = contents.length;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -210,17 +247,20 @@ class _SystemState extends State<System> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(color: Colors.grey.shade200),
-          child: ListView.builder(
-            itemCount: contents.length,
-            itemBuilder: (context, index) {
-              if (count != 0) {
-                count--;
-                return contents[index];
-              } else {
-                return null;
-              }
-            },
-            // children: contents,
+          child: ListView(
+            scrollDirection: scrollDirection,
+            controller: controller,
+            children: <Widget>[
+              ...List.generate(contents.length, (index) {
+                return AutoScrollTag(
+                  key: ValueKey(index),
+                  controller: controller,
+                  index: index,
+                  child: contents[index],
+                  highlightColor: Colors.black.withOpacity(0.1),
+                );
+              }),
+            ],
           ),
         ),
       ),
