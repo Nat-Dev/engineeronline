@@ -171,7 +171,10 @@ class _HomeState extends State<Home> {
               Navigator.of(context).push(materialPageRoute);
             } else if (str == "งานสถาปัตยกรรม") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                  builder: (BuildContext context) => Architecture());
+                builder: (BuildContext context) => Architecture(
+                  title: "งานสถาปัตยกรรม",
+                ),
+              );
               Navigator.of(context).push(materialPageRoute);
             } else if (str == "งานวิศวกรรมระบบ") {
               MaterialPageRoute materialPageRoute = MaterialPageRoute(
