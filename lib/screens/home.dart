@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.09),
@@ -104,14 +105,46 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: showDrawer(),
+      drawer: showDrawer(screenHeight, screenWidth),
     );
   }
 
-  Drawer showDrawer() {
+  Drawer showDrawer(double screenHeight, double screenWidth) {
+    double height = screenHeight;
+    double width = screenWidth;
     return Drawer(
-      child: Center(
-        child: Text("login"),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: height * 0.5,
+            ),
+            child: Container(
+              width: width * 0.7,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
+                child: Text(
+                  "เข้าสู่ระบบ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Container(
+            width: width * 0.7,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Colors.black)),
+              child: Text(
+                "สร้างบัญชีใหม่",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.blue.shade900),
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
     );
   }
