@@ -10,6 +10,7 @@ import 'package:engineeronline/screens/contents/legislation.dart';
 import 'package:engineeronline/screens/contents/materials.dart';
 import 'package:engineeronline/screens/contents/codeofpractice.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
+import 'package:engineeronline/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -141,7 +142,11 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.blue.shade900),
               ),
-              onPressed: () {},
+              onPressed: () {
+                MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                    builder: (BuildContext context) => Register());
+                Navigator.of(context).push(materialPageRoute);
+              },
             ),
           ),
         ],
