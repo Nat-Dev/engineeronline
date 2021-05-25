@@ -37,6 +37,40 @@ class _RegisterState extends State<Register> {
     return res;
   }
 
+  void registerFailAlert() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_late,
+              color: Colors.red,
+              size: 48.0,
+            ),
+            title: Text(
+              "Can not create account",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text("Your OTP is invalid"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Widget header() {
     return Align(
       alignment: Alignment(0, 0),
@@ -287,6 +321,7 @@ class _RegisterState extends State<Register> {
                   "username = $username, password = $password, email = $email, otp = $otp");
             } else {
               print("OTP is not verified");
+              registerFailAlert();
             }
           }
         },
