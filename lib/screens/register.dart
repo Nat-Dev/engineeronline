@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_auth/email_auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -6,9 +7,35 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
   double screenWidth;
   double screenHeight;
+  String username, email, password, otp;
   bool redEyeStatus = true;
+
+  void sendOTP() async {
+    EmailAuth.sessionName = "วิศวกร EIT ONLINE";
+    var res = await EmailAuth.sendOtp(receiverMail: _emailController.text);
+    if (res) {
+      print("OTP sent");
+    } else {
+      print("can not sent the OTP");
+    }
+  }
+
+  bool verifyOTP() {
+    bool res = EmailAuth.validate(
+        receiverMail: _emailController.text, userOTP: _otpController.text);
+    if (res) {
+      print("OTP verified");
+    } else {
+      print("invalid OTP");
+    }
+    return res;
+  }
 
   Widget header() {
     return Align(
@@ -51,6 +78,9 @@ class _RegisterState extends State<Register> {
             return null;
           }
         },
+        onSaved: (String value) {
+          username = value.trim();
+        },
       ),
     );
   }
@@ -60,6 +90,7 @@ class _RegisterState extends State<Register> {
       margin: EdgeInsets.only(top: 16),
       width: screenWidth * 0.8,
       child: TextFormField(
+        controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: "Email:",
@@ -75,6 +106,12 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
+          suffixIcon: TextButton(
+            child: Text("Send OTP"),
+            onPressed: () {
+              sendOTP();
+            },
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -86,6 +123,59 @@ class _RegisterState extends State<Register> {
           } else {
             return null;
           }
+        },
+        onSaved: (String value) {
+          email = value.trim();
+        },
+      ),
+    );
+  }
+
+  Container buildOTP() {
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      width: screenWidth * 0.8,
+      child: TextFormField(
+        controller: _otpController,
+        obscureText: redEyeStatus,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          hintText: "OTP:",
+          hintStyle: TextStyle(color: Colors.blue.shade900),
+          helperText: "Type your OTP from the Email",
+          helperStyle: TextStyle(
+            color: Colors.blue.shade900,
+            fontStyle: FontStyle.italic,
+            fontSize: 13.5,
+          ),
+          prefixIcon: Icon(Icons.confirmation_number_outlined),
+          suffixIcon: IconButton(
+              icon: redEyeStatus
+                  ? Icon(Icons.remove_red_eye)
+                  : Icon(Icons.remove_red_eye_outlined),
+              onPressed: () {
+                setState(() {
+                  redEyeStatus = !redEyeStatus;
+                });
+              }),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(color: Colors.blue.shade900),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(color: Colors.blue.shade900),
+          ),
+        ),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return "Please type your OTP";
+          } else {
+            return null;
+          }
+        },
+        onSaved: (String value) {
+          otp = value.trim();
         },
       ),
     );
@@ -132,61 +222,74 @@ class _RegisterState extends State<Register> {
             return null;
           }
         },
-      ),
-    );
-  }
-
-  Container buildConfirmPassword() {
-    return Container(
-      margin: EdgeInsets.only(top: 16),
-      width: screenWidth * 0.8,
-      child: TextFormField(
-        obscureText: redEyeStatus,
-        decoration: InputDecoration(
-          hintText: "Confirm your password:",
-          hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "Type your password again",
-          helperStyle: TextStyle(
-            color: Colors.blue.shade900,
-            fontStyle: FontStyle.italic,
-            fontSize: 13.5,
-          ),
-          prefixIcon: Icon(Icons.lock_outline),
-          suffixIcon: IconButton(
-              icon: redEyeStatus
-                  ? Icon(Icons.remove_red_eye)
-                  : Icon(Icons.remove_red_eye_outlined),
-              onPressed: () {
-                setState(() {
-                  redEyeStatus = !redEyeStatus;
-                });
-              }),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
-          ),
-        ),
-        validator: (String value) {
-          if (value.length < 6) {
-            return "Password must be at least 6 characters";
-          } else {
-            return null;
-          }
+        onSaved: (String value) {
+          password = value.trim();
         },
       ),
     );
   }
+
+  // Container buildConfirmPassword() {
+  //   return Container(
+  //     margin: EdgeInsets.only(top: 16),
+  //     width: screenWidth * 0.8,
+  //     child: TextFormField(
+  //       obscureText: redEyeStatus,
+  //       decoration: InputDecoration(
+  //         hintText: "Confirm your password:",
+  //         hintStyle: TextStyle(color: Colors.blue.shade900),
+  //         helperText: "Type your password again",
+  //         helperStyle: TextStyle(
+  //           color: Colors.blue.shade900,
+  //           fontStyle: FontStyle.italic,
+  //           fontSize: 13.5,
+  //         ),
+  //         prefixIcon: Icon(Icons.lock_outline),
+  //         suffixIcon: IconButton(
+  //             icon: redEyeStatus
+  //                 ? Icon(Icons.remove_red_eye)
+  //                 : Icon(Icons.remove_red_eye_outlined),
+  //             onPressed: () {
+  //               setState(() {
+  //                 redEyeStatus = !redEyeStatus;
+  //               });
+  //             }),
+  //         enabledBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(25),
+  //           borderSide: BorderSide(color: Colors.blue.shade900),
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(25),
+  //           borderSide: BorderSide(color: Colors.blue.shade900),
+  //         ),
+  //       ),
+  //       validator: (String value) {
+  //         if (value.length < 6) {
+  //           return "Password must be at least 6 characters";
+  //         } else {
+  //           return null;
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
   Container buildSignUp() {
     return Container(
       margin: EdgeInsets.only(top: 16),
       width: screenWidth * 0.8,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          if (formKey.currentState.validate()) {
+            if (verifyOTP()) {
+              formKey.currentState.save();
+              print(
+                  "username = $username, password = $password, email = $email, otp = $otp");
+            } else {
+              print("OTP is not verified");
+            }
+          }
+        },
         child: Text(
           "Register",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -213,33 +316,40 @@ class _RegisterState extends State<Register> {
       body: CustomPaint(
         painter: GreenPainter(),
         child: Center(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              header(),
-              SizedBox(
-                height: 20,
-              ),
-              buildUsername(),
-              SizedBox(
-                height: 20,
-              ),
-              buildEmail(),
-              SizedBox(
-                height: 20,
-              ),
-              buildPassword(),
-              SizedBox(
-                height: 20,
-              ),
-              buildConfirmPassword(),
-              SizedBox(
-                height: 20,
-              ),
-              buildSignUp()
-            ],
+          child: Form(
+            key: formKey,
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                header(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildUsername(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildPassword(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildEmail(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildOTP(),
+                SizedBox(
+                  height: 20,
+                ),
+                // buildConfirmPassword(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildSignUp(),
+              ],
+            ),
           ),
         ),
       ),
