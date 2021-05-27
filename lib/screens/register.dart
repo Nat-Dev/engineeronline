@@ -1,3 +1,6 @@
+import 'package:engineeronline/screens/dummy.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:email_auth/email_auth.dart';
 
@@ -23,6 +26,7 @@ class _RegisterState extends State<Register> {
       print("OTP sent");
     } else {
       print("can not sent the OTP");
+      registerFailAlert("ไม่สามารถส่ง OTP ไปยัง Email ดังกล่าว");
     }
   }
 
@@ -37,7 +41,57 @@ class _RegisterState extends State<Register> {
     return res;
   }
 
-  void registerFailAlert() {
+  Future<void> setupAccount() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    try {
+      firebaseAuth.currentUser.updateProfile(displayName: username);
+
+      MaterialPageRoute materialPageRoute =
+          MaterialPageRoute(builder: (BuildContext context) => Dummy());
+      Navigator.pushAndRemoveUntil(
+          context, materialPageRoute, (route) => false);
+    } catch (e) {
+      print("cannot updateProfile");
+      registerFailAlert("ไม่สามารถสร้างบัญชีได้");
+    }
+  }
+
+  void registerSuccessAlert() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_turned_in,
+              color: Colors.lightGreenAccent.shade400,
+              size: 48.0,
+            ),
+            title: Text(
+              "สร้างบัญชีใหม่สำเร็จ",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(
+              "คุณสามารถเข้าสู่ระบบด้วยบัญชีนี้ได้ กด OK เพื่อไปยังหน้าหลัก"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                setupAccount();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void registerFailAlert(String message) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -50,14 +104,14 @@ class _RegisterState extends State<Register> {
               size: 48.0,
             ),
             title: Text(
-              "Can not create account",
+              "พบปัญหาบางอย่าง",
               style: TextStyle(
                   color: Colors.blue.shade600,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("Your OTP is invalid"),
+          content: Text(message),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
@@ -75,7 +129,7 @@ class _RegisterState extends State<Register> {
     return Align(
       alignment: Alignment(0, 0),
       child: Text(
-        "CREATE ACCOUNT",
+        "สร้างบัญชีใหม่",
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
     );
@@ -87,9 +141,9 @@ class _RegisterState extends State<Register> {
       width: screenWidth * 0.8,
       child: TextFormField(
         decoration: InputDecoration(
-          hintText: "Username:",
+          hintText: "ชื่อผู้ใช้งาน:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "Type your Username",
+          helperText: "กรุณากรอกชื่อผู้ใช้งาน",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -107,7 +161,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (value.isEmpty) {
-            return "Please type your Username in the field";
+            return "กรุณากรอกชื่อผู้ใช้ลงในช่องว่าง";
           } else {
             return null;
           }
@@ -127,9 +181,9 @@ class _RegisterState extends State<Register> {
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: "Email:",
+          hintText: "ที่อยู่อีเมลล์:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "Type your Email Address",
+          helperText: "กรุณากรอกที่อยู่อีเมลล์",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -141,11 +195,7 @@ class _RegisterState extends State<Register> {
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
           suffixIcon: TextButton(
-            child: Text("Send OTP"),
-            onPressed: () {
-              sendOTP();
-            },
-          ),
+              child: Text("ส่งรหัส OTP"), onPressed: () => sendOTP()),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -153,7 +203,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (!(value.contains('@') && value.contains('.'))) {
-            return "Please type your Email Address in the field";
+            return "กรุณากรอกที่อยู่อีเมลล์ลงในช่องว่าง";
           } else {
             return null;
           }
@@ -174,9 +224,9 @@ class _RegisterState extends State<Register> {
         obscureText: redEyeStatus,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          hintText: "OTP:",
+          hintText: "รหัส OTP:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "Type your OTP from the Email",
+          helperText: "กรุณากรอกรหัส OTP",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -203,7 +253,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (value.isEmpty) {
-            return "Please type your OTP";
+            return "กรุณากรอกรหัส OPT ลงในช่องว่าง";
           } else {
             return null;
           }
@@ -222,9 +272,9 @@ class _RegisterState extends State<Register> {
       child: TextFormField(
         obscureText: redEyeStatus,
         decoration: InputDecoration(
-          hintText: "Password:",
+          hintText: "รหัสผ่าน:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "Your password must be at least 6 characters",
+          helperText: "กรุณากรอกรหัสผ่านความยาวไม่ต่ำกว่า 6 ตัวอักษร",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -251,7 +301,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (value.length < 6) {
-            return "Password must be at least 6 characters";
+            return "กรุณากรอกรหัสผ่านความยาวไม่ต่ำกว่า 6 ตัวอักษร";
           } else {
             return null;
           }
@@ -262,51 +312,6 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
-  // Container buildConfirmPassword() {
-  //   return Container(
-  //     margin: EdgeInsets.only(top: 16),
-  //     width: screenWidth * 0.8,
-  //     child: TextFormField(
-  //       obscureText: redEyeStatus,
-  //       decoration: InputDecoration(
-  //         hintText: "Confirm your password:",
-  //         hintStyle: TextStyle(color: Colors.blue.shade900),
-  //         helperText: "Type your password again",
-  //         helperStyle: TextStyle(
-  //           color: Colors.blue.shade900,
-  //           fontStyle: FontStyle.italic,
-  //           fontSize: 13.5,
-  //         ),
-  //         prefixIcon: Icon(Icons.lock_outline),
-  //         suffixIcon: IconButton(
-  //             icon: redEyeStatus
-  //                 ? Icon(Icons.remove_red_eye)
-  //                 : Icon(Icons.remove_red_eye_outlined),
-  //             onPressed: () {
-  //               setState(() {
-  //                 redEyeStatus = !redEyeStatus;
-  //               });
-  //             }),
-  //         enabledBorder: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(25),
-  //           borderSide: BorderSide(color: Colors.blue.shade900),
-  //         ),
-  //         focusedBorder: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(25),
-  //           borderSide: BorderSide(color: Colors.blue.shade900),
-  //         ),
-  //       ),
-  //       validator: (String value) {
-  //         if (value.length < 6) {
-  //           return "Password must be at least 6 characters";
-  //         } else {
-  //           return null;
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
 
   Container buildSignUp() {
     return Container(
@@ -319,14 +324,15 @@ class _RegisterState extends State<Register> {
               formKey.currentState.save();
               print(
                   "username = $username, password = $password, email = $email, otp = $otp");
+              registerFirebase();
             } else {
               print("OTP is not verified");
-              registerFailAlert();
+              registerFailAlert("รหัส OTP ไม่ถูกต้อง");
             }
           }
         },
         child: Text(
-          "Register",
+          "สร้างบัญชี",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         style: ElevatedButton.styleFrom(
@@ -339,6 +345,23 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  Future<void> registerFirebase() async {
+    await Firebase.initializeApp().then((value) async {
+      print("Firebase Initialize Success.");
+      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      try {
+        await firebaseAuth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        registerSuccessAlert();
+      } catch (err) {
+        String code = err.code;
+        String message = err.message;
+        print("ERROR : $message CODE: $code");
+        registerFailAlert(message);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
@@ -346,7 +369,21 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
-        title: Text("Register"),
+        title: Text(
+          "สร้างบัญชีผู้ใช้",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.yellowAccent,
+            shadows: [
+              Shadow(
+                offset: Offset(1.75, 1.75),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              )
+            ],
+          ),
+        ),
       ),
       body: CustomPaint(
         painter: GreenPainter(),
@@ -376,11 +413,7 @@ class _RegisterState extends State<Register> {
                 ),
                 buildOTP(),
                 SizedBox(
-                  height: 20,
-                ),
-                // buildConfirmPassword(),
-                SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 buildSignUp(),
               ],
