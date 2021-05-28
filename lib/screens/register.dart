@@ -18,12 +18,16 @@ class _RegisterState extends State<Register> {
   double screenHeight;
   String username, email, password, otp;
   bool redEyeStatus = true;
+  bool otpSend = true;
 
   void sendOTP() async {
     EmailAuth.sessionName = "วิศวกร EIT ONLINE";
     var res = await EmailAuth.sendOtp(receiverMail: _emailController.text);
     if (res) {
       print("OTP sent");
+      setState(() {
+        otpSend = true;
+      });
     } else {
       print("can not sent the OTP");
       registerFailAlert("ไม่สามารถส่ง OTP ไปยัง Email ดังกล่าว");
@@ -194,8 +198,17 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
-          suffixIcon: TextButton(
-              child: Text("ส่งรหัส OTP"), onPressed: () => sendOTP()),
+          suffixIcon: Visibility(
+            visible: otpSend,
+            child: TextButton(
+                child: Text("ส่งรหัส OTP"),
+                onPressed: () {
+                  setState(() {
+                    otpSend = false;
+                  });
+                  sendOTP();
+                }),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
