@@ -360,7 +360,7 @@ class _RegisterState extends State<Register> {
 
   Future<void> registerFirebase() async {
     await Firebase.initializeApp().then((value) async {
-      print("Firebase Initialize Success.");
+      print("Register Firebase Initialize Success.");
       FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       try {
         await firebaseAuth.createUserWithEmailAndPassword(

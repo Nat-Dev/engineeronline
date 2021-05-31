@@ -12,6 +12,7 @@ import 'package:engineeronline/screens/contents/codeofpractice.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
 import 'package:engineeronline/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -20,24 +21,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   checkStatus();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    checkStatus();
+  }
 
-  // Future<void> checkStatus() async {
-  //   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  //   User firebaseUser = await firebaseAuth.currentUser;
-  //   if (firebaseUser != null) {
-  //     print("already log in");
-  //   } else {
-  //     print("not log in");
-  //   }
-  // }
+  Future<void> checkStatus() async {
+    await Firebase.initializeApp().then((value) async {
+      print("Home Firebase Initialize Success.");
+      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      User user = await firebaseAuth.currentUser;
+      if (user != null) {
+        print("already login");
+      } else {
+        print("not login");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    // bool login;
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -106,11 +111,34 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: showDrawer(screenHeight, screenWidth),
+      drawer: drawerHome(screenHeight, screenWidth),
+      // drawer: login
+      //     ? drawerLogin(screenHeight, screenWidth)
+      //     : drawerHome(screenHeight, screenWidth),
     );
   }
 
-  Drawer showDrawer(double screenHeight, double screenWidth) {
+  // Drawer showDrawer(bool login) {
+  //   double screenHeight = MediaQuery.of(context).size.height;
+  //   double screenWidth = MediaQuery.of(context).size.width;
+  //   if (login) {
+  //     return drawerLogin(screenHeight, screenWidth);
+  //   } else {
+  //     return drawerHome(screenHeight, screenWidth);
+  //   }
+  // }
+
+  Future<void> signOut() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signOut().then((response) {
+      MaterialPageRoute materialPageRoute =
+          MaterialPageRoute(builder: (BuildContext context) => Home());
+      Navigator.of(context).pushAndRemoveUntil(
+          materialPageRoute, (Route<dynamic> route) => false);
+    });
+  }
+
+  Drawer drawerHome(double screenHeight, double screenWidth) {
     double height = screenHeight;
     double width = screenWidth;
     return Drawer(
@@ -146,6 +174,48 @@ class _HomeState extends State<Home> {
                 MaterialPageRoute materialPageRoute = MaterialPageRoute(
                     builder: (BuildContext context) => Register());
                 Navigator.of(context).push(materialPageRoute);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Drawer drawerLogin(double screenHeight, double screenWidth) {
+    double height = screenHeight;
+    double width = screenWidth;
+    return Drawer(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: height * 0.5,
+            ),
+            child: Container(
+              width: width * 0.7,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
+                child: Text(
+                  "ALREADY LOGIN",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Container(
+            width: width * 0.7,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Colors.black)),
+              child: Text(
+                "Sign Out",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.blue.shade900),
+              ),
+              onPressed: () {
+                signOut();
               },
             ),
           ),
