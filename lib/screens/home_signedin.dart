@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+class HomeSignedIn extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeSignedInState createState() => _HomeSignedInState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeSignedInState extends State<HomeSignedIn> {
   // @override
   // void initState() {
   //   super.initState();
@@ -14,7 +15,7 @@ class _HomeState extends State<Home> {
 
   // Future<void> checkStatus() async {
   //   await Firebase.initializeApp().then((value) async {
-  //     print("Home Firebase Initialize Success.");
+  //     print("Home Signedin Firebase Initialize Success.");
   //     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   //     User user = await firebaseAuth.currentUser;
   //     if (user != null) {
@@ -96,14 +97,21 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: drawerHome(screenHeight, screenWidth),
+      drawer: drawerLogin(screenHeight, screenWidth),
       // drawer: login
       //     ? drawerLogin(screenHeight, screenWidth)
       //     : drawerHome(screenHeight, screenWidth),
     );
   }
 
-  Drawer drawerHome(double screenHeight, double screenWidth) {
+  Future<void> signOut() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signOut().then((response) {
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    });
+  }
+
+  Drawer drawerLogin(double screenHeight, double screenWidth) {
     double height = screenHeight;
     double width = screenWidth;
     return Drawer(
@@ -118,7 +126,7 @@ class _HomeState extends State<Home> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
                 child: Text(
-                  "เข้าสู่ระบบ",
+                  "ALREADY LOGIN",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {},
@@ -131,12 +139,12 @@ class _HomeState extends State<Home> {
               style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.black)),
               child: Text(
-                "สร้างบัญชีใหม่",
+                "Sign Out",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.blue.shade900),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/register');
+                signOut();
               },
             ),
           ),

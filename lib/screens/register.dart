@@ -1,4 +1,3 @@
-import 'package:engineeronline/screens/dummy.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,10 +49,8 @@ class _RegisterState extends State<Register> {
     try {
       firebaseAuth.currentUser.updateProfile(displayName: username);
 
-      MaterialPageRoute materialPageRoute =
-          MaterialPageRoute(builder: (BuildContext context) => Dummy());
-      Navigator.pushAndRemoveUntil(
-          context, materialPageRoute, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/home_signedin', (route) => false);
     } catch (e) {
       print("cannot updateProfile");
       registerFailAlert("ไม่สามารถสร้างบัญชีได้");
