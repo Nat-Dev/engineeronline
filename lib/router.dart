@@ -1,3 +1,4 @@
+import 'package:engineeronline/screens/authen.dart';
 import 'package:engineeronline/screens/contents/architecture.dart';
 import 'package:engineeronline/screens/contents/codeofpractice.dart';
 import 'package:engineeronline/screens/contents/contact.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/material.dart';
 final Map<String, WidgetBuilder> routes = {
   '/home': (BuildContext context) => Home(),
   '/home_signedin': (BuildContext context) => HomeSignedIn(),
+  '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
   '/general': (BuildContext context) => General(),
   '/technique': (BuildContext context) => Technique(),

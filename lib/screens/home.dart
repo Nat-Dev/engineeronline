@@ -122,7 +122,9 @@ class _HomeState extends State<Home> {
                 "เข้าสู่ระบบ",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/authen');
+              },
             ),
           ),
           Container(

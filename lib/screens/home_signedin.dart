@@ -30,7 +30,6 @@ class _HomeSignedInState extends State<HomeSignedIn> {
   Widget build(BuildContext context) {
     // bool login;
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.09),
