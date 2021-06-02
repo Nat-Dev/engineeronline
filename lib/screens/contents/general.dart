@@ -103,9 +103,7 @@ class _GeneralState extends State<General> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = await firebaseAuth.currentUser;
                 if (user != null) {
-                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                      builder: (BuildContext context) => GeneralPost());
-                  Navigator.of(context).push(materialPageRoute);
+                  Navigator.pushNamed(context, '/general_post');
                 } else {
                   print("please sign in first");
                 }

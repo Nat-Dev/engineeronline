@@ -109,9 +109,7 @@ class _TechniqueState extends State<Technique> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = await firebaseAuth.currentUser;
                 if (user != null) {
-                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                      builder: (BuildContext context) => TechniquePost());
-                  Navigator.of(context).push(materialPageRoute);
+                  Navigator.pushNamed(context, '/technique_post');
                 } else {
                   print("please sign in first");
                 }

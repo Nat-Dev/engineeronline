@@ -12,6 +12,8 @@ import 'package:engineeronline/screens/contents/system.dart';
 import 'package:engineeronline/screens/contents/technique.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
+import 'package:engineeronline/screens/posts/general_post.dart';
+import 'package:engineeronline/screens/posts/technique_post.dart';
 import 'package:engineeronline/screens/register.dart';
 import 'package:flutter/material.dart';
 
@@ -30,5 +32,7 @@ final Map<String, WidgetBuilder> routes = {
   '/contract': (BuildContext context) => Contract(),
   '/materials': (BuildContext context) => Materials(),
   '/code_of_practice': (BuildContext context) => CodeOfPractice(),
-  '/ethics': (BuildContext context) => Ethics()
+  '/ethics': (BuildContext context) => Ethics(),
+  '/general_post': (BuildContext context) => GeneralPost(),
+  '/technique_post': (BuildContext context) => TechniquePost()
 };
