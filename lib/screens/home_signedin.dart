@@ -97,7 +97,7 @@ class _HomeSignedInState extends State<HomeSignedIn> {
           ),
         ),
       ),
-      drawer: drawerLogin(screenHeight, screenWidth),
+      drawer: drawerLogin(),
       // drawer: login
       //     ? drawerLogin(screenHeight, screenWidth)
       //     : drawerHome(screenHeight, screenWidth),
@@ -111,42 +111,35 @@ class _HomeSignedInState extends State<HomeSignedIn> {
     });
   }
 
-  Drawer drawerLogin(double screenHeight, double screenWidth) {
-    double height = screenHeight;
-    double width = screenWidth;
+  Drawer drawerLogin() {
     return Drawer(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: height * 0.5,
+          ListTile(
+            tileColor: Colors.blueGrey.shade800,
+            leading: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+              size: 26.0,
             ),
-            child: Container(
-              width: width * 0.7,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
-                child: Text(
-                  "ALREADY LOGIN",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {},
+            title: Text(
+              "ออกจากระบบ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 16.0,
               ),
             ),
-          ),
-          Container(
-            width: width * 0.7,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.black)),
-              child: Text(
-                "Sign Out",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.blue.shade900),
+            subtitle: Text(
+              "ออกจากระบบสำหรับบัญชีนี้",
+              style: TextStyle(
+                color: Colors.white54,
               ),
-              onPressed: () {
-                signOut();
-              },
             ),
+            onTap: () {
+              signOut();
+            },
           ),
         ],
       ),

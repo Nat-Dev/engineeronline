@@ -113,16 +113,16 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(
               top: height * 0.5,
             ),
-            child: Container(
-              width: width * 0.7,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
-                child: Text(
-                  "เข้าสู่ระบบ",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {},
+          ),
+          Container(
+            width: width * 0.7,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.blue.shade900),
+              child: Text(
+                "เข้าสู่ระบบ",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
+              onPressed: () {},
             ),
           ),
           Container(

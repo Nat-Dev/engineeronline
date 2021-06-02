@@ -1,5 +1,3 @@
-import 'package:engineeronline/screens/home.dart';
-import 'package:engineeronline/screens/contents/technique.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -127,13 +125,9 @@ class _TechniquePostState extends State<TechniquePost> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
-                MaterialPageRoute materialPageRouteHome = MaterialPageRoute(
-                    builder: (BuildContext context) => Home());
-                Navigator.of(context).pushAndRemoveUntil(
-                    materialPageRouteHome, (Route<dynamic> route) => false);
-                MaterialPageRoute materialPageRouteGeneral = MaterialPageRoute(
-                    builder: (BuildContext context) => Technique());
-                Navigator.of(context).push(materialPageRouteGeneral);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home_signedin', (route) => false);
+                Navigator.pushNamed(context, '/technique');
               },
             )
           ],

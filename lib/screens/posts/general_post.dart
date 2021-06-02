@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/screens/contents/general.dart';
-import 'package:engineeronline/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class GeneralPost extends StatefulWidget {
@@ -110,13 +108,9 @@ class _GeneralPostState extends State<GeneralPost> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
-                MaterialPageRoute materialPageRouteHome = MaterialPageRoute(
-                    builder: (BuildContext context) => Home());
-                Navigator.of(context).pushAndRemoveUntil(
-                    materialPageRouteHome, (Route<dynamic> route) => false);
-                MaterialPageRoute materialPageRouteGeneral = MaterialPageRoute(
-                    builder: (BuildContext context) => General());
-                Navigator.of(context).push(materialPageRouteGeneral);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home_signedin', (route) => false);
+                Navigator.pushNamed(context, '/general');
               },
             )
           ],
