@@ -123,23 +123,6 @@ class _AuthenState extends State<Authen> {
     );
   }
 
-  Align buildForgotPassword() {
-    return Align(
-      alignment: Alignment(0, 0),
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          "ลืมรหัสผ่าน",
-          style: TextStyle(
-            color: Colors.purple.shade900,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
-  }
-
   Container buildSignIn() {
     return Container(
       margin: EdgeInsets.only(top: 16),
@@ -170,27 +153,37 @@ class _AuthenState extends State<Authen> {
         child: CustomPaint(
           painter: BluePainter(),
           child: Center(
-            child: Form(
-              key: formKey,
-              child: ListView(
-                children: [
-                  backButton(),
-                  header(),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  buildEmail(),
-                  SizedBox(
-                    height: 80,
-                  ),
-                  buildPassword(),
-                  buildForgotPassword(),
-                  buildSignIn()
-                ],
-              ),
+            child: ListView(
+              children: [
+                backButton(),
+                header(),
+                SizedBox(
+                  height: 40,
+                ),
+                buildEmail(),
+                SizedBox(
+                  height: 80,
+                ),
+                buildPassword(),
+                SizedBox(
+                  height: 40,
+                ),
+                buildSignIn()
+              ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: TextButton(
+        child: Text(
+          "ลืมรหัสผ่าน",
+          style: TextStyle(
+            color: Colors.purple.shade900,
+            fontWeight: FontWeight.bold,
+            fontSize: 15.5,
+          ),
+        ),
+        onPressed: () {},
       ),
     );
   }
