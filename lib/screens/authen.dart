@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Authen extends StatefulWidget {
@@ -7,6 +9,7 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   final formKey = GlobalKey<FormState>();
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
   String email, password;
   bool redEyeStatus = true;
 
@@ -127,9 +130,21 @@ class _AuthenState extends State<Authen> {
     return Container(
       margin: EdgeInsets.only(top: 16),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (formKey.currentState.validate()) {
-            print("Email is correct");
+            formKey.currentState.save();
+            try {
+              await FirebaseAuth.instance
+                  .signInWithEmailAndPassword(email: email, password: password)
+                  .then((value) {
+                formKey.currentState.reset();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home_signedin', (route) => false);
+              });
+            } on FirebaseException catch (e) {
+              print(e.code);
+              loginFailAlert(e.code);
+            }
           }
         },
         child: Text(
@@ -146,6 +161,48 @@ class _AuthenState extends State<Authen> {
     );
   }
 
+  void loginFailAlert(String ecode) {
+    String message;
+    if (ecode == 'user-not-found') {
+      message = 'ไม่พบบัญชีผู้ใช้นี้ในระบบ';
+    } else if (ecode == 'wrong-password') {
+      message = 'รหัสผ่านไม่ถูกต้อง';
+    } else {
+      message = ecode;
+    }
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_late,
+              color: Colors.red,
+              size: 48.0,
+            ),
+            title: Text(
+              "ไม่สามารถเข้าสู่ระบบได้",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,23 +210,26 @@ class _AuthenState extends State<Authen> {
         child: CustomPaint(
           painter: BluePainter(),
           child: Center(
-            child: ListView(
-              children: [
-                backButton(),
-                header(),
-                SizedBox(
-                  height: 40,
-                ),
-                buildEmail(),
-                SizedBox(
-                  height: 80,
-                ),
-                buildPassword(),
-                SizedBox(
-                  height: 40,
-                ),
-                buildSignIn()
-              ],
+            child: Form(
+              key: formKey,
+              child: ListView(
+                children: [
+                  backButton(),
+                  header(),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  buildEmail(),
+                  SizedBox(
+                    height: 80,
+                  ),
+                  buildPassword(),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  buildSignIn()
+                ],
+              ),
             ),
           ),
         ),
