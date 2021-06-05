@@ -126,6 +126,22 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  Widget backButton() {
+    return Align(
+      alignment: Alignment(-1, 0),
+      child: IconButton(
+        icon: Icon(
+          Icons.navigate_before,
+          size: 36.0,
+          color: Colors.blue.shade700,
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    );
+  }
+
   Widget header() {
     return Align(
       alignment: Alignment(0, 0),
@@ -198,7 +214,14 @@ class _RegisterState extends State<Register> {
           suffixIcon: Visibility(
             visible: otpSend,
             child: TextButton(
-                child: Text("ส่งรหัส OTP"),
+                child: Text(
+                  "ส่งรหัส OTP",
+                  style: TextStyle(
+                    color: Colors.purple.shade900,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
                 onPressed: () {
                   setState(() {
                     otpSend = false;
@@ -377,56 +400,38 @@ class _RegisterState extends State<Register> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: Text(
-          "สร้างบัญชีผู้ใช้",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: Colors.yellowAccent,
-            shadows: [
-              Shadow(
-                offset: Offset(1.75, 1.75),
-                blurRadius: 3.0,
-                color: Color.fromARGB(255, 0, 0, 0),
-              )
-            ],
-          ),
-        ),
-      ),
-      body: CustomPaint(
-        painter: GreenPainter(),
-        child: Center(
-          child: Form(
-            key: formKey,
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                header(),
-                SizedBox(
-                  height: 20,
-                ),
-                buildUsername(),
-                SizedBox(
-                  height: 20,
-                ),
-                buildPassword(),
-                SizedBox(
-                  height: 20,
-                ),
-                buildEmail(),
-                SizedBox(
-                  height: 20,
-                ),
-                buildOTP(),
-                SizedBox(
-                  height: 40,
-                ),
-                buildSignUp(),
-              ],
+      body: SafeArea(
+        child: CustomPaint(
+          painter: GreenPainter(),
+          child: Center(
+            child: Form(
+              key: formKey,
+              child: ListView(
+                children: [
+                  backButton(),
+                  header(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildUsername(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildPassword(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildEmail(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildOTP(),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  buildSignUp(),
+                ],
+              ),
             ),
           ),
         ),
