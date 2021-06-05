@@ -93,6 +93,14 @@ class _RegisterState extends State<Register> {
   }
 
   void registerFailAlert(String message) {
+    String msg;
+    if (message == 'email-already-in-use') {
+      msg = 'อีเมลล์นี้มีผู้ใช้งานแล้ว';
+    } else if (message == 'weak-password') {
+      msg = 'รหัสผ่านต้องมีความยาวไม่ต่ำกว่า 6 ตัวอักษร';
+    } else {
+      msg = message;
+    }
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -112,7 +120,7 @@ class _RegisterState extends State<Register> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text(message),
+          content: Text(msg),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
@@ -386,11 +394,11 @@ class _RegisterState extends State<Register> {
         await firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password);
         registerSuccessAlert();
-      } catch (err) {
+      } on FirebaseAuthException catch (err) {
         String code = err.code;
         String message = err.message;
         print("ERROR : $message CODE: $code");
-        registerFailAlert(message);
+        registerFailAlert(code);
       }
     });
   }
