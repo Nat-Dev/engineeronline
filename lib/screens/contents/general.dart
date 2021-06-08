@@ -74,6 +74,54 @@ class _GeneralState extends State<General> {
         ),
       );
 
+  void authenAlert() {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_late,
+              color: Colors.red,
+              size: 48.0,
+            ),
+            title: Text(
+              "ไม่สามารถเพิ่มหัวข้อใหม่ได้",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text("กรุณาเข้าสู่ระบบเพื่อเพิ่มหัวข้อใหม่"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("ปิด"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text("สร้างบัญชีใหม่"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/register');
+              },
+            ),
+            TextButton(
+              child: Text("เข้าสู่ระบบ"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/authen');
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +153,7 @@ class _GeneralState extends State<General> {
                   Navigator.pushNamed(context, '/general_post');
                 } else {
                   print("please sign in first");
+                  authenAlert();
                 }
               })
         ],

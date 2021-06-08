@@ -36,7 +36,7 @@ class _AuthenState extends State<Authen> {
         "การเข้าสู่ระบบ",
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 24,
             color: Colors.green.shade900),
       ),
     );
@@ -49,21 +49,21 @@ class _AuthenState extends State<Authen> {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: "ที่อยู่อีเมลล์:",
-          hintStyle: TextStyle(color: Colors.blue.shade900),
+          hintStyle: TextStyle(color: Colors.black),
           helperText: "กรุณากรอกที่อยู่อีเมลล์",
           helperStyle: TextStyle(
-            color: Colors.blue.shade900,
+            color: Colors.black,
             fontStyle: FontStyle.italic,
             fontSize: 13.5,
           ),
           prefixIcon: Icon(Icons.email_outlined),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
+            borderSide: BorderSide(color: Colors.black),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
+            borderSide: BorderSide(color: Colors.black),
           ),
         ),
         validator: (String value) {
@@ -86,10 +86,10 @@ class _AuthenState extends State<Authen> {
         obscureText: redEyeStatus,
         decoration: InputDecoration(
           hintText: "รหัสผ่าน:",
-          hintStyle: TextStyle(color: Colors.blue.shade900),
+          hintStyle: TextStyle(color: Colors.black),
           helperText: "กรุณากรอกรหัสผ่าน",
           helperStyle: TextStyle(
-            color: Colors.blue.shade900,
+            color: Colors.black,
             fontStyle: FontStyle.italic,
             fontSize: 13.5,
           ),
@@ -105,11 +105,11 @@ class _AuthenState extends State<Authen> {
               }),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
+            borderSide: BorderSide(color: Colors.black),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
+            borderSide: BorderSide(color: Colors.black),
           ),
         ),
         validator: (String value) {
@@ -157,6 +157,23 @@ class _AuthenState extends State<Authen> {
             borderRadius: BorderRadius.circular(25),
           ),
         ),
+      ),
+    );
+  }
+
+  Align buildForgotPassword() {
+    return Align(
+      alignment: Alignment(1, 1),
+      child: TextButton(
+        child: Text(
+          "ลืมรหัสผ่าน",
+          style: TextStyle(
+            color: Colors.purple.shade900,
+            fontWeight: FontWeight.bold,
+            fontSize: 15.5,
+          ),
+        ),
+        onPressed: () {},
       ),
     );
   }
@@ -227,23 +244,16 @@ class _AuthenState extends State<Authen> {
                   SizedBox(
                     height: 40,
                   ),
-                  buildSignIn()
+                  buildSignIn(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  buildForgotPassword()
                 ],
               ),
             ),
           ),
         ),
-      ),
-      floatingActionButton: TextButton(
-        child: Text(
-          "ลืมรหัสผ่าน",
-          style: TextStyle(
-            color: Colors.purple.shade900,
-            fontWeight: FontWeight.bold,
-            fontSize: 15.5,
-          ),
-        ),
-        onPressed: () {},
       ),
     );
   }

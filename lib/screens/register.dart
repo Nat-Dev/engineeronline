@@ -155,7 +155,10 @@ class _RegisterState extends State<Register> {
       alignment: Alignment(0, 0),
       child: Text(
         "สร้างบัญชีใหม่",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.blue.shade900),
       ),
     );
   }
