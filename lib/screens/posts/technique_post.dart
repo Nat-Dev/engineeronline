@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,8 +12,27 @@ class _TechniquePostState extends State<TechniquePost> {
   String name = "";
   String url = "";
   String img = "";
+  String username, email;
   final firestore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    findNameAndEmail();
+  }
+
+  Future<Null> findNameAndEmail() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        setState(() {
+          username = event.displayName;
+          email = event.email;
+        });
+      });
+    });
+    print("username = $username, email = $email");
+  }
 
   Widget topicText() {
     return TextFormField(
@@ -197,6 +218,8 @@ class _TechniquePostState extends State<TechniquePost> {
                         'name': name,
                         'url': url,
                         'thumbnail': img,
+                        'username': username,
+                        'email': email
                       });
                       postSuccessAlert();
                     } catch (e) {
