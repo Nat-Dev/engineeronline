@@ -166,7 +166,7 @@ class _AuthenState extends State<Authen> {
       alignment: Alignment(1, 1),
       child: TextButton(
         child: Text(
-          "ลืมรหัสผ่าน",
+          "ลืมรหัสผ่าน?",
           style: TextStyle(
             color: Colors.purple.shade900,
             fontWeight: FontWeight.bold,

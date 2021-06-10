@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class GeneralPost extends StatefulWidget {
@@ -9,9 +11,28 @@ class GeneralPost extends StatefulWidget {
 class _GeneralPostState extends State<GeneralPost> {
   String name = "";
   String url = "";
+  String username, email;
   final firestore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    findNameAndEmail();
+  }
+
+  Future<Null> findNameAndEmail() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        setState(() {
+          username = event.displayName;
+          email = event.email;
+        });
+      });
+    });
+    print("username = $username, email = $email");
+  }
 
   Widget topicText() {
     return TextFormField(
@@ -178,6 +199,8 @@ class _GeneralPostState extends State<GeneralPost> {
                       await firestore.collection("General").add({
                         'name': name,
                         'url': url,
+                        'username': username,
+                        'email': email
                       });
                       postSuccessAlert();
                     } catch (e) {
