@@ -64,18 +64,18 @@ class _GeneralState extends State<General> {
               children: [
                 AutoSizeText(
                   model.name,
-                  // textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,
                   maxLines: 2,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 AutoSizeText(
                   'โดย ' + model.username,
-                  // textAlign: TextAlign.left,
-                  maxLines: 2,
+                  maxLines: 1,
                   style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade900),
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                  ),
                 ),
               ],
             ),

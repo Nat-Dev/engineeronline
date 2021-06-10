@@ -65,14 +65,25 @@ class _TechniqueState extends State<Technique> {
                   width: 180,
                   child: Image.network(model.thumbnail),
                 ),
-                SizedBox(
-                  height: 8,
+                Flexible(
+                  child: AutoSizeText(
+                    model.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 AutoSizeText(
-                  model.name,
-                  maxLines: 2,
+                  model.username,
+                  overflow: TextOverflow.ellipsis,
+                  // maxLines: 2,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                  ),
                 ),
               ],
             ),
