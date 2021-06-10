@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class HomeSignedIn extends StatefulWidget {
@@ -7,24 +8,23 @@ class HomeSignedIn extends StatefulWidget {
 }
 
 class _HomeSignedInState extends State<HomeSignedIn> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   checkStatus();
-  // }
+  String username, email;
+  @override
+  void initState() {
+    super.initState();
+    findNameAndEmail();
+  }
 
-  // Future<void> checkStatus() async {
-  //   await Firebase.initializeApp().then((value) async {
-  //     print("Home Signedin Firebase Initialize Success.");
-  //     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  //     User user = await firebaseAuth.currentUser;
-  //     if (user != null) {
-  //       print("already login");
-  //     } else {
-  //       print("not login");
-  //     }
-  //   });
-  // }
+  Future<Null> findNameAndEmail() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        setState(() {
+          username = event.displayName;
+          email = event.email;
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,36 +112,54 @@ class _HomeSignedInState extends State<HomeSignedIn> {
 
   Drawer drawerLogin() {
     return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+      child: Stack(
         children: [
-          ListTile(
-            tileColor: Colors.blueGrey.shade800,
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-              size: 26.0,
-            ),
-            title: Text(
-              "ออกจากระบบ",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 16.0,
-              ),
-            ),
-            subtitle: Text(
-              "ออกจากระบบสำหรับบัญชีนี้",
-              style: TextStyle(
-                color: Colors.white54,
-              ),
-            ),
-            onTap: () {
-              signOut();
-            },
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.blue.shade900, Colors.grey.shade400])),
+            accountName: Text(username == null ? 'Username' : username),
+            accountEmail: Text(email == null ? 'Email' : email),
+            currentAccountPicture: Image.asset('images/logo.png'),
           ),
+          buildSignOut(),
         ],
       ),
+    );
+  }
+
+  Column buildSignOut() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ListTile(
+          tileColor: Colors.blueGrey.shade800,
+          leading: Icon(
+            Icons.exit_to_app,
+            color: Colors.white,
+            size: 26.0,
+          ),
+          title: Text(
+            "ออกจากระบบ",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
+          subtitle: Text(
+            "ออกจากระบบสำหรับบัญชีนี้",
+            style: TextStyle(
+              color: Colors.white54,
+            ),
+          ),
+          onTap: () {
+            signOut();
+          },
+        ),
+      ],
     );
   }
 
