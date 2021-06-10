@@ -80,7 +80,6 @@ class _ArchitectureState extends State<Architecture> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        // text,
       ),
     );
   }

@@ -6,28 +6,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   checkStatus();
-  // }
-
-  // Future<void> checkStatus() async {
-  //   await Firebase.initializeApp().then((value) async {
-  //     print("Home Firebase Initialize Success.");
-  //     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  //     User user = await firebaseAuth.currentUser;
-  //     if (user != null) {
-  //       print("already login");
-  //     } else {
-  //       print("not login");
-  //     }
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // bool login;
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -97,9 +77,6 @@ class _HomeState extends State<Home> {
         ),
       ),
       drawer: drawerHome(screenHeight, screenWidth),
-      // drawer: login
-      //     ? drawerLogin(screenHeight, screenWidth)
-      //     : drawerHome(screenHeight, screenWidth),
     );
   }
 

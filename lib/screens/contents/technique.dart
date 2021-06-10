@@ -28,11 +28,9 @@ class _TechniqueState extends State<Technique> {
           .collection("Technique")
           .snapshots()
           .listen((event) {
-        // print('snapshot = ${event.docs}');
         int index = 0;
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
-          // print("map = $map");
           YoutubeModel model = YoutubeModel.fromMap(map);
           techniqueModels.add(model);
           print("name = ${model.name}");
@@ -77,7 +75,6 @@ class _TechniqueState extends State<Technique> {
                 AutoSizeText(
                   model.username,
                   overflow: TextOverflow.ellipsis,
-                  // maxLines: 2,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,

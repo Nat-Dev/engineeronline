@@ -28,7 +28,6 @@ class _HomeSignedInState extends State<HomeSignedIn> {
 
   @override
   Widget build(BuildContext context) {
-    // bool login;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
@@ -97,9 +96,6 @@ class _HomeSignedInState extends State<HomeSignedIn> {
         ),
       ),
       drawer: drawerLogin(),
-      // drawer: login
-      //     ? drawerLogin(screenHeight, screenWidth)
-      //     : drawerHome(screenHeight, screenWidth),
     );
   }
 

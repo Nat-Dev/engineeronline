@@ -70,7 +70,6 @@ class _StructureState extends State<Structure> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        // text,
       ),
     );
   }

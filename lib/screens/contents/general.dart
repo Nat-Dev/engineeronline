@@ -28,11 +28,9 @@ class _GeneralState extends State<General> {
           .collection("General")
           .snapshots()
           .listen((event) {
-        // print('snapshot = ${event.docs}');
         int index = 0;
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
-          // print("map = $map");
           WebsiteModel model = WebsiteModel.fromMap(map);
           generalModels.add(model);
           print("name = ${model.name}");
