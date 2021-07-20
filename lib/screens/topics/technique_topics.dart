@@ -61,7 +61,7 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "ความรู้วิศวกรรมในงานก่อสร้าง",
+          "เทคนิคการก่อสร้าง",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
