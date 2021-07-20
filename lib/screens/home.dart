@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
       child: ListTile(
         onTap: () {
           if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
-            Navigator.pushNamed(context, '/general');
+            Navigator.pushNamed(context, '/general_topics');
           } else if (str == "เทคนิคการก่อสร้าง") {
             Navigator.pushNamed(context, '/technique_topics');
           } else if (str == "พบช่างและถามตอบ") {
