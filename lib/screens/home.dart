@@ -16,21 +16,6 @@ class _HomeState extends State<Home> {
         preferredSize: Size.fromHeight(screenHeight * 0.09),
         child: AppBar(
           centerTitle: true,
-          // title: Text(
-          //   "วิศวกร EIT Online",
-          //   style: TextStyle(
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 20,
-          //     color: Colors.yellowAccent,
-          //     shadows: [
-          //       Shadow(
-          //         offset: Offset(1.75, 1.75),
-          //         blurRadius: 3.0,
-          //         color: Color.fromARGB(255, 0, 0, 0),
-          //       )
-          //     ],
-          //   ),
-          // ),
           title: AutoSizeText(
             "วิศวกร EIT Online",
             textAlign: TextAlign.center,
