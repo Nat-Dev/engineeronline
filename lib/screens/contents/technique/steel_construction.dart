@@ -7,12 +7,12 @@ import 'package:engineeronline/models/youtube_model.dart';
 import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:flutter/material.dart';
 
-class ReinforcingSteel extends StatefulWidget {
+class SteelConstruction extends StatefulWidget {
   @override
-  _ReinforcingSteelState createState() => _ReinforcingSteelState();
+  _SteelConstructionState createState() => _SteelConstructionState();
 }
 
-class _ReinforcingSteelState extends State<ReinforcingSteel> {
+class _SteelConstructionState extends State<SteelConstruction> {
   List<Widget> widgets = [];
   List<YoutubeModel> techniqueModels = [];
 
@@ -24,9 +24,9 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
 
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
-      print("initialize reinforcing_steel success");
+      print("initialize steel_construction success");
       FirebaseFirestore.instance
-          .collection("technique_reinforcing_steel")
+          .collection("technique_steel_construction")
           .snapshots()
           .listen((event) {
         int index = 0;
@@ -142,7 +142,7 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "งานเหล็กเสริมคอนกรีต",
+          "งานโครงสร้างเหล็ก/งานเหล็กรูปพรรณ",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              TechniquePost("technique_reinforcing_steel")));
+                              TechniquePost("technique_steel_construction")));
                 } else {
                   print("please sign in first");
                   authenAlert();

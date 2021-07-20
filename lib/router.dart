@@ -16,6 +16,7 @@ import 'package:engineeronline/screens/contents/technique/reinforcing_steel.dart
 import 'package:engineeronline/screens/contents/technique/retaining_wall.dart';
 import 'package:engineeronline/screens/contents/technique/shallow_foundation.dart';
 import 'package:engineeronline/screens/contents/technique/soil_work.dart';
+import 'package:engineeronline/screens/contents/technique/steel_construction.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
 // import 'package:engineeronline/screens/posts/general_post.dart';
@@ -37,6 +38,7 @@ final Map<String, WidgetBuilder> routes = {
   '/shallow_foundation': (BuildContext context) => ShallowFoundation(),
   '/concrete_work': (BuildContext context) => ConcreteWork(),
   '/reinforcing_steel': (BuildContext context) => ReinforcingSteel(),
+  '/steel_construction': (BuildContext context) => SteelConstruction(),
 
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),

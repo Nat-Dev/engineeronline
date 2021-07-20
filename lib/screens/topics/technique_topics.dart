@@ -25,6 +25,8 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
               Navigator.pushNamed(context, '/concrete_work');
             } else if (str == "งานเหล็กเสริมคอนกรีต") {
               Navigator.pushNamed(context, '/reinforcing_steel');
+            } else if (str == "งานโครงสร้างเหล็ก/งานเหล็กรูปพรรณ") {
+              Navigator.pushNamed(context, '/steel_construction');
             }
           },
           title: Center(
