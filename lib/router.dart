@@ -12,6 +12,7 @@ import 'package:engineeronline/screens/contents/structure.dart';
 import 'package:engineeronline/screens/contents/system.dart';
 import 'package:engineeronline/screens/contents/technique/concrete_work.dart';
 import 'package:engineeronline/screens/contents/technique/piling_work.dart';
+import 'package:engineeronline/screens/contents/technique/reinforcing_steel.dart';
 import 'package:engineeronline/screens/contents/technique/retaining_wall.dart';
 import 'package:engineeronline/screens/contents/technique/shallow_foundation.dart';
 import 'package:engineeronline/screens/contents/technique/soil_work.dart';
@@ -35,6 +36,7 @@ final Map<String, WidgetBuilder> routes = {
   '/soil_work': (BuildContext context) => SoilWork(),
   '/shallow_foundation': (BuildContext context) => ShallowFoundation(),
   '/concrete_work': (BuildContext context) => ConcreteWork(),
+  '/reinforcing_steel': (BuildContext context) => ReinforcingSteel(),
 
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),

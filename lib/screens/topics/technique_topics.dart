@@ -23,6 +23,8 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
               Navigator.pushNamed(context, '/shallow_foundation');
             } else if (str == "งานคอนกรีต") {
               Navigator.pushNamed(context, '/concrete_work');
+            } else if (str == "งานเหล็กเสริมคอนกรีต") {
+              Navigator.pushNamed(context, '/reinforcing_steel');
             }
           },
           title: Center(
