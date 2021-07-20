@@ -3,15 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-String initalRoute = '/home';
+String initialRoute = '/home';
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) async {
     print("Main Firebase Initialize Success");
-    await FirebaseAuth.instance.authStateChanges().listen((event) {
+    FirebaseAuth.instance.authStateChanges().listen((event) {
       if (event != null) {
         print("already login");
-        initalRoute = '/home_signedin';
+        initialRoute = '/home_signedin';
       } else {
         print("not login");
       }
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: routes,
-      initialRoute: initalRoute,
+      initialRoute: initialRoute,
       debugShowCheckedModeBanner: false,
     );
   }
