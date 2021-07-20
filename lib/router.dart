@@ -6,6 +6,7 @@ import 'package:engineeronline/screens/contents/contract.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
 import 'package:engineeronline/screens/contents/general.dart';
 import 'package:engineeronline/screens/contents/general/engineer_vocab.dart';
+import 'package:engineeronline/screens/contents/general/solar_cell.dart';
 import 'package:engineeronline/screens/contents/general/structure_work.dart';
 import 'package:engineeronline/screens/contents/general/system_work.dart';
 import 'package:engineeronline/screens/contents/legislation.dart';
@@ -36,6 +37,7 @@ final Map<String, WidgetBuilder> routes = {
   '/home_signedin': (BuildContext context) => HomeSignedIn(),
   '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
+  // technique
   '/technique_topics': (BuildContext context) => TechniqueTopics(),
   '/piling_work': (BuildContext context) => PilingWork(),
   '/retaining_wall': (BuildContext context) => RetainingWall(),
@@ -48,10 +50,13 @@ final Map<String, WidgetBuilder> routes = {
   '/precast_work': (BuildContext context) => PrecastWork(),
   '/column_work': (BuildContext context) => ColumnWork(),
   '/scaffolding': (BuildContext context) => Scaffolding(),
+  // general
   '/general_topics': (BuildContext context) => GeneralTopics(),
   '/engineer_vocab': (BuildContext context) => EngineerVocab(),
   '/structure_work': (BuildContext context) => StructureWork(),
   '/system_work': (BuildContext context) => SystemWork(),
+  '/solar_cell': (BuildContext context) => SolarCell(),
+  // others
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
   '/structure': (BuildContext context) => Structure(),

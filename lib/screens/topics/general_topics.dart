@@ -20,7 +20,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
             } else if (str == "งานระบบ") {
               Navigator.pushNamed(context, '/system_work');
             } else if (str == "โซล่าเซลล์") {
-              // do something
+              Navigator.pushNamed(context, '/solar_cell');
             }
           },
           title: Center(
