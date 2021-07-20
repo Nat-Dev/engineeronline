@@ -14,11 +14,11 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
         child: ListTile(
           onTap: () {
             if (str == "งานเสาเข็ม") {
-              print(str);
               Navigator.pushNamed(context, '/piling_work');
             } else if (str == "งานกำแพงกันดินระบบป้องกันดินพัง") {
-              print(str);
               Navigator.pushNamed(context, '/retaining_wall');
+            } else if (str == "งานดินและฐานราก") {
+              Navigator.pushNamed(context, '/soil_work');
             }
           },
           title: Center(
