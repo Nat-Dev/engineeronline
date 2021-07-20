@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +35,10 @@ class _HomeSignedInState extends State<HomeSignedIn> {
         preferredSize: Size.fromHeight(screenHeight * 0.09),
         child: AppBar(
           centerTitle: true,
-          title: Text(
+          title: AutoSizeText(
             "วิศวกร EIT Online",
+            textAlign: TextAlign.center,
+            maxLines: 1,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
