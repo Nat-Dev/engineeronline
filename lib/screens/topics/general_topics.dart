@@ -16,7 +16,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
             if (str == "คำศัพท์ภาษาอังกฤษทางวิศวกรรม") {
               Navigator.pushNamed(context, '/engineer_vocab');
             } else if (str == "งานโครงสร้าง") {
-              // do something
+              Navigator.pushNamed(context, '/structure_work');
             } else if (str == "งานระบบ") {
               // do something
             } else if (str == "โซล่าเซลล์") {
