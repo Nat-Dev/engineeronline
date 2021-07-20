@@ -11,6 +11,7 @@ import 'package:engineeronline/screens/contents/standard.dart';
 import 'package:engineeronline/screens/contents/structure.dart';
 import 'package:engineeronline/screens/contents/system.dart';
 import 'package:engineeronline/screens/contents/technique/piling_work.dart';
+import 'package:engineeronline/screens/contents/technique/retaining_wall.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
 import 'package:engineeronline/screens/posts/general_post.dart';
@@ -26,6 +27,7 @@ final Map<String, WidgetBuilder> routes = {
   '/register': (BuildContext context) => Register(),
   '/technique_topics': (BuildContext context) => TechniqueTopics(),
   '/piling_work': (BuildContext context) => PilingWork(),
+  '/retaining_wall': (BuildContext context) => RetainingWall(),
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
   '/structure': (BuildContext context) => Structure(),
