@@ -33,6 +33,8 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
               Navigator.pushNamed(context, '/precast_work');
             } else if (str == "งานเสา(Column)") {
               Navigator.pushNamed(context, '/column_work');
+            } else if (str == "งานนั่งร้าน") {
+              Navigator.pushNamed(context, '/scaffolding');
             }
           },
           title: Center(
