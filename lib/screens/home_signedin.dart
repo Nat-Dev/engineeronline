@@ -171,7 +171,7 @@ class _HomeSignedInState extends State<HomeSignedIn> {
           if (str == "ความรู้วิศวกรรมในงานก่อสร้าง") {
             Navigator.pushNamed(context, '/general');
           } else if (str == "เทคนิคการก่อสร้าง") {
-            Navigator.pushNamed(context, '/technique');
+            Navigator.pushNamed(context, '/technique_topics');
           } else if (str == "พบช่างและถามตอบ") {
             Navigator.pushNamed(context, '/contact');
           }

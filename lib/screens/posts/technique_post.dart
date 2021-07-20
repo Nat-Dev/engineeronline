@@ -4,17 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TechniquePost extends StatefulWidget {
+  final String collection;
+  TechniquePost(this.collection);
   @override
-  _TechniquePostState createState() => _TechniquePostState();
+  _TechniquePostState createState() => _TechniquePostState(collection);
 }
 
 class _TechniquePostState extends State<TechniquePost> {
+  String collection;
   String name = "";
   String url = "";
   String img = "";
   String username, email;
   final firestore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  _TechniquePostState(this.collection);
 
   @override
   void initState() {
@@ -141,14 +146,13 @@ class _TechniquePostState extends State<TechniquePost> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("กด OK เพื่อไปยัง เทคนิคการก่อสร้าง"),
+          content: Text("กด OK เพื่อกลับหน้าหลัก"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/home_signedin', (route) => false);
-                Navigator.pushNamed(context, '/technique');
               },
             )
           ],
@@ -214,7 +218,7 @@ class _TechniquePostState extends State<TechniquePost> {
                     _formKey.currentState.save();
                     try {
                       print(getYoutubeThumbnail(url));
-                      await firestore.collection("Technique").add({
+                      await firestore.collection(collection).add({
                         'name': name,
                         'url': url,
                         'thumbnail': img,

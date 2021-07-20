@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:engineeronline/screens/posts/technique_post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,12 +7,12 @@ import 'package:engineeronline/models/youtube_model.dart';
 import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:flutter/material.dart';
 
-class Technique extends StatefulWidget {
+class PilingWork extends StatefulWidget {
   @override
-  _TechniqueState createState() => _TechniqueState();
+  _PilingWorkState createState() => _PilingWorkState();
 }
 
-class _TechniqueState extends State<Technique> {
+class _PilingWorkState extends State<PilingWork> {
   List<Widget> widgets = [];
   List<YoutubeModel> techniqueModels = [];
 
@@ -23,9 +24,9 @@ class _TechniqueState extends State<Technique> {
 
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
-      print("initialize technique success");
+      print("initialize piling_work success");
       FirebaseFirestore.instance
-          .collection("Technique")
+          .collection("technique_piling_work")
           .snapshots()
           .listen((event) {
         int index = 0;
@@ -33,7 +34,6 @@ class _TechniqueState extends State<Technique> {
           Map<String, dynamic> map = snapshot.data();
           YoutubeModel model = YoutubeModel.fromMap(map);
           techniqueModels.add(model);
-          print("name = ${model.name}");
           setState(() {
             widgets.add(createWidget(model, index));
           });
@@ -45,7 +45,6 @@ class _TechniqueState extends State<Technique> {
 
   Widget createWidget(YoutubeModel model, int index) => GestureDetector(
         onTap: () {
-          print("${model.name} clicked index = $index");
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -143,7 +142,7 @@ class _TechniqueState extends State<Technique> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เทคนิคการก่อสร้าง",
+          "งานเสาเข็ม",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
@@ -164,7 +163,12 @@ class _TechniqueState extends State<Technique> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
-                  Navigator.pushNamed(context, '/technique_post');
+                  print("logged in");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              TechniquePost("technique_piling_work")));
                 } else {
                   print("please sign in first");
                   authenAlert();
