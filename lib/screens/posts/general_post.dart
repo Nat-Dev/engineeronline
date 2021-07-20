@@ -24,11 +24,13 @@ class _GeneralPostState extends State<GeneralPost> {
 
   Future<Null> findNameAndEmail() async {
     await Firebase.initializeApp().then((value) async {
-      await FirebaseAuth.instance.authStateChanges().listen((event) {
-        setState(() {
-          username = event.displayName;
-          email = event.email;
-        });
+      FirebaseAuth.instance.authStateChanges().listen((event) {
+        if (mounted) {
+          setState(() {
+            username = event.displayName;
+            email = event.email;
+          });
+        }
       });
     });
     print("username = $username, email = $email");

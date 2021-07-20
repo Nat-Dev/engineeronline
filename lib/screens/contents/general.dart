@@ -24,7 +24,7 @@ class _GeneralState extends State<General> {
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
       print("initialize general success");
-      await FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection("General")
           .snapshots()
           .listen((event) {
@@ -155,7 +155,7 @@ class _GeneralState extends State<General> {
               icon: Icon(Icons.add),
               onPressed: () async {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                User user = await firebaseAuth.currentUser;
+                User user = firebaseAuth.currentUser;
                 if (user != null) {
                   Navigator.pushNamed(context, '/general_post');
                 } else {

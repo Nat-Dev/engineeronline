@@ -24,7 +24,7 @@ class _TechniqueState extends State<Technique> {
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
       print("initialize technique success");
-      await FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection("Technique")
           .snapshots()
           .listen((event) {
@@ -162,7 +162,7 @@ class _TechniqueState extends State<Technique> {
               icon: Icon(Icons.add),
               onPressed: () async {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                User user = await firebaseAuth.currentUser;
+                User user = firebaseAuth.currentUser;
                 if (user != null) {
                   Navigator.pushNamed(context, '/technique_post');
                 } else {

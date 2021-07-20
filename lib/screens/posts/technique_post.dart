@@ -24,7 +24,7 @@ class _TechniquePostState extends State<TechniquePost> {
 
   Future<Null> findNameAndEmail() async {
     await Firebase.initializeApp().then((value) async {
-      await FirebaseAuth.instance.authStateChanges().listen((event) {
+      FirebaseAuth.instance.authStateChanges().listen((event) {
         setState(() {
           username = event.displayName;
           email = event.email;
