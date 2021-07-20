@@ -18,7 +18,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
             } else if (str == "งานโครงสร้าง") {
               Navigator.pushNamed(context, '/structure_work');
             } else if (str == "งานระบบ") {
-              // do something
+              Navigator.pushNamed(context, '/system_work');
             } else if (str == "โซล่าเซลล์") {
               // do something
             }

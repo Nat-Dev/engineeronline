@@ -7,6 +7,7 @@ import 'package:engineeronline/screens/contents/ethics.dart';
 import 'package:engineeronline/screens/contents/general.dart';
 import 'package:engineeronline/screens/contents/general/engineer_vocab.dart';
 import 'package:engineeronline/screens/contents/general/structure_work.dart';
+import 'package:engineeronline/screens/contents/general/system_work.dart';
 import 'package:engineeronline/screens/contents/legislation.dart';
 import 'package:engineeronline/screens/contents/materials.dart';
 import 'package:engineeronline/screens/contents/standard.dart';
@@ -25,8 +26,6 @@ import 'package:engineeronline/screens/contents/technique/soil_work.dart';
 import 'package:engineeronline/screens/contents/technique/steel_construction.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
-// import 'package:engineeronline/screens/posts/general_post.dart';
-// import 'package:engineeronline/screens/posts/technique_post.dart';
 import 'package:engineeronline/screens/register.dart';
 import 'package:engineeronline/screens/topics/general_topics.dart';
 import 'package:engineeronline/screens/topics/technique_topics.dart';
@@ -37,7 +36,6 @@ final Map<String, WidgetBuilder> routes = {
   '/home_signedin': (BuildContext context) => HomeSignedIn(),
   '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
-
   '/technique_topics': (BuildContext context) => TechniqueTopics(),
   '/piling_work': (BuildContext context) => PilingWork(),
   '/retaining_wall': (BuildContext context) => RetainingWall(),
@@ -50,10 +48,10 @@ final Map<String, WidgetBuilder> routes = {
   '/precast_work': (BuildContext context) => PrecastWork(),
   '/column_work': (BuildContext context) => ColumnWork(),
   '/scaffolding': (BuildContext context) => Scaffolding(),
-
   '/general_topics': (BuildContext context) => GeneralTopics(),
   '/engineer_vocab': (BuildContext context) => EngineerVocab(),
   '/structure_work': (BuildContext context) => StructureWork(),
+  '/system_work': (BuildContext context) => SystemWork(),
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
   '/structure': (BuildContext context) => Structure(),
@@ -65,6 +63,4 @@ final Map<String, WidgetBuilder> routes = {
   '/materials': (BuildContext context) => Materials(),
   '/code_of_practice': (BuildContext context) => CodeOfPractice(),
   '/ethics': (BuildContext context) => Ethics(),
-  // '/general_post': (BuildContext context) => GeneralPost(),
-  // '/technique_post': (BuildContext context) => TechniquePost()
 };
