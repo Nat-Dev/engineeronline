@@ -21,10 +21,9 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
               Navigator.pushNamed(context, '/soil_work');
             } else if (str == "งานฐานราก") {
               Navigator.pushNamed(context, '/shallow_foundation');
+            } else if (str == "งานคอนกรีต") {
+              Navigator.pushNamed(context, '/concrete_work');
             }
-            // else if (str == "งานคอนกรีต") {
-            //   Navigator.pushNamed(context, '/concrete_work');
-            // }
           },
           title: Center(
             child: Text(

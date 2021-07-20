@@ -4,17 +4,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class GeneralPost extends StatefulWidget {
+  final String collection;
+  GeneralPost(this.collection);
   @override
-  _GeneralPostState createState() => _GeneralPostState();
+  _GeneralPostState createState() => _GeneralPostState(collection);
 }
 
 class _GeneralPostState extends State<GeneralPost> {
+  String collection;
   String name = "";
   String url = "";
   String username, email;
   final firestore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  _GeneralPostState(this.collection);
 
   @override
   void initState() {
@@ -126,14 +131,13 @@ class _GeneralPostState extends State<GeneralPost> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("กด OK เพื่อไปยัง ความรู้วิศวกรรมในงานก่อสร้าง"),
+          content: Text("กด OK เพื่อกลับสู่หน้าหลัก"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/home_signedin', (route) => false);
-                Navigator.pushNamed(context, '/general');
               },
             )
           ],
@@ -198,7 +202,7 @@ class _GeneralPostState extends State<GeneralPost> {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     try {
-                      await firestore.collection("General").add({
+                      await firestore.collection(collection).add({
                         'name': name,
                         'url': url,
                         'username': username,

@@ -1,20 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:engineeronline/models/website_model.dart';
 import 'package:engineeronline/screens/posts/general_post.dart';
+import 'package:engineeronline/screens/views/website.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:engineeronline/models/website_model.dart';
-import 'package:engineeronline/screens/views/website.dart';
 import 'package:flutter/material.dart';
 
-class General extends StatefulWidget {
+class ConcreteWork extends StatefulWidget {
   @override
-  _GeneralState createState() => _GeneralState();
+  _ConcreteWorkState createState() => _ConcreteWorkState();
 }
 
-class _GeneralState extends State<General> {
+class _ConcreteWorkState extends State<ConcreteWork> {
   List<Widget> widgets = [];
-  List<WebsiteModel> generalModels = [];
+  List<WebsiteModel> techniqueModels = [];
 
   @override
   void initState() {
@@ -24,17 +24,16 @@ class _GeneralState extends State<General> {
 
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
-      print("initialize general success");
+      print("initialize concrete_work success");
       FirebaseFirestore.instance
-          .collection("General")
+          .collection("technique_concrete_work")
           .snapshots()
           .listen((event) {
         int index = 0;
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
           WebsiteModel model = WebsiteModel.fromMap(map);
-          generalModels.add(model);
-          print("name = ${model.name}");
+          techniqueModels.add(model);
           setState(() {
             widgets.add(createWidget(model, index));
           });
@@ -46,12 +45,11 @@ class _GeneralState extends State<General> {
 
   Widget createWidget(WebsiteModel model, int index) => GestureDetector(
         onTap: () {
-          print("${model.name} clicked index = $index");
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Website(websiteModel: generalModels[index]),
+                    Website(websiteModel: techniqueModels[index]),
               ));
         },
         child: Card(
@@ -65,13 +63,13 @@ class _GeneralState extends State<General> {
                   model.name,
                   textAlign: TextAlign.center,
                   maxLines: 2,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 AutoSizeText(
                   'โดย ' + model.username,
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue.shade900,
                   ),
@@ -136,8 +134,9 @@ class _GeneralState extends State<General> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
-        title: Text(
-          "ความรู้วิศวกรรมในงานก่อสร้าง",
+        title: AutoSizeText(
+          "งานคอนกรีต",
+          maxLines: 1,
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
@@ -158,10 +157,12 @@ class _GeneralState extends State<General> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
+                  print("logged in");
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GeneralPost("General")));
+                          builder: (context) =>
+                              GeneralPost("technique_concrete_work")));
                 } else {
                   print("please sign in first");
                   authenAlert();
@@ -172,10 +173,9 @@ class _GeneralState extends State<General> {
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
-              margin: EdgeInsets.all(6.0),
               decoration: BoxDecoration(color: Colors.grey.shade200),
               child: GridView.extent(
-                maxCrossAxisExtent: 180,
+                maxCrossAxisExtent: 260,
                 children: widgets,
               ),
             ),

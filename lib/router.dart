@@ -10,13 +10,14 @@ import 'package:engineeronline/screens/contents/materials.dart';
 import 'package:engineeronline/screens/contents/standard.dart';
 import 'package:engineeronline/screens/contents/structure.dart';
 import 'package:engineeronline/screens/contents/system.dart';
+import 'package:engineeronline/screens/contents/technique/concrete_work.dart';
 import 'package:engineeronline/screens/contents/technique/piling_work.dart';
 import 'package:engineeronline/screens/contents/technique/retaining_wall.dart';
 import 'package:engineeronline/screens/contents/technique/shallow_foundation.dart';
 import 'package:engineeronline/screens/contents/technique/soil_work.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
-import 'package:engineeronline/screens/posts/general_post.dart';
+// import 'package:engineeronline/screens/posts/general_post.dart';
 // import 'package:engineeronline/screens/posts/technique_post.dart';
 import 'package:engineeronline/screens/register.dart';
 import 'package:engineeronline/screens/topics/technique_topics.dart';
@@ -33,6 +34,7 @@ final Map<String, WidgetBuilder> routes = {
   '/retaining_wall': (BuildContext context) => RetainingWall(),
   '/soil_work': (BuildContext context) => SoilWork(),
   '/shallow_foundation': (BuildContext context) => ShallowFoundation(),
+  '/concrete_work': (BuildContext context) => ConcreteWork(),
 
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
@@ -45,6 +47,6 @@ final Map<String, WidgetBuilder> routes = {
   '/materials': (BuildContext context) => Materials(),
   '/code_of_practice': (BuildContext context) => CodeOfPractice(),
   '/ethics': (BuildContext context) => Ethics(),
-  '/general_post': (BuildContext context) => GeneralPost(),
+  // '/general_post': (BuildContext context) => GeneralPost(),
   // '/technique_post': (BuildContext context) => TechniquePost()
 };
