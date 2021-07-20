@@ -14,7 +14,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
         child: ListTile(
           onTap: () {
             if (str == "คำศัพท์ภาษาอังกฤษทางวิศวกรรม") {
-              // do something
+              Navigator.pushNamed(context, '/engineer_vocab');
             } else if (str == "งานโครงสร้าง") {
               // do something
             } else if (str == "งานระบบ") {

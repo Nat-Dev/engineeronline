@@ -5,6 +5,7 @@ import 'package:engineeronline/screens/contents/contact.dart';
 import 'package:engineeronline/screens/contents/contract.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
 import 'package:engineeronline/screens/contents/general.dart';
+import 'package:engineeronline/screens/contents/general/engineer_vocab.dart';
 import 'package:engineeronline/screens/contents/legislation.dart';
 import 'package:engineeronline/screens/contents/materials.dart';
 import 'package:engineeronline/screens/contents/standard.dart';
@@ -50,6 +51,7 @@ final Map<String, WidgetBuilder> routes = {
   '/scaffolding': (BuildContext context) => Scaffolding(),
 
   '/general_topics': (BuildContext context) => GeneralTopics(),
+  '/engineer_vocab': (BuildContext context) => EngineerVocab(),
   '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
   '/structure': (BuildContext context) => Structure(),
