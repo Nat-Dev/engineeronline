@@ -15,34 +15,8 @@ class _RegisterState extends State<Register> {
 
   double screenWidth;
   double screenHeight;
-  String username, email, password, otp;
+  String username, email, password;
   bool redEyeStatus = true;
-  bool otpSend = true;
-
-  void sendOTP() async {
-    EmailAuth.sessionName = "วิศวกร EIT ONLINE";
-    var res = await EmailAuth.sendOtp(receiverMail: _emailController.text);
-    if (res) {
-      print("OTP sent");
-      setState(() {
-        otpSend = true;
-      });
-    } else {
-      print("can not sent the OTP");
-      registerFailAlert("ไม่สามารถส่ง OTP ไปยัง Email ดังกล่าว");
-    }
-  }
-
-  bool verifyOTP() {
-    bool res = EmailAuth.validate(
-        receiverMail: _emailController.text, userOTP: _otpController.text);
-    if (res) {
-      print("OTP verified");
-    } else {
-      print("invalid OTP");
-    }
-    return res;
-  }
 
   Future<void> setupAccount() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -113,7 +87,7 @@ class _RegisterState extends State<Register> {
               size: 48.0,
             ),
             title: Text(
-              "พบปัญหาบางอย่าง",
+              "พบปัญหาบางอย่าง ไม่สามารถสร้างบัญชีได้",
               style: TextStyle(
                   color: Colors.blue.shade600,
                   fontSize: 18.0,
@@ -222,24 +196,6 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
-          suffixIcon: Visibility(
-            visible: otpSend,
-            child: TextButton(
-                child: Text(
-                  "ส่งรหัส OTP",
-                  style: TextStyle(
-                    color: Colors.purple.shade900,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    otpSend = false;
-                  });
-                  sendOTP();
-                }),
-          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -254,56 +210,6 @@ class _RegisterState extends State<Register> {
         },
         onSaved: (String value) {
           email = value.trim();
-        },
-      ),
-    );
-  }
-
-  Container buildOTP() {
-    return Container(
-      margin: EdgeInsets.only(top: 16),
-      width: screenWidth * 0.8,
-      child: TextFormField(
-        controller: _otpController,
-        obscureText: redEyeStatus,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          hintText: "รหัส OTP:",
-          hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "กรุณากรอกรหัส OTP",
-          helperStyle: TextStyle(
-            color: Colors.blue.shade900,
-            fontStyle: FontStyle.italic,
-            fontSize: 13.5,
-          ),
-          prefixIcon: Icon(Icons.confirmation_number_outlined),
-          suffixIcon: IconButton(
-              icon: redEyeStatus
-                  ? Icon(Icons.remove_red_eye)
-                  : Icon(Icons.remove_red_eye_outlined),
-              onPressed: () {
-                setState(() {
-                  redEyeStatus = !redEyeStatus;
-                });
-              }),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.blue.shade900),
-          ),
-        ),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return "กรุณากรอกรหัส OPT ลงในช่องว่าง";
-          } else {
-            return null;
-          }
-        },
-        onSaved: (String value) {
-          otp = value.trim();
         },
       ),
     );
@@ -359,20 +265,14 @@ class _RegisterState extends State<Register> {
 
   Container buildSignUp() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
       child: ElevatedButton(
         onPressed: () {
           if (formKey.currentState.validate()) {
-            if (verifyOTP()) {
-              formKey.currentState.save();
-              print(
-                  "username = $username, password = $password, email = $email, otp = $otp");
-              registerFirebase();
-            } else {
-              print("OTP is not verified");
-              registerFailAlert("รหัส OTP ไม่ถูกต้อง");
-            }
+            formKey.currentState.save();
+            print("username = $username, password = $password, email = $email");
+            registerFirebase();
           }
         },
         child: Text(
@@ -433,10 +333,6 @@ class _RegisterState extends State<Register> {
                     height: 20,
                   ),
                   buildEmail(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  buildOTP(),
                   SizedBox(
                     height: 40,
                   ),
