@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
                     fontWeight: FontWeight.bold, color: Colors.blue.shade900),
               ),
               onPressed: () {
-                // Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/register');
               },
             ),
           ),

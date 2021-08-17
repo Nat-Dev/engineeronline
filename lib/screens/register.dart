@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:email_auth/email_auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _otpController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   double screenWidth;
@@ -72,6 +70,8 @@ class _RegisterState extends State<Register> {
       msg = 'อีเมลล์นี้มีผู้ใช้งานแล้ว';
     } else if (message == 'weak-password') {
       msg = 'รหัสผ่านต้องมีความยาวไม่ต่ำกว่า 6 ตัวอักษร';
+    } else if (message == 'under-development') {
+      msg = 'ยังไม่สามารถใช้งานในส่วนนี้ได้ กำลังอยู่ในขั้นตอนการพัฒนา';
     } else {
       msg = message;
     }
@@ -272,7 +272,8 @@ class _RegisterState extends State<Register> {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
             print("username = $username, password = $password, email = $email");
-            registerFirebase();
+            registerFailAlert('under-development');
+            // registerFirebase();
           }
         },
         child: Text(
