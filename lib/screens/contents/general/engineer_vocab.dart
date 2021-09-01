@@ -138,22 +138,22 @@ class _EngineerVocabState extends State<EngineerVocab> {
         return AlertDialog(
           title: ListTile(
             leading: Icon(
-              Icons.assignment_late,
-              color: Colors.red,
+              Icons.add_box_rounded,
+              color: Colors.green,
               size: 48.0,
             ),
             title: Text(
-              "เพิ่มหัวข้อใหม่แบบเว็บไซต์อ้างอิงหรือลิ้งค์ YouTube",
+              "กรุณาเลือกรูปแบบของหัวข้อ",
               style: TextStyle(
-                  color: Colors.blue.shade600,
+                  color: Colors.black,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("กรุณาเข้าสู่ระบบเพื่อเพิ่มหัวข้อใหม่"),
+          content: Text("เพิ่มหัวข้อใหม่แบบ Website อ้างอิงหรือลิ้งค์ YouTube"),
           actions: <Widget>[
             TextButton(
-              child: Text("ปิด"),
+              child: Text("Close"),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -215,14 +215,8 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
-                  // check if post URL or YouTube
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              WebPost("general_engineer_vocab")));
+                  postAlert();
                 } else {
-                  print("please sign in first");
                   authenAlert();
                 }
               })
@@ -232,8 +226,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
           ? Center(child: CircularProgressIndicator())
           : Container(
               decoration: BoxDecoration(color: Colors.grey.shade200),
-              child: GridView.extent(
-                maxCrossAxisExtent: 260,
+              child: ListView(
                 children: widgets,
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:engineeronline/screens/posts/youtube_post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -136,6 +137,61 @@ class _SolarCellState extends State<SolarCell> {
     );
   }
 
+  void postAlert() {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.add_box_rounded,
+              color: Colors.green,
+              size: 48.0,
+            ),
+            title: Text(
+              "กรุณาเลือกรูปแบบของหัวข้อ",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text("เพิ่มหัวข้อใหม่แบบ Website อ้างอิงหรือลิ้งค์ YouTube"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text("Website"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WebPost("general_solar_cell")));
+              },
+            ),
+            TextButton(
+              child: Text("YouTube"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            YoutubePost("general_solar_cell")));
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,14 +220,8 @@ class _SolarCellState extends State<SolarCell> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
-                  print("logged in");
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              YoutubePost("general_solar_cell")));
+                  postAlert();
                 } else {
-                  print("please sign in first");
                   authenAlert();
                 }
               })
