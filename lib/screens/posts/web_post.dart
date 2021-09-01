@@ -155,7 +155,7 @@ class _WebPostState extends State<WebPost> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เพิ่ม ความรู้วิศวกรรมในงานก่อสร้าง",
+          "เพิ่มเว็บไซต์อ้างอิง",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,

@@ -170,7 +170,7 @@ class _YoutubePostState extends State<YoutubePost> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เพิ่ม เทคนิคการก่อสร้าง",
+          "เพิ่มวีดีโอ YouTube",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
