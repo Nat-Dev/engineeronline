@@ -14,69 +14,20 @@ class _RegisterState extends State<Register> {
   double screenWidth;
   double screenHeight;
   String username, email, password;
-  bool redEyeStatus = true;
-
-  Future<void> setupAccount() async {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    try {
-      firebaseAuth.currentUser.updateProfile(displayName: username);
-
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/home_signedin', (route) => false);
-    } catch (e) {
-      print("cannot updateProfile");
-      registerFailAlert("ไม่สามารถสร้างบัญชีได้");
-    }
-  }
-
-  void registerSuccessAlert() {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: ListTile(
-            leading: Icon(
-              Icons.assignment_turned_in,
-              color: Colors.lightGreenAccent.shade400,
-              size: 48.0,
-            ),
-            title: Text(
-              "สร้างบัญชีใหม่สำเร็จ",
-              style: TextStyle(
-                  color: Colors.blue.shade600,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          content: Text(
-              "คุณสามารถเข้าสู่ระบบด้วยบัญชีนี้ได้ กด OK เพื่อไปยังหน้าหลัก"),
-          actions: <Widget>[
-            TextButton(
-              child: Text("OK"),
-              onPressed: () {
-                setupAccount();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
+  bool redEyeStatusPassword = true;
+  bool redEyeStatusOtp = true;
 
   void registerFailAlert(String message) {
     String msg;
     if (message == 'email-already-in-use') {
-      msg = 'อีเมลล์นี้มีผู้ใช้งานแล้ว';
+      msg = 'This Email is already in use';
     } else if (message == 'weak-password') {
-      msg = 'รหัสผ่านต้องมีความยาวไม่ต่ำกว่า 6 ตัวอักษร';
-    } else if (message == 'under-development') {
-      msg = 'ยังไม่สามารถใช้งานในส่วนนี้ได้ กำลังอยู่ในขั้นตอนการพัฒนา';
+      msg = 'Password must be at least 6 characters long';
     } else {
       msg = message;
     }
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -87,7 +38,7 @@ class _RegisterState extends State<Register> {
               size: 48.0,
             ),
             title: Text(
-              "พบปัญหาบางอย่าง ไม่สามารถสร้างบัญชีได้",
+              "Cannot create account",
               style: TextStyle(
                   color: Colors.blue.shade600,
                   fontSize: 18.0,
@@ -108,44 +59,38 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget backButton() {
-    return Align(
-      alignment: Alignment(-1, 0),
-      child: IconButton(
-        icon: Icon(
-          Icons.navigate_before,
-          size: 36.0,
-          color: Colors.blue.shade700,
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-    );
-  }
-
-  Widget header() {
-    return Align(
-      alignment: Alignment(0, 0),
-      child: Text(
-        "สร้างบัญชีใหม่",
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            color: Colors.blue.shade900),
-      ),
-    );
+  Future<void> registerFirebase() async {
+    await Firebase.initializeApp().then((value) async {
+      print("Register Firebase Initialize Success.");
+      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      try {
+        await firebaseAuth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) async {
+          print("Register Successfully");
+          await value.user.updateProfile(displayName: username).then((value) =>
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/verify', (route) => false));
+        });
+      } on FirebaseAuthException catch (err) {
+        String code = err.code;
+        String message = err.message;
+        print("ERROR : $message CODE: $code");
+        registerFailAlert(code);
+      }
+    });
   }
 
   Container buildUsername() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 64),
       width: screenWidth * 0.8,
       child: TextFormField(
         decoration: InputDecoration(
-          hintText: "ชื่อผู้ใช้งาน:",
+          hintText: "Username:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "กรุณากรอกชื่อผู้ใช้งาน",
+          errorStyle: TextStyle(color: Colors.black),
+          helperText: "Please type your username",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -160,10 +105,16 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
+          errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
         ),
         validator: (String value) {
           if (value.isEmpty) {
-            return "กรุณากรอกชื่อผู้ใช้ลงในช่องว่าง";
+            return "Please type your username in the field";
           } else {
             return null;
           }
@@ -177,15 +128,16 @@ class _RegisterState extends State<Register> {
 
   Container buildEmail() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
       child: TextFormField(
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: "ที่อยู่อีเมลล์:",
+          hintText: "Email:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "กรุณากรอกที่อยู่อีเมลล์",
+          errorStyle: TextStyle(color: Colors.black),
+          helperText: "Please type your Email Address",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -200,10 +152,16 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
+          errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
         ),
         validator: (String value) {
           if (!(value.contains('@') && value.contains('.'))) {
-            return "กรุณากรอกที่อยู่อีเมลล์ลงในช่องว่าง";
+            return "Please type your email Address in the field";
           } else {
             return null;
           }
@@ -217,14 +175,15 @@ class _RegisterState extends State<Register> {
 
   Container buildPassword() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
       child: TextFormField(
-        obscureText: redEyeStatus,
+        obscureText: redEyeStatusPassword,
         decoration: InputDecoration(
-          hintText: "รหัสผ่าน:",
+          hintText: "Password:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
-          helperText: "กรุณากรอกรหัสผ่านความยาวไม่ต่ำกว่า 6 ตัวอักษร",
+          errorStyle: TextStyle(color: Colors.black),
+          helperText: "Please type your password",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -232,12 +191,12 @@ class _RegisterState extends State<Register> {
           ),
           prefixIcon: Icon(Icons.lock_outline),
           suffixIcon: IconButton(
-              icon: redEyeStatus
+              icon: redEyeStatusPassword
                   ? Icon(Icons.remove_red_eye)
                   : Icon(Icons.remove_red_eye_outlined),
               onPressed: () {
                 setState(() {
-                  redEyeStatus = !redEyeStatus;
+                  redEyeStatusPassword = !redEyeStatusPassword;
                 });
               }),
           enabledBorder: OutlineInputBorder(
@@ -248,10 +207,16 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: Colors.blue.shade900),
           ),
+          errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
         ),
         validator: (String value) {
           if (value.length < 6) {
-            return "กรุณากรอกรหัสผ่านความยาวไม่ต่ำกว่า 6 ตัวอักษร";
+            return "Please type your password with at least 6 characters long";
           } else {
             return null;
           }
@@ -272,12 +237,11 @@ class _RegisterState extends State<Register> {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
             print("username = $username, password = $password, email = $email");
-            registerFailAlert('under-development');
-            // registerFirebase();
+            registerFirebase();
           }
         },
         child: Text(
-          "สร้างบัญชี",
+          "Register",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         style: ElevatedButton.styleFrom(
@@ -290,28 +254,22 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Future<void> registerFirebase() async {
-    await Firebase.initializeApp().then((value) async {
-      print("Register Firebase Initialize Success.");
-      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-      try {
-        await firebaseAuth.createUserWithEmailAndPassword(
-            email: email, password: password);
-        registerSuccessAlert();
-      } on FirebaseAuthException catch (err) {
-        String code = err.code;
-        String message = err.message;
-        print("ERROR : $message CODE: $code");
-        registerFailAlert(code);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [Colors.orange.shade900, Colors.yellow]),
+          ),
+        ),
+        title: Text("Register"),
+      ),
       body: SafeArea(
         child: CustomPaint(
           painter: GreenPainter(),
@@ -320,23 +278,9 @@ class _RegisterState extends State<Register> {
               key: formKey,
               child: ListView(
                 children: [
-                  backButton(),
-                  header(),
-                  SizedBox(
-                    height: 20,
-                  ),
                   buildUsername(),
-                  SizedBox(
-                    height: 20,
-                  ),
                   buildPassword(),
-                  SizedBox(
-                    height: 20,
-                  ),
                   buildEmail(),
-                  SizedBox(
-                    height: 40,
-                  ),
                   buildSignUp(),
                 ],
               ),

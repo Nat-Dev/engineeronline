@@ -30,6 +30,7 @@ import 'package:engineeronline/screens/home_signedin.dart';
 import 'package:engineeronline/screens/register.dart';
 import 'package:engineeronline/screens/topics/general_topics.dart';
 import 'package:engineeronline/screens/topics/technique_topics.dart';
+import 'package:engineeronline/screens/verify.dart';
 import 'package:flutter/material.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -37,6 +38,7 @@ final Map<String, WidgetBuilder> routes = {
   '/home_signedin': (BuildContext context) => HomeSignedIn(),
   '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
+  '/verify': (BuildContext context) => VerifyScreen(),
   // technique
   '/technique_topics': (BuildContext context) => TechniqueTopics(),
   '/piling_work': (BuildContext context) => PilingWork(),
