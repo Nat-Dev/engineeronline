@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:engineeronline/models/website_model.dart';
+import 'package:engineeronline/models/youtube_model.dart';
 import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:engineeronline/screens/posts/youtube_post.dart';
 import 'package:engineeronline/screens/views/website.dart';
+import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,7 +17,7 @@ class EngineerVocab extends StatefulWidget {
 
 class _EngineerVocabState extends State<EngineerVocab> {
   List<Widget> widgets = [];
-  List<WebsiteModel> generalModels = [];
+  List<dynamic> generalModels = [];
 
   @override
   void initState() {
@@ -34,18 +36,28 @@ class _EngineerVocabState extends State<EngineerVocab> {
         int index = 0;
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
-          WebsiteModel model = WebsiteModel.fromMap(map);
-          generalModels.add(model);
-          setState(() {
-            widgets.add(createWidget(model, index));
-          });
+          if (WebsiteModel.fromMap(map).type == "yt") {
+            // change to youtube
+            YoutubeModel model = YoutubeModel.fromMap(map);
+            generalModels.add(model);
+            setState(() {
+              widgets.add(createYoutubeWidget(model, index));
+            });
+          } else {
+            // change to web
+            WebsiteModel model = WebsiteModel.fromMap(map);
+            generalModels.add(model);
+            setState(() {
+              widgets.add(createWebWidget(model, index));
+            });
+          }
           index++;
         }
       });
     });
   }
 
-  Widget createWidget(WebsiteModel model, int index) => GestureDetector(
+  Widget createWebWidget(WebsiteModel model, int index) => GestureDetector(
         onTap: () {
           Navigator.push(
               context,
@@ -55,7 +67,6 @@ class _EngineerVocabState extends State<EngineerVocab> {
               ));
         },
         child: Card(
-          color: Colors.amber.shade100,
           elevation: 5,
           child: Center(
             child: Column(
@@ -70,6 +81,50 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 AutoSizeText(
                   'โดย ' + model.username,
                   maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Widget createYoutubeWidget(YoutubeModel model, int index) => GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    Youtube(youtubeModel: generalModels[index]),
+              ));
+        },
+        child: Card(
+          elevation: 5,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 180,
+                  child: Image.network(model.thumbnail),
+                ),
+                Flexible(
+                  child: AutoSizeText(
+                    model.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                AutoSizeText(
+                  model.username,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -225,7 +280,9 @@ class _EngineerVocabState extends State<EngineerVocab> {
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
-              decoration: BoxDecoration(color: Colors.grey.shade200),
+              decoration: BoxDecoration(
+                color: Colors.yellow.shade100,
+              ),
               child: ListView(
                 children: widgets,
               ),
