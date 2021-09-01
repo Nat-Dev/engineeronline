@@ -81,6 +81,35 @@ class _RegisterState extends State<Register> {
     });
   }
 
+  Widget backButton() {
+    return Align(
+      alignment: Alignment(-1, 0),
+      child: IconButton(
+        icon: Icon(
+          Icons.navigate_before,
+          size: 36.0,
+          color: Colors.blue.shade700,
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    );
+  }
+
+  Widget header() {
+    return Align(
+      alignment: Alignment(0, 0),
+      child: Text(
+        "การสมัครสมาชิก",
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.blue.shade900),
+      ),
+    );
+  }
+
   Container buildUsername() {
     return Container(
       margin: EdgeInsets.only(top: 64),
@@ -259,17 +288,6 @@ class _RegisterState extends State<Register> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: [Colors.orange.shade900, Colors.yellow]),
-          ),
-        ),
-        title: Text("Register"),
-      ),
       body: SafeArea(
         child: CustomPaint(
           painter: GreenPainter(),
@@ -278,9 +296,23 @@ class _RegisterState extends State<Register> {
               key: formKey,
               child: ListView(
                 children: [
+                  backButton(),
+                  header(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   buildUsername(),
-                  buildPassword(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   buildEmail(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildPassword(),
+                  SizedBox(
+                    height: 40,
+                  ),
                   buildSignUp(),
                 ],
               ),
