@@ -180,8 +180,7 @@ class _FloorWorkState extends State<FloorWork> {
           ? Center(child: CircularProgressIndicator())
           : Container(
               decoration: BoxDecoration(color: Colors.grey.shade200),
-              child: GridView.extent(
-                maxCrossAxisExtent: 260,
+              child: ListView(
                 children: widgets,
               ),
             ),

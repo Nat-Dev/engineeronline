@@ -20,9 +20,9 @@ class _RegisterState extends State<Register> {
   void registerFailAlert(String message) {
     String msg;
     if (message == 'email-already-in-use') {
-      msg = 'This Email is already in use';
+      msg = 'อีเมลล์นี้มีผู้ใช้งานแล้ว';
     } else if (message == 'weak-password') {
-      msg = 'Password must be at least 6 characters long';
+      msg = 'รหัสผ่านต้องมีความยาวไม่ต่ำกว่า 6 ตัวอักษร';
     } else {
       msg = message;
     }
@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
               size: 48.0,
             ),
             title: Text(
-              "Cannot create account",
+              "พบปัญหาบางอย่าง ไม่สามารถสร้างบัญชีได้",
               style: TextStyle(
                   color: Colors.blue.shade600,
                   fontSize: 18.0,
@@ -116,10 +116,10 @@ class _RegisterState extends State<Register> {
       width: screenWidth * 0.8,
       child: TextFormField(
         decoration: InputDecoration(
-          hintText: "Username:",
+          hintText: "ชื่อผู้ใช้:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
           errorStyle: TextStyle(color: Colors.black),
-          helperText: "Please type your username",
+          helperText: "กรุณากรอกชื่อผู้ใช้",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -143,7 +143,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (value.isEmpty) {
-            return "Please type your username in the field";
+            return "กรุณากรอกชื่อผู้ใช้ลงในช่องว่าง";
           } else {
             return null;
           }
@@ -163,10 +163,10 @@ class _RegisterState extends State<Register> {
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: "Email:",
+          hintText: "อีเมลล์:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
           errorStyle: TextStyle(color: Colors.black),
-          helperText: "Please type your Email Address",
+          helperText: "กรุณากรอกที่อยู่อีเมลล์",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -190,7 +190,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (!(value.contains('@') && value.contains('.'))) {
-            return "Please type your email Address in the field";
+            return "กรุณากรอกที่อยู่อีเมลล์ของท่าน";
           } else {
             return null;
           }
@@ -209,10 +209,10 @@ class _RegisterState extends State<Register> {
       child: TextFormField(
         obscureText: redEyeStatusPassword,
         decoration: InputDecoration(
-          hintText: "Password:",
+          hintText: "รหัสผ่าน:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
           errorStyle: TextStyle(color: Colors.black),
-          helperText: "Please type your password",
+          helperText: "กรุณากรอกรหัสผ่าน",
           helperStyle: TextStyle(
             color: Colors.blue.shade900,
             fontStyle: FontStyle.italic,
@@ -245,7 +245,7 @@ class _RegisterState extends State<Register> {
         ),
         validator: (String value) {
           if (value.length < 6) {
-            return "Please type your password with at least 6 characters long";
+            return "กรุณากรอกรหัสผ่านความยาวไม่ต่ำกว่า 6 ตัวอักษร";
           } else {
             return null;
           }
