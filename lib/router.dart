@@ -24,6 +24,7 @@ import 'package:engineeronline/screens/contents/technique/scaffolding.dart';
 import 'package:engineeronline/screens/contents/technique/shallow_foundation.dart';
 import 'package:engineeronline/screens/contents/technique/soil_work.dart';
 import 'package:engineeronline/screens/contents/technique/steel_construction.dart';
+import 'package:engineeronline/screens/forgot_password.dart';
 import 'package:engineeronline/screens/home.dart';
 import 'package:engineeronline/screens/home_signedin.dart';
 import 'package:engineeronline/screens/register.dart';
@@ -38,6 +39,7 @@ final Map<String, WidgetBuilder> routes = {
   '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
   '/verify': (BuildContext context) => VerifyScreen(),
+  '/forgot_password': (BuildContext context) => ForgotPassword(),
   // technique
   '/technique_topics': (BuildContext context) => TechniqueTopics(),
   '/piling_work': (BuildContext context) => PilingWork(),

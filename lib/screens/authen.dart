@@ -173,7 +173,9 @@ class _AuthenState extends State<Authen> {
             fontSize: 15.5,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/forgot_password');
+        },
       ),
     );
   }
