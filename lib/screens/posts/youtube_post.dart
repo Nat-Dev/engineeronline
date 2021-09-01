@@ -16,6 +16,7 @@ class _YoutubePostState extends State<YoutubePost> {
   String url = "";
   String img = "";
   String username, email;
+  String type = "yt";
   final firestore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -223,7 +224,8 @@ class _YoutubePostState extends State<YoutubePost> {
                         'url': url,
                         'thumbnail': img,
                         'username': username,
-                        'email': email
+                        'email': email,
+                        'type': type
                       });
                       postSuccessAlert();
                     } catch (e) {

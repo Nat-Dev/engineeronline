@@ -15,6 +15,7 @@ class _WebPostState extends State<WebPost> {
   String name = "";
   String url = "";
   String username, email;
+  String type = "web";
   final firestore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -206,7 +207,8 @@ class _WebPostState extends State<WebPost> {
                         'name': name,
                         'url': url,
                         'username': username,
-                        'email': email
+                        'email': email,
+                        'type': type
                       });
                       postSuccessAlert();
                     } catch (e) {
