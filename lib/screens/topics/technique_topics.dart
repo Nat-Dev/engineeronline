@@ -6,7 +6,7 @@ class TechniqueTopics extends StatefulWidget {
 }
 
 class _TechniqueTopicsState extends State<TechniqueTopics> {
-  Container buildGridview(String str) {
+  Container buildListview(String str) {
     return Container(
       padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: Card(
@@ -84,21 +84,19 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
                 height: 20,
               ),
               Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3),
+                child: ListView(
                   children: [
-                    buildGridview("งานเสาเข็ม"),
-                    buildGridview("งานกำแพงกันดินระบบป้องกันดินพัง"),
-                    buildGridview("งานดินและฐานราก"),
-                    buildGridview("งานฐานราก"),
-                    buildGridview("งานคอนกรีต"),
-                    buildGridview("งานเหล็กเสริมคอนกรีต"),
-                    buildGridview("งานโครงสร้างเหล็ก/งานเหล็กรูปพรรณ"),
-                    buildGridview("งานพื้น"),
-                    buildGridview("งานPrecast"),
-                    buildGridview("งานเสา(Column)"),
-                    buildGridview("งานนั่งร้าน"),
+                    buildListview("งานเสาเข็ม"),
+                    buildListview("งานกำแพงกันดินระบบป้องกันดินพัง"),
+                    buildListview("งานดินและฐานราก"),
+                    buildListview("งานฐานราก"),
+                    buildListview("งานคอนกรีต"),
+                    buildListview("งานเหล็กเสริมคอนกรีต"),
+                    buildListview("งานโครงสร้างเหล็ก/งานเหล็กรูปพรรณ"),
+                    buildListview("งานพื้น"),
+                    buildListview("งานPrecast"),
+                    buildListview("งานเสา(Column)"),
+                    buildListview("งานนั่งร้าน"),
                   ],
                 ),
               ),

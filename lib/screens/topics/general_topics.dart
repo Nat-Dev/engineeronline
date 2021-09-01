@@ -6,7 +6,7 @@ class GeneralTopics extends StatefulWidget {
 }
 
 class _GeneralTopicsState extends State<GeneralTopics> {
-  Container buildGridview(String str) {
+  Container buildListview(String str) {
     return Container(
       padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: Card(
@@ -70,14 +70,12 @@ class _GeneralTopicsState extends State<GeneralTopics> {
                 height: 20,
               ),
               Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3),
+                child: ListView(
                   children: [
-                    buildGridview("คำศัพท์ภาษาอังกฤษทางวิศวกรรม"),
-                    buildGridview("งานโครงสร้าง"),
-                    buildGridview("งานระบบ"),
-                    buildGridview("โซล่าเซลล์"),
+                    buildListview("คำศัพท์ภาษาอังกฤษทางวิศวกรรม"),
+                    buildListview("งานโครงสร้าง"),
+                    buildListview("งานระบบ"),
+                    buildListview("โซล่าเซลล์"),
                   ],
                 ),
               ),
