@@ -4,7 +4,6 @@ import 'package:engineeronline/screens/contents/codeofpractice.dart';
 import 'package:engineeronline/screens/contents/contact.dart';
 import 'package:engineeronline/screens/contents/contract.dart';
 import 'package:engineeronline/screens/contents/ethics.dart';
-import 'package:engineeronline/screens/contents/general.dart';
 import 'package:engineeronline/screens/contents/general/engineer_vocab.dart';
 import 'package:engineeronline/screens/contents/general/solar_cell.dart';
 import 'package:engineeronline/screens/contents/general/structure_work.dart';
@@ -59,7 +58,6 @@ final Map<String, WidgetBuilder> routes = {
   '/system_work': (BuildContext context) => SystemWork(),
   '/solar_cell': (BuildContext context) => SolarCell(),
   // others
-  '/general': (BuildContext context) => General(),
   '/contact': (BuildContext context) => Contact(),
   '/structure': (BuildContext context) => Structure(),
   '/architecture': (BuildContext context) => Architecture(),
