@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:engineeronline/models/website_model.dart';
 import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:engineeronline/screens/posts/youtube_post.dart';
+import 'package:engineeronline/screens/views/website.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,7 +17,7 @@ class SolarCell extends StatefulWidget {
 
 class _SolarCellState extends State<SolarCell> {
   List<Widget> widgets = [];
-  List<YoutubeModel> generalModels = [];
+  List<dynamic> generalModels = [];
 
   @override
   void initState() {
@@ -34,18 +36,64 @@ class _SolarCellState extends State<SolarCell> {
         int index = 0;
         for (var snapshot in event.docs) {
           Map<String, dynamic> map = snapshot.data();
-          YoutubeModel model = YoutubeModel.fromMap(map);
-          generalModels.add(model);
-          setState(() {
-            widgets.add(createWidget(model, index));
-          });
+          if (WebsiteModel.fromMap(map).type == "yt") {
+            // change to youtube
+            YoutubeModel model = YoutubeModel.fromMap(map);
+            generalModels.add(model);
+            setState(() {
+              widgets.add(createYoutubeWidget(model, index));
+            });
+          } else {
+            // change to web
+            WebsiteModel model = WebsiteModel.fromMap(map);
+            generalModels.add(model);
+            setState(() {
+              widgets.add(createWebWidget(model, index));
+            });
+          }
           index++;
         }
       });
     });
   }
 
-  Widget createWidget(YoutubeModel model, int index) => GestureDetector(
+  Widget createWebWidget(WebsiteModel model, int index) => GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    Website(websiteModel: generalModels[index]),
+              ));
+        },
+        child: Card(
+          elevation: 5,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AutoSizeText(
+                  model.name,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                AutoSizeText(
+                  'โดย ' + model.username,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Widget createYoutubeWidget(YoutubeModel model, int index) => GestureDetector(
         onTap: () {
           Navigator.push(
               context,
@@ -230,7 +278,7 @@ class _SolarCellState extends State<SolarCell> {
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
-              decoration: BoxDecoration(color: Colors.grey.shade200),
+              decoration: BoxDecoration(color: Colors.yellow.shade100),
               child: ListView(
                 children: widgets,
               ),
