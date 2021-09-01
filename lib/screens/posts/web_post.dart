@@ -3,14 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class GeneralPost extends StatefulWidget {
+class WebPost extends StatefulWidget {
   final String collection;
-  GeneralPost(this.collection);
+  WebPost(this.collection);
   @override
-  _GeneralPostState createState() => _GeneralPostState(collection);
+  _WebPostState createState() => _WebPostState(collection);
 }
 
-class _GeneralPostState extends State<GeneralPost> {
+class _WebPostState extends State<WebPost> {
   String collection;
   String name = "";
   String url = "";
@@ -19,7 +19,7 @@ class _GeneralPostState extends State<GeneralPost> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _GeneralPostState(this.collection);
+  _WebPostState(this.collection);
 
   @override
   void initState() {

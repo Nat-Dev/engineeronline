@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:engineeronline/screens/posts/technique_post.dart';
+import 'package:engineeronline/screens/posts/youtube_post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -169,7 +169,7 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              TechniquePost("technique_reinforcing_steel")));
+                              YoutubePost("technique_reinforcing_steel")));
                 } else {
                   print("please sign in first");
                   authenAlert();

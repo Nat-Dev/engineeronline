@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:engineeronline/models/website_model.dart';
-import 'package:engineeronline/screens/posts/general_post.dart';
+import 'package:engineeronline/screens/posts/web_post.dart';
+import 'package:engineeronline/screens/posts/youtube_post.dart';
 import 'package:engineeronline/screens/views/website.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -129,6 +130,62 @@ class _EngineerVocabState extends State<EngineerVocab> {
     );
   }
 
+  void postAlert() {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: ListTile(
+            leading: Icon(
+              Icons.assignment_late,
+              color: Colors.red,
+              size: 48.0,
+            ),
+            title: Text(
+              "เพิ่มหัวข้อใหม่แบบเว็บไซต์อ้างอิงหรือลิ้งค์ YouTube",
+              style: TextStyle(
+                  color: Colors.blue.shade600,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text("กรุณาเข้าสู่ระบบเพื่อเพิ่มหัวข้อใหม่"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("ปิด"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text("Website"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            WebPost("general_engineer_vocab")));
+              },
+            ),
+            TextButton(
+              child: Text("YouTube"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            YoutubePost("general_engineer_vocab")));
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,12 +215,12 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
-                  print("logged in");
+                  // check if post URL or YouTube
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              GeneralPost("general_engineer_vocab")));
+                              WebPost("general_engineer_vocab")));
                 } else {
                   print("please sign in first");
                   authenAlert();

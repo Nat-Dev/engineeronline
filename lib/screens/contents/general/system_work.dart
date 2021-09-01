@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:engineeronline/models/website_model.dart';
-import 'package:engineeronline/screens/posts/general_post.dart';
+import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:engineeronline/screens/views/website.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -163,7 +163,7 @@ class _SystemWorkState extends State<SystemWork> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              GeneralPost("general_system_work")));
+                              WebPost("general_system_work")));
                 } else {
                   print("please sign in first");
                   authenAlert();

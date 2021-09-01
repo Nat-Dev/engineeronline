@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:engineeronline/screens/posts/general_post.dart';
+import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -161,7 +161,7 @@ class _GeneralState extends State<General> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GeneralPost("General")));
+                          builder: (context) => WebPost("General")));
                 } else {
                   print("please sign in first");
                   authenAlert();

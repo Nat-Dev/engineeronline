@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TechniquePost extends StatefulWidget {
+class YoutubePost extends StatefulWidget {
   final String collection;
-  TechniquePost(this.collection);
+  YoutubePost(this.collection);
   @override
-  _TechniquePostState createState() => _TechniquePostState(collection);
+  _YoutubePostState createState() => _YoutubePostState(collection);
 }
 
-class _TechniquePostState extends State<TechniquePost> {
+class _YoutubePostState extends State<YoutubePost> {
   String collection;
   String name = "";
   String url = "";
@@ -19,7 +19,7 @@ class _TechniquePostState extends State<TechniquePost> {
   final firestore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _TechniquePostState(this.collection);
+  _YoutubePostState(this.collection);
 
   @override
   void initState() {
