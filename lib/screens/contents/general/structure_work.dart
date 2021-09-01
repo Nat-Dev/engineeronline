@@ -27,6 +27,7 @@ class _StructureWorkState extends State<StructureWork> {
       print("initialize structure_work success");
       FirebaseFirestore.instance
           .collection("general_structure_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

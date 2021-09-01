@@ -27,6 +27,7 @@ class _FloorWorkState extends State<FloorWork> {
       print("initialize floor_work success");
       FirebaseFirestore.instance
           .collection("technique_floor_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

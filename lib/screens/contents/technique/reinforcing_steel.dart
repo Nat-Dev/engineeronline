@@ -27,6 +27,7 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
       print("initialize reinforcing_steel success");
       FirebaseFirestore.instance
           .collection("technique_reinforcing_steel")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

@@ -27,6 +27,7 @@ class _SoilWorkState extends State<SoilWork> {
       print("initialize retaining_wall success");
       FirebaseFirestore.instance
           .collection("technique_soil_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

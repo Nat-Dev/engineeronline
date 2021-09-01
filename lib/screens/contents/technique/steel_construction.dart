@@ -27,6 +27,7 @@ class _SteelConstructionState extends State<SteelConstruction> {
       print("initialize steel_construction success");
       FirebaseFirestore.instance
           .collection("technique_steel_construction")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

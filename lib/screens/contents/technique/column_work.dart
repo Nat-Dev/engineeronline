@@ -27,6 +27,7 @@ class _ColumnWorkState extends State<ColumnWork> {
       print("initialize column_work success");
       FirebaseFirestore.instance
           .collection("technique_column_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

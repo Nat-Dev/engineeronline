@@ -27,6 +27,7 @@ class _ShallowFoundationState extends State<ShallowFoundation> {
       print("initialize shallow_foundation success");
       FirebaseFirestore.instance
           .collection("technique_shallow_foundation")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

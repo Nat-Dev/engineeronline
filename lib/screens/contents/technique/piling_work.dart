@@ -27,6 +27,7 @@ class _PilingWorkState extends State<PilingWork> {
       print("initialize piling_work success");
       FirebaseFirestore.instance
           .collection("technique_piling_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

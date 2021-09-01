@@ -27,6 +27,7 @@ class _RetainingWallState extends State<RetainingWall> {
       print("initialize retaining_wall success");
       FirebaseFirestore.instance
           .collection("technique_retaining_wall")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

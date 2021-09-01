@@ -27,6 +27,7 @@ class _SolarCellState extends State<SolarCell> {
       print("initialize solar_cell success");
       FirebaseFirestore.instance
           .collection("general_solar_cell")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

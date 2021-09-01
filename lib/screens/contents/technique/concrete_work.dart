@@ -27,6 +27,7 @@ class _ConcreteWorkState extends State<ConcreteWork> {
       print("initialize concrete_work success");
       FirebaseFirestore.instance
           .collection("technique_concrete_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

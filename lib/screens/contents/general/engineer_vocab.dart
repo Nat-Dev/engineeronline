@@ -27,6 +27,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
       print("initialize engineer_vocab success");
       FirebaseFirestore.instance
           .collection("general_engineer_vocab")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

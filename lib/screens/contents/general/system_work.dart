@@ -27,6 +27,7 @@ class _SystemWorkState extends State<SystemWork> {
       print("initialize system_work success");
       FirebaseFirestore.instance
           .collection("general_system_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

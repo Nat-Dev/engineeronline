@@ -27,6 +27,7 @@ class _PrecastWorkState extends State<PrecastWork> {
       print("initialize precast_work success");
       FirebaseFirestore.instance
           .collection("technique_precast_work")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;

@@ -27,6 +27,7 @@ class _ScaffoldingState extends State<Scaffolding> {
       print("initialize scaffolding success");
       FirebaseFirestore.instance
           .collection("technique_scaffolding")
+          .orderBy('name')
           .snapshots()
           .listen((event) {
         int index = 0;
