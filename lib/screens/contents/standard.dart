@@ -17,7 +17,7 @@ class Standard extends StatefulWidget {
 
 class _StandardState extends State<Standard> {
   List<Widget> widgets = [];
-  List<dynamic> generalModels = [];
+  List<dynamic> standardModels = [];
 
   @override
   void initState() {
@@ -39,14 +39,14 @@ class _StandardState extends State<Standard> {
           if (WebsiteModel.fromMap(map).type == "yt") {
             // change to youtube
             YoutubeModel model = YoutubeModel.fromMap(map);
-            generalModels.add(model);
+            standardModels.add(model);
             setState(() {
               widgets.add(createYoutubeWidget(model, index));
             });
           } else {
             // change to web
             WebsiteModel model = WebsiteModel.fromMap(map);
-            generalModels.add(model);
+            standardModels.add(model);
             setState(() {
               widgets.add(createWebWidget(model, index));
             });
@@ -63,7 +63,7 @@ class _StandardState extends State<Standard> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Website(websiteModel: generalModels[index]),
+                    Website(websiteModel: standardModels[index]),
               ));
         },
         child: Card(
@@ -99,7 +99,7 @@ class _StandardState extends State<Standard> {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    Youtube(youtubeModel: generalModels[index]),
+                    Youtube(youtubeModel: standardModels[index]),
               ));
         },
         child: Card(
