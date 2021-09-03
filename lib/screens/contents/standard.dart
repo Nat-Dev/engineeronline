@@ -67,10 +67,11 @@ class _StandardState extends State<Standard> {
               ));
         },
         child: Container(
+          height: MediaQuery.of(context).size.height * 0.15,
           margin: EdgeInsets.all(4.0),
           padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
           child: Card(
-            margin: EdgeInsets.all(0.0),
+            margin: EdgeInsets.all(8.0),
             elevation: 5,
             child: Center(
               child: Column(
@@ -107,39 +108,42 @@ class _StandardState extends State<Standard> {
                     Youtube(youtubeModel: standardModels[index]),
               ));
         },
-        child: Card(
-          color: Colors.grey.shade900,
-          elevation: 5,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 180,
-                  child: Image.network(model.thumbnail),
-                ),
-                Flexible(
-                  child: AutoSizeText(
-                    model.name,
+        child: Container(
+          child: Card(
+            color: Colors.grey.shade900,
+            margin: EdgeInsets.all(8.0),
+            elevation: 5,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 180,
+                    child: Image.network(model.thumbnail),
+                  ),
+                  Flexible(
+                    child: AutoSizeText(
+                      model.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  AutoSizeText(
+                    model.username,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: Colors.blue),
                   ),
-                ),
-                AutoSizeText(
-                  model.username,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

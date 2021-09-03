@@ -67,10 +67,11 @@ class _PrecastWorkState extends State<PrecastWork> {
               ));
         },
         child: Container(
+          height: MediaQuery.of(context).size.height * 0.15,
           margin: EdgeInsets.all(4.0),
           padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
           child: Card(
-            margin: EdgeInsets.all(0.0),
+            margin: EdgeInsets.all(8.0),
             elevation: 5,
             child: Center(
               child: Column(
