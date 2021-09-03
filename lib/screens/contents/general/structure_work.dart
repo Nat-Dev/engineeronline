@@ -205,14 +205,9 @@ class _StructureWorkState extends State<StructureWork> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("เพิ่มหัวข้อใหม่แบบ Website อ้างอิงหรือลิ้งค์ YouTube"),
+          content: Text(
+              "เพิ่มหัวข้อใหม่แบบ Website, YouTube, PDF หรือแตะพื้นที่นอกกรอบเพื่อยกเลิก"),
           actions: <Widget>[
-            TextButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             TextButton(
               child: Text("Website"),
               onPressed: () {
@@ -233,6 +228,12 @@ class _StructureWorkState extends State<StructureWork> {
                     MaterialPageRoute(
                         builder: (context) =>
                             YoutubePost("general_structure_work")));
+              },
+            ),
+            TextButton(
+              child: Text("PDF"),
+              onPressed: () {
+                Navigator.pop(context);
               },
             )
           ],

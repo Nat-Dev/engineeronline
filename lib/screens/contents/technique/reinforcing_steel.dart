@@ -160,12 +160,6 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
           content: Text("กรุณาเข้าสู่ระบบเพื่อเพิ่มหัวข้อใหม่"),
           actions: <Widget>[
             TextButton(
-              child: Text("ปิด"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            TextButton(
               child: Text("สร้างบัญชีใหม่"),
               onPressed: () {
                 Navigator.pop(context);
@@ -177,6 +171,12 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/authen');
+              },
+            ),
+            TextButton(
+              child: Text("PDF"),
+              onPressed: () {
+                Navigator.pop(context);
               },
             )
           ],
@@ -205,14 +205,9 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text("เพิ่มหัวข้อใหม่แบบ Website อ้างอิงหรือลิ้งค์ YouTube"),
+          content: Text(
+              "เพิ่มหัวข้อใหม่แบบ Website, YouTube, PDF หรือแตะพื้นที่นอกกรอบเพื่อยกเลิก"),
           actions: <Widget>[
-            TextButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             TextButton(
               child: Text("Website"),
               onPressed: () {
@@ -233,6 +228,12 @@ class _ReinforcingSteelState extends State<ReinforcingSteel> {
                     MaterialPageRoute(
                         builder: (context) =>
                             YoutubePost("technique_reinforcing_steel")));
+              },
+            ),
+            TextButton(
+              child: Text("PDF"),
+              onPressed: () {
+                Navigator.pop(context);
               },
             )
           ],
