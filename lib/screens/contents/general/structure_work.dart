@@ -66,28 +66,33 @@ class _StructureWorkState extends State<StructureWork> {
                     Website(websiteModel: generalModels[index]),
               ));
         },
-        child: Card(
-          elevation: 5,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AutoSizeText(
-                  model.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-                AutoSizeText(
-                  'โดย ' + model.username,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade900,
+        child: Container(
+          margin: EdgeInsets.all(4.0),
+          padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+          child: Card(
+            margin: EdgeInsets.all(0.0),
+            elevation: 5,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AutoSizeText(
+                    model.name,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  AutoSizeText(
+                    'โดย ' + model.username,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade900,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
