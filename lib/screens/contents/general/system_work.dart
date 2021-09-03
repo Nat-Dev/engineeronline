@@ -103,6 +103,7 @@ class _SystemWorkState extends State<SystemWork> {
               ));
         },
         child: Card(
+          color: Colors.grey.shade900,
           elevation: 5,
           child: Center(
             child: Column(
@@ -118,7 +119,10 @@ class _SystemWorkState extends State<SystemWork> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
                 AutoSizeText(
@@ -126,10 +130,9 @@ class _SystemWorkState extends State<SystemWork> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade900,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
                 ),
               ],
             ),

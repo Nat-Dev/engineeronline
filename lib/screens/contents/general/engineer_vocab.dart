@@ -103,6 +103,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
               ));
         },
         child: Card(
+          color: Colors.grey.shade900,
           elevation: 5,
           child: Center(
             child: Column(
@@ -118,7 +119,10 @@ class _EngineerVocabState extends State<EngineerVocab> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
                 AutoSizeText(
@@ -126,10 +130,9 @@ class _EngineerVocabState extends State<EngineerVocab> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade900,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
                 ),
               ],
             ),
