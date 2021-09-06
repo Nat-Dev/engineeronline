@@ -296,8 +296,7 @@ class _SolarCellState extends State<SolarCell> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            PdfPost("general_structure_work")));
+                        builder: (context) => PdfPost("general_solar_cell")));
               },
             )
           ],

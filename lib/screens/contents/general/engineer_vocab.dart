@@ -298,7 +298,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            PdfPost("general_structure_work")));
+                            PdfPost("general_engineer_vocab")));
               },
             )
           ],

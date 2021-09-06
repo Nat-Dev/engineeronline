@@ -248,8 +248,7 @@ class _SystemWorkState extends State<SystemWork> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            PdfPost("general_structure_work")));
+                        builder: (context) => PdfPost("general_system_work")));
               },
             )
           ],
