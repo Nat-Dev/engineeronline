@@ -154,7 +154,7 @@ class _SystemWorkState extends State<SystemWork> {
         return AlertDialog(
           title: ListTile(
             leading: Icon(
-              Icons.add_box_rounded,
+              Icons.add_to_photos_rounded,
               color: Colors.green,
               size: 48.0,
             ),
