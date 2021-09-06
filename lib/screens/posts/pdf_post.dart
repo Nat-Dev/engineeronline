@@ -81,16 +81,16 @@ class _PdfPostState extends State<PdfPost> {
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
         icon: Icon(
-          Icons.web_asset,
+          Icons.article_rounded,
           color: Colors.blue.shade700,
           size: 48.0,
         ),
-        labelText: "Website URL :",
+        labelText: "PDF URL :",
         labelStyle: TextStyle(
           color: Colors.blue.shade700,
           fontWeight: FontWeight.bold,
         ),
-        helperText: "กรุณาใส่ URL ของเว็บไซต์อ้างอิง",
+        helperText: "กรุณาใส่ URL ของไฟล์ PDF อ้างอิง",
         helperStyle: TextStyle(
           color: Colors.blue.shade700,
           fontStyle: FontStyle.italic,
@@ -98,7 +98,7 @@ class _PdfPostState extends State<PdfPost> {
         ),
       ),
       validator: (String value) {
-        if (value.contains('https') &&
+        if (value.contains('http') &&
             value.contains('://') &&
             value.contains('.')) {
           return null;
