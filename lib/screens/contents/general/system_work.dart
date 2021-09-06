@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:engineeronline/models/pdf_model.dart';
 import 'package:engineeronline/models/website_model.dart';
 import 'package:engineeronline/models/youtube_model.dart';
+import 'package:engineeronline/screens/posts/pdf_post.dart';
 import 'package:engineeronline/screens/posts/web_post.dart';
 import 'package:engineeronline/screens/posts/youtube_post.dart';
+import 'package:engineeronline/screens/views/pdf.dart';
 import 'package:engineeronline/screens/views/website.dart';
 import 'package:engineeronline/screens/views/youtube.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,12 +46,19 @@ class _SystemWorkState extends State<SystemWork> {
             setState(() {
               widgets.add(createYoutubeWidget(model, index));
             });
-          } else {
+          } else if (WebsiteModel.fromMap(map).type == "web") {
             // change to web
             WebsiteModel model = WebsiteModel.fromMap(map);
             generalModels.add(model);
             setState(() {
               widgets.add(createWebWidget(model, index));
+            });
+          } else {
+            // change to pdf
+            PdfModel model = PdfModel.fromMap(map);
+            generalModels.add(model);
+            setState(() {
+              widgets.add(createPdfWidget(model, index));
             });
           }
           index++;
@@ -146,6 +156,47 @@ class _SystemWorkState extends State<SystemWork> {
         ),
       );
 
+  Widget createPdfWidget(PdfModel model, int index) => GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Pdf(pdfModel: generalModels[index]),
+              ));
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.15,
+          margin: EdgeInsets.all(4.0),
+          padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+          child: Card(
+            margin: EdgeInsets.all(8.0),
+            elevation: 5,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AutoSizeText(
+                    model.name,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  AutoSizeText(
+                    'โดย ' + model.username,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade900,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
   void postAlert() {
     showDialog(
       barrierDismissible: true,
@@ -194,6 +245,11 @@ class _SystemWorkState extends State<SystemWork> {
               child: Text("PDF"),
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PdfPost("general_structure_work")));
               },
             )
           ],
