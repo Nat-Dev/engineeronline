@@ -155,7 +155,7 @@ class _PdfPostState extends State<PdfPost> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "เพิ่มเว็บไซต์อ้างอิง",
+          "เพิ่มลิ้งค์ PDF อ้างอิง",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
