@@ -15,7 +15,6 @@ class _RegisterState extends State<Register> {
   double screenHeight;
   String username, email, password;
   bool redEyeStatusPassword = true;
-  bool redEyeStatusOtp = true;
 
   void registerFailAlert(String message) {
     String msg;
