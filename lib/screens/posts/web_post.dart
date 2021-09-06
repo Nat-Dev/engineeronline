@@ -98,7 +98,7 @@ class _WebPostState extends State<WebPost> {
         ),
       ),
       validator: (String value) {
-        if (value.contains('http') &&
+        if (value.contains('https') &&
             value.contains('://') &&
             value.contains('.')) {
           return null;
