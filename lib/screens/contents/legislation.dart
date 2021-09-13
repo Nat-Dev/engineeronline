@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:engineeronline/models/pdf_model.dart';
+import 'package:engineeronline/screens/views/pdf.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -10,6 +14,24 @@ class Legislation extends StatefulWidget {
 
 class _LegislationState extends State<Legislation> {
   final scrollDirection = Axis.vertical;
+  List<dynamic> pdfModels = [];
+
+  Future<Null> readData() async {
+    await Firebase.initializeApp().then((value) async {
+      print("initialize engineer_vocab success");
+      FirebaseFirestore.instance
+          .collection("legislation")
+          .orderBy('name')
+          .snapshots()
+          .listen((event) {
+        for (var snapshot in event.docs) {
+          Map<String, dynamic> map = snapshot.data();
+          PdfModel model = PdfModel.fromMap(map);
+          pdfModels.add(model);
+        }
+      });
+    });
+  }
 
   AutoScrollController controller;
   Future _scrollToOne() async {
@@ -86,7 +108,19 @@ class _LegislationState extends State<Legislation> {
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          // get model and send to view pdf
+          for (var i = 0; i < pdfModels.length; i++) {
+            if (text == pdfModels[i].name) {
+              print(pdfModels[i].name);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Pdf(pdfModel: pdfModels[i]),
+                  ));
+            }
+          }
+        },
         child: Text(
           text,
           style: TextStyle(
@@ -107,6 +141,7 @@ class _LegislationState extends State<Legislation> {
   @override
   void initState() {
     super.initState();
+    readData();
     controller = AutoScrollController(
         viewportBoundaryGetter: () =>
             Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
@@ -151,7 +186,8 @@ class _LegislationState extends State<Legislation> {
       buildDetail(
           "2.1 กฎกระทรวง ฉบับที่ 55 (พ.ศ. 2543) แก้ไขโดย กฎกระทรวง ฉบับที่ 58 (พ.ศ.2546) กฎกระทรวง ฉบับที่ 61 (พ.ศ. 2550) กฎกระทรวง ฉบับที่ 66 (พ.ศ. 2559) และ กฎกระทรวง ฉบับที่ 68 (พ.ศ. 2563) – ลักษณะอาคาร ส่วนต่างๆ ของอาคาร ที่ว่างภายนอก แนวอาคารและระยะต่างๆ ของอาคาร"),
       buildDetail("2.2 กฎกระทรวง ฉบับที่ 55 (พ.ศ. 2543)"),
-      buildDetail("2.3 กฎกระทรวง ฉบับที่ 58 (พ.ศ. 2546)"),
+      buildDetail(
+          "2.3 กฎกระทรวง ฉบับที่ 58 (พ.ศ. 2546) แก้ไข กฎกระทรวง ฉบับที่ 55 (พ.ศ. 2543)"),
       buildDetail(
           "2.4 กฎกระทรวง ฉบับที่ 61 (พ.ศ. 2550) แก้ไข กฎกระทรวง ฉบับที่ 55 (พ.ศ. 2543)"),
       buildDetail(
