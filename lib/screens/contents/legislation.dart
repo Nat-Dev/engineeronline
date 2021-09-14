@@ -18,7 +18,7 @@ class _LegislationState extends State<Legislation> {
 
   Future<Null> readData() async {
     await Firebase.initializeApp().then((value) async {
-      print("initialize engineer_vocab success");
+      print("initialize legislation success");
       FirebaseFirestore.instance
           .collection("legislation")
           .orderBy('name')
@@ -246,7 +246,7 @@ class _LegislationState extends State<Legislation> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
-          "งานสถาปัตยกรรม",
+          "กฏหมายเทศบัญญัติ",
           style: TextStyle(
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
