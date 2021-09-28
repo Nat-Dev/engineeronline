@@ -4,20 +4,25 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class WebPost extends StatefulWidget {
+  // collection เก็บค่าของหัวข้อใหญ่ เช่น general_engineer_vocab, technique_scaffolding
   final String collection;
+  // รับค่า collection เพื่อใช้บอกว่าจะเพิ่มข้อมูลใน collection ไหน
   WebPost(this.collection);
   @override
   _WebPostState createState() => _WebPostState(collection);
 }
 
 class _WebPostState extends State<WebPost> {
+  // ตัวแปรต่างๆสำหรับการเพิ่มข้อมูล website
   String collection;
   String name = "";
   String url = "";
   String username, email;
   String type = "web";
+  // ตัวแปรสำหรับใช้งานฐานข้อมูล Firestore
   final firestore = FirebaseFirestore.instance;
 
+  // _formKey สำหรับ validate ข้อมูล
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _WebPostState(this.collection);
@@ -43,6 +48,7 @@ class _WebPostState extends State<WebPost> {
   }
 
   Widget topicText() {
+    // ช่องกรอกชื่อหัวข้อ
     return TextFormField(
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
@@ -65,18 +71,21 @@ class _WebPostState extends State<WebPost> {
       ),
       validator: (String value) {
         if (value.isNotEmpty) {
+          // ชื่อหัวข้อต้องถูกกรอก
           return null;
         } else {
           return "กรุณาใส่ชื่อหัวข้อให้ถูกต้อง";
         }
       },
       onSaved: (String value) {
+        // validate สำเร็จ save ค่า
         name = value.trim();
       },
     );
   }
 
   Widget urlText() {
+    // ช่องกรอก url ของเว็บไซต์
     return TextFormField(
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
@@ -101,18 +110,22 @@ class _WebPostState extends State<WebPost> {
         if (value.contains('https') &&
             value.contains('://') &&
             value.contains('.')) {
+          // validate สิ่งที่ต้องมีใน url "https", "://", "."
+          // บังคับให้กรอกได้เฉพาะ url ที่ใช้โปรโตคอล https เท่านั้น
           return null;
         } else {
           return "กรุณาใส่ URL ให้ถูกต้อง";
         }
       },
       onSaved: (String value) {
+        // validate สำเร็จ save ค่า
         url = value.trim();
       },
     );
   }
 
   void postSuccessAlert() {
+    // dialog เมื่อโพสต์สำเร็จ
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -137,6 +150,7 @@ class _WebPostState extends State<WebPost> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
+                // กด OK ใน dialog เพื่อกลับสู่หน้าหลัก '/home_signedin'
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/home_signedin', (route) => false);
               },
@@ -179,15 +193,16 @@ class _WebPostState extends State<WebPost> {
               SizedBox(
                 height: screenHeight * 0.08,
               ),
-              topicText(),
+              topicText(), // ช่องกรอกชื่อหัวข้อ
               SizedBox(
                 height: screenHeight * 0.17,
               ),
-              urlText(),
+              urlText(), // ช่องกรอก url ของเว็บไซต์
               SizedBox(
                 height: screenHeight * 0.23,
               ),
               ElevatedButton(
+                // ปุ่มกดเพิ่มหัวข้อ
                 style: ElevatedButton.styleFrom(
                   primary: Colors.greenAccent.shade400,
                   onPrimary: Colors.white,
@@ -200,9 +215,13 @@ class _WebPostState extends State<WebPost> {
                   ),
                 ),
                 onPressed: () async {
+                  // เมื่อปุ่มถูกกดจะทำงานฟังก์ชัน onPressed
                   if (_formKey.currentState.validate()) {
+                    // เช็ค formKey validate ทั้งหมด
                     _formKey.currentState.save();
                     try {
+                      // เพิ่มข้อมูลลงใน collection นั้นๆของ firestore
+                      // ข้อมูลที่เพิ่มคือข้อมูลของ model website
                       await firestore.collection(collection).add({
                         'name': name,
                         'url': url,
@@ -210,8 +229,9 @@ class _WebPostState extends State<WebPost> {
                         'email': email,
                         'type': type
                       });
-                      postSuccessAlert();
+                      postSuccessAlert(); // แสดง dialog เมื่อเพิ่มข้อมูลสำเร็จ
                     } catch (e) {
+                      // หากเพิ่มข้อมูลไม่สำเร็จ print error message และ error code
                       String code = e.code;
                       String message = e.message;
                       print("ERROR : $message CODE: $code");

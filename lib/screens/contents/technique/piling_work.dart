@@ -19,6 +19,7 @@ class PilingWork extends StatefulWidget {
 }
 
 class _PilingWorkState extends State<PilingWork> {
+  // การทำงานเหมือนกับ engineer_vocab.dart เปลี่ยนแค่ collection ที่ใช้ทำงาน
   List<Widget> widgets = [];
   List<dynamic> techniqueModels = [];
 

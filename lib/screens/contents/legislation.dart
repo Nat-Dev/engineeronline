@@ -12,11 +12,14 @@ class Legislation extends StatefulWidget {
   _LegislationState createState() => _LegislationState();
 }
 
+//
 class _LegislationState extends State<Legislation> {
+  // ตัวแปร scrollDirection ใช้กำหนดทิศทางการ scroll
   final scrollDirection = Axis.vertical;
   List<dynamic> pdfModels = [];
 
   Future<Null> readData() async {
+    // readData อ่านและเก็บข้อมูลของ collection นั้นๆลงใน ตัวแปรที่ประกาศไว้ด้านบน
     await Firebase.initializeApp().then((value) async {
       print("initialize legislation success");
       FirebaseFirestore.instance
@@ -34,6 +37,7 @@ class _LegislationState extends State<Legislation> {
   }
 
   AutoScrollController controller;
+  // scroll ไปยัง index นั้นๆ ด้วยฟังก์ชันด้านล่าง
   Future _scrollToOne() async {
     await controller.scrollToIndex(3, preferPosition: AutoScrollPosition.begin);
   }
@@ -44,6 +48,7 @@ class _LegislationState extends State<Legislation> {
   }
 
   Align buildChapter(String text) {
+    // Widget แสดงชื่อบท
     return Align(
       alignment: Alignment(0, 0),
       child: TextButton(
@@ -61,6 +66,7 @@ class _LegislationState extends State<Legislation> {
   }
 
   Align buildChapterButton(String text) {
+    // ปุ่มชื่อบท ที่สามารถกระโดดไปยังบทนั้นๆได้
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
@@ -87,6 +93,7 @@ class _LegislationState extends State<Legislation> {
   }
 
   Align buildSubChapter(String text) {
+    // Widget แสดง sub chapter
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
@@ -105,11 +112,12 @@ class _LegislationState extends State<Legislation> {
   }
 
   Align buildDetail(String text) {
+    // Widget เนื้อหาข้อมูล
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
         onPressed: () {
-          // get model and send to view pdf
+          // get model ที่เลือกจาก for loop แล้วส่งไปยัง views/pdf.dart
           for (var i = 0; i < pdfModels.length; i++) {
             if (text == pdfModels[i].name) {
               print(pdfModels[i].name);
@@ -143,6 +151,7 @@ class _LegislationState extends State<Legislation> {
     super.initState();
     readData();
     controller = AutoScrollController(
+        // กำหนดตัว scroll controller สำหรับปุ่ม กระโดดไปยังบทต่างๆ
         viewportBoundaryGetter: () =>
             Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: scrollDirection);
@@ -151,6 +160,7 @@ class _LegislationState extends State<Legislation> {
   @override
   Widget build(BuildContext context) {
     List contents = [
+      // contents ในที่นี้จะเป็น array เก็บทุกอย่าง header, chapter, subchapter, detail
       Align(
         alignment: Alignment(0, 0),
         child: TextButton(

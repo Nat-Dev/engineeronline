@@ -19,6 +19,7 @@ class ColumnWork extends StatefulWidget {
 }
 
 class _ColumnWorkState extends State<ColumnWork> {
+  // การทำงานเหมือนกับ engineer_vocab.dart เปลี่ยนแค่ collection ที่ใช้ทำงาน
   List<Widget> widgets = [];
   List<dynamic> techniqueModels = [];
 

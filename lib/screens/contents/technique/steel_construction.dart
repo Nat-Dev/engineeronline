@@ -19,6 +19,7 @@ class SteelConstruction extends StatefulWidget {
 }
 
 class _SteelConstructionState extends State<SteelConstruction> {
+  // การทำงานเหมือนกับ engineer_vocab.dart เปลี่ยนแค่ collection ที่ใช้ทำงาน
   List<Widget> widgets = [];
   List<dynamic> techniqueModels = [];
 

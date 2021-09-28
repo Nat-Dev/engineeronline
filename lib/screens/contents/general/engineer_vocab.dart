@@ -19,18 +19,23 @@ class EngineerVocab extends StatefulWidget {
 }
 
 class _EngineerVocabState extends State<EngineerVocab> {
+  // ตัวแปรใช้เก็บ widget สำหรับแสดงเป็น list ให้เลือก
   List<Widget> widgets = [];
+  // ตัวแปรใช้เก็บ model เพื่อส่งไปหน้า view
   List<dynamic> generalModels = [];
 
   @override
   void initState() {
     super.initState();
+    // เรียกใช้ฟังก์ชัน readData ก่อนการ build หน้านี้
     readData();
   }
 
   Future<Null> readData() async {
+    // readData อ่านและเก็บข้อมูลของ collection นั้นๆลงใน ตัวแปรที่ประกาศไว้ด้านบน
     await Firebase.initializeApp().then((value) async {
       print("initialize engineer_vocab success");
+      // เข้าถึงฐานข้อมูล Firestore collection นั้นๆ
       FirebaseFirestore.instance
           .collection("general_engineer_vocab")
           .orderBy('name')
@@ -38,6 +43,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
           .listen((event) {
         int index = 0;
         for (var snapshot in event.docs) {
+          // เช็ค type ของข้อมูลว่าเป็น yt, web, pdf ก่อนนำไปแสดงเป็น wiget
           Map<String, dynamic> map = snapshot.data();
           if (WebsiteModel.fromMap(map).type == "yt") {
             // change to youtube
@@ -68,6 +74,8 @@ class _EngineerVocabState extends State<EngineerVocab> {
   }
 
   Widget createWebWidget(WebsiteModel model, int index) => GestureDetector(
+        // widget ที่เป็น website เมื่อถูกกด ให้ส้ง model ที่ถูกกดไปยังหน้า views/website.dart
+        // การเปลี่ยนหน้าจะที่นี้จะไม่ได้ใช้ชื่อที่เรียกจาก router.dart เพราะมีการส่งข้อมูล model
         onTap: () {
           Navigator.push(
               context,
@@ -88,12 +96,14 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AutoSizeText(
+                    // แสดงชื่อหัวข้อ หรือ name ของ model นั้นๆ
                     model.name,
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   AutoSizeText(
+                    // แสดงชื่อผู้โพสต์ของ model นั้นๆ
                     'โดย ' + model.username,
                     maxLines: 1,
                     style: TextStyle(
@@ -111,6 +121,8 @@ class _EngineerVocabState extends State<EngineerVocab> {
 
   Widget createYoutubeWidget(YoutubeModel model, int index) => GestureDetector(
         onTap: () {
+          // widget ที่เป็น youtube เมื่อถูกกด ให้ส้ง model ที่ถูกกดไปยังหน้า views/youtube.dart
+          // การเปลี่ยนหน้าจะที่นี้จะไม่ได้ใช้ชื่อที่เรียกจาก router.dart เพราะมีการส่งข้อมูล model
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -131,6 +143,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 ),
                 Flexible(
                   child: AutoSizeText(
+                    // แสดงชื่อหัวข้อ หรือ name ของ model นั้นๆ
                     model.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -142,6 +155,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
                   ),
                 ),
                 AutoSizeText(
+                  // แสดงชื่อผู้โพสต์ของ model นั้นๆ
                   model.username,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -158,6 +172,8 @@ class _EngineerVocabState extends State<EngineerVocab> {
 
   Widget createPdfWidget(PdfModel model, int index) => GestureDetector(
         onTap: () {
+          // widget ที่เป็น youtube เมื่อถูกกด ให้ส้ง model ที่ถูกกดไปยังหน้า views/pdf.dart
+          // การเปลี่ยนหน้าจะที่นี้จะไม่ได้ใช้ชื่อที่เรียกจาก router.dart เพราะมีการส่งข้อมูล model
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -176,12 +192,14 @@ class _EngineerVocabState extends State<EngineerVocab> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AutoSizeText(
+                    // แสดงชื่อหัวข้อ หรือ name ของ model นั้นๆ
                     model.name,
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   AutoSizeText(
+                    // แสดงชื่อผู้โพสต์ของ model นั้นๆ
                     'โดย ' + model.username,
                     maxLines: 1,
                     style: TextStyle(
@@ -198,6 +216,7 @@ class _EngineerVocabState extends State<EngineerVocab> {
       );
 
   void authenAlert() {
+    // alert เมื่อยังไม่ได้เข้าสู่ระบบแล้วต้องการโพสต์ข้อมูลเพิ่ม
     showDialog(
       barrierDismissible: true,
       context: context,
@@ -246,6 +265,8 @@ class _EngineerVocabState extends State<EngineerVocab> {
   }
 
   void postAlert() {
+    // เมื่อเข้าสู่ระบบแล้วต้องการเพิ่มข้อมูล
+    // การเพิ่มข้อมูลมี 3 แบบ website, youtube, pdf
     showDialog(
       barrierDismissible: true,
       context: context,
@@ -330,14 +351,18 @@ class _EngineerVocabState extends State<EngineerVocab> {
           ),
         ),
         actions: [
+          // ส่วนต่อท้ายของ appbar
           IconButton(
-              icon: Icon(Icons.add),
+              icon: Icon(Icons.add), // เป็นเครื่องหมาย "+"
               onPressed: () async {
+                // เมื่อถูกกด จะเช็คว่าเข้าสู่ระบบหรือยัง
                 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                 User user = firebaseAuth.currentUser;
                 if (user != null) {
+                  // ถ้าเข้าสู่ระบบแล้ว แสดง postAlert() สำหรับเลือกรูปแบบข้อมูลที่จะโพสต์
                   postAlert();
                 } else {
+                  // ถ้ายังไม่เข้าสู่ระบบ แสดง authenAlert() บอกให้ผู้ใช้เข้าสู่ระบบก่อน
                   authenAlert();
                 }
               })
@@ -346,10 +371,12 @@ class _EngineerVocabState extends State<EngineerVocab> {
       body: widgets.length == 0
           ? Center(child: CircularProgressIndicator())
           : Container(
+              // background สี yellow.shade100
               decoration: BoxDecoration(
                 color: Colors.yellow.shade100,
               ),
               child: ListView(
+                // แสดง listview ด้วย ตัวแปร widgets ที่เก็บข้อมูลของ collection นั้นๆ
                 children: widgets,
               ),
             ),

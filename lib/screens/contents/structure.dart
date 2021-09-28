@@ -9,6 +9,7 @@ class Structure extends StatefulWidget {
 }
 
 class _StructureState extends State<Structure> {
+  // การทำงานเหมือนกับ architecture.dart
   final scrollDirection = Axis.vertical;
 
   AutoScrollController controller;

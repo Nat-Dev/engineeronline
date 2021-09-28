@@ -29,6 +29,7 @@ class _HomeSignedInState extends State<HomeSignedIn> {
 
   @override
   Widget build(BuildContext context) {
+    // '/home_signedin' เหมือนกับ '/home' ต่างกันที่ drawer หรือปุ่ม 3 ขีด ขวาบน appbar
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
@@ -103,8 +104,11 @@ class _HomeSignedInState extends State<HomeSignedIn> {
   }
 
   Future<void> signOut() async {
+    // ฟังก์ชัน logout สำหรับออกจากระบบ
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth.signOut().then((response) {
+      // ให้ firebaseAuth signout ออกจากบัญชีปัจจุบัน
+      // หลังจาก logout แล้ว ให้ไปยังหน้า '/home'
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     });
   }
@@ -114,6 +118,7 @@ class _HomeSignedInState extends State<HomeSignedIn> {
       child: Stack(
         children: [
           UserAccountsDrawerHeader(
+            // drawer แสดง user account  ประกอบไปด้วย username, email และรูปไอคอน
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -123,17 +128,19 @@ class _HomeSignedInState extends State<HomeSignedIn> {
             accountEmail: Text(email == null ? 'Email' : email),
             currentAccountPicture: Image.asset('images/logo.png'),
           ),
-          buildSignOut(),
+          buildSignOut(), // buildSignout คือปุ่มสำหรับ signout
         ],
       ),
     );
   }
 
   Column buildSignOut() {
+    // ปุ่ม signout
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         ListTile(
+          //กำหนดลักษณะของปุ่ม สี, ไอคอน, ขนาดไอคอน
           tileColor: Colors.blueGrey.shade800,
           leading: Icon(
             Icons.exit_to_app,
@@ -141,6 +148,7 @@ class _HomeSignedInState extends State<HomeSignedIn> {
             size: 26.0,
           ),
           title: Text(
+            // กำหนดลักษณะตัวหนังสือ สี, ตัวหนา, ขนาด
             "ออกจากระบบ",
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -149,13 +157,15 @@ class _HomeSignedInState extends State<HomeSignedIn> {
             ),
           ),
           subtitle: Text(
+            // กำหนด subtitle หรือคำอธิบายย่อยด้านล่างของปุ่ม
             "ออกจากระบบสำหรับบัญชีนี้",
             style: TextStyle(
+              // กำหนดสีของตัวหนังสือ
               color: Colors.white54,
             ),
           ),
           onTap: () {
-            signOut();
+            signOut(); // เมื่อปุ่มนี้ถูกกดให้เรียกใช้งานฟังก์ชัน signOut()
           },
         ),
       ],

@@ -9,15 +9,22 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
+  // กำหนด formKey สำหรับใช้ validate ข้อมูลที่ผู้ใช้กรอก
   final formKey = GlobalKey<FormState>();
 
+  // กำหนดตัวแปรสำหรับเก็บค่าความสูงและความกว้างหน้าจอ
   double screenWidth;
   double screenHeight;
+
+  // กำหนดตัวแปรต่างๆที่จะใช้งานคล้ายกับหน้า '/authen'
   String username, email, password;
   bool redEyeStatusPassword = true;
 
   void registerFailAlert(String message) {
-    String msg;
+    // dialog แสดงบนหน้าจอเมื่อ register ไม่สำเร็จ
+    // รับค่า error code (String message)
+    String msg; // สร้างตัวแปร String ที่จะใช้สื่อสารกับผู้ใช้งานเป็นภาษาไทย
+    // เช็ค error code ตามเงื่อนไขด้านล่าง เพื่อทำการอัพเดทค่าของ msg
     if (message == 'email-already-in-use') {
       msg = 'อีเมลล์นี้มีผู้ใช้งานแล้ว';
     } else if (message == 'weak-password') {
@@ -26,17 +33,20 @@ class _RegisterState extends State<Register> {
       msg = message;
     }
     showDialog(
-      barrierDismissible: true,
+      // แสดง dialog บนหน้าจอ
+      barrierDismissible: true, // สามารถแตะกรอบนอก dialog เพื่อปิด dialog ได้
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: ListTile(
             leading: Icon(
+              // ใส่ Icon บนหัว dialog
               Icons.assignment_late,
               color: Colors.red,
               size: 48.0,
             ),
             title: Text(
+              // ตัวหนังสือบน dialog
               "พบปัญหาบางอย่าง ไม่สามารถสร้างบัญชีได้",
               style: TextStyle(
                   color: Colors.blue.shade600,
@@ -44,11 +54,14 @@ class _RegisterState extends State<Register> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          content: Text(msg),
+          content: Text(
+              msg), // รายละเอียดเกี่ยวกับการเข้าสู่ระบบไม่สำเร็จจาก message
           actions: <Widget>[
             TextButton(
+              // ปุ่ม OK ของ dialog
               child: Text("OK"),
               onPressed: () {
+                // เมื่อถูกกดจะ pop ตัว dialog ออก หรือปิด dialog
                 Navigator.of(context).pop();
               },
             )
@@ -59,19 +72,26 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> registerFirebase() async {
+    // ฟังก์ชันสำหรับ register account กับ Firebase
     await Firebase.initializeApp().then((value) async {
       print("Register Firebase Initialize Success.");
       FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      // สร้าง instance ของ FirebaseAuth เพื่อใช้งานในการสร้าง account
       try {
+        // สร้าง account ด้วย email, password
         await firebaseAuth
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) async {
+          // print ข้อความเมื่อสร้างสำเร็จ
           print("Register Successfully");
+          // updateProfile ของ user แล้วไปยังหน้า '/verify'
           await value.user.updateProfile(displayName: username).then((value) =>
               Navigator.pushNamedAndRemoveUntil(
                   context, '/verify', (route) => false));
         });
       } on FirebaseAuthException catch (err) {
+        // หากมีปัญหา ไม่สามารถสร้างบัญชีได้ ให้ print error code ออกมา
+        // เรียก registerFailAlert ซึ่งเป็น dialog แจ้งเตือนบนหน้าจอ
         String code = err.code;
         String message = err.message;
         print("ERROR : $message CODE: $code");
@@ -81,6 +101,7 @@ class _RegisterState extends State<Register> {
   }
 
   Widget backButton() {
+    // ปุ่มย้อนกลับไปยังหน้าก่อนหน้า
     return Align(
       alignment: Alignment(-1, 0),
       child: IconButton(
@@ -97,6 +118,7 @@ class _RegisterState extends State<Register> {
   }
 
   Widget header() {
+    // header แสดงหัวข้อ
     return Align(
       alignment: Alignment(0, 0),
       child: Text(
@@ -110,10 +132,12 @@ class _RegisterState extends State<Register> {
   }
 
   Container buildUsername() {
+    // ช่องกรอก username
     return Container(
       margin: EdgeInsets.only(top: 64),
       width: screenWidth * 0.8,
       child: TextFormField(
+        // ใช้ TextFormField เพื่อ validate ข้อมูบ
         decoration: InputDecoration(
           hintText: "ชื่อผู้ใช้:",
           hintStyle: TextStyle(color: Colors.blue.shade900),
@@ -141,6 +165,7 @@ class _RegisterState extends State<Register> {
           ),
         ),
         validator: (String value) {
+          // validate ว่าค่าในช่องนี้ห้ามเป็นค่าว่าง หรือก็คือผู้ใช้ต้องกรอกค่าในช่องนี้
           if (value.isEmpty) {
             return "กรุณากรอกชื่อผู้ใช้ลงในช่องว่าง";
           } else {
@@ -148,6 +173,7 @@ class _RegisterState extends State<Register> {
           }
         },
         onSaved: (String value) {
+          // validate สำเร็จ save ค่า
           username = value.trim();
         },
       ),
@@ -155,6 +181,7 @@ class _RegisterState extends State<Register> {
   }
 
   Container buildEmail() {
+    // ส่วนของการกรอก Email เหมือนกับหน้า '/authen'
     return Container(
       margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
@@ -202,6 +229,7 @@ class _RegisterState extends State<Register> {
   }
 
   Container buildPassword() {
+    // ส่วนของการกรอก Password เหมือนกับหน้า '/authen'
     return Container(
       margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
@@ -257,19 +285,23 @@ class _RegisterState extends State<Register> {
   }
 
   Container buildSignUp() {
+    // ปุ่ม sign up
     return Container(
       margin: EdgeInsets.only(top: 32),
       width: screenWidth * 0.8,
       child: ElevatedButton(
         onPressed: () {
+          // ฟังก์ชัน onPressed จะทำงานเมื่อปุ่มถูกกด
           if (formKey.currentState.validate()) {
+            // เช็คว่า form ที่ validate ทั้งหมดถูกต้องไหม
             formKey.currentState.save();
             print("username = $username, password = $password, email = $email");
+            // เรียกใช้งาน registerFirebase
             registerFirebase();
           }
         },
         child: Text(
-          "Register",
+          "สร้างบัญชี",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         style: ElevatedButton.styleFrom(
@@ -287,32 +319,41 @@ class _RegisterState extends State<Register> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      // Scaffold ไม่มี appbar เริ่มที่ body เลย
       body: SafeArea(
         child: CustomPaint(
-          painter: GreenPainter(),
+          // CustonPaint ใช้เพื่อวาดฉากหลังของหน้าจอ
+          painter:
+              GreenPainter(), // เรียกใช้การวาด BluePainter ที่เขียนไว้ล่างสุดของไฟล์
           child: Center(
+            // ให้ content ต่างๆอยู่ตรงกลางจอ
             child: Form(
+              // ใส่ Form เพื่อใช้ formKey ในการ validate ข้อมูล
               key: formKey,
               child: ListView(
                 children: [
-                  backButton(),
-                  header(),
+                  backButton(), // ปุ่มย้อนกลับไปหน้าก่อนหน้า
+                  header(), // ตัว header แสดงหัวข้อ
                   SizedBox(
+                    // SizedBox ใช้สำหรับเว้นระยะห่าง ในที่นี้คือเว้นความสูง 20 px
                     height: 20,
                   ),
-                  buildUsername(),
+                  buildUsername(), // ช่องกรอก username
                   SizedBox(
+                    // SizedBox ใช้สำหรับเว้นระยะห่าง ในที่นี้คือเว้นความสูง 20 px
                     height: 20,
                   ),
-                  buildEmail(),
+                  buildEmail(), // ช่องกรอก email
                   SizedBox(
+                    // SizedBox ใช้สำหรับเว้นระยะห่าง ในที่นี้คือเว้นความสูง 20 px
                     height: 20,
                   ),
-                  buildPassword(),
+                  buildPassword(), // ช่องกรอก password
                   SizedBox(
+                    // SizedBox ใช้สำหรับเว้นระยะห่าง ในที่นี้คือเว้นความสูง 40 px
                     height: 40,
                   ),
-                  buildSignUp(),
+                  buildSignUp(), // ปุ่ม sign up
                 ],
               ),
             ),
@@ -324,6 +365,7 @@ class _RegisterState extends State<Register> {
 }
 
 class GreenPainter extends CustomPainter {
+  // GreenPainter ใช้วาดฉากหลังของหน้าจอ ก็คือรูปครึ่งวงกลมสีเขียวซึ่งเป็นพื้นหลังของหน้านี้
   @override
   void paint(Canvas canvas, Size size) {
     final height = size.height;

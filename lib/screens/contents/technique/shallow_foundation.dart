@@ -19,6 +19,7 @@ class ShallowFoundation extends StatefulWidget {
 }
 
 class _ShallowFoundationState extends State<ShallowFoundation> {
+  // การทำงานเหมือนกับ engineer_vocab.dart เปลี่ยนแค่ collection ที่ใช้ทำงาน
   List<Widget> widgets = [];
   List<dynamic> techniqueModels = [];
 

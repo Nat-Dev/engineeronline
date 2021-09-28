@@ -4,20 +4,26 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class PdfPost extends StatefulWidget {
+  // collection เก็บค่าของหัวข้อใหญ่ เช่น กฏหมายเทศบัญญัติ, มาตรฐานการทำงาน
   final String collection;
   PdfPost(this.collection);
+  // รับค่า collection เพื่อใช้บอกว่าจะเพิ่มข้อมูลใน collection ไหน
   @override
   _PdfPostState createState() => _PdfPostState(collection);
 }
 
 class _PdfPostState extends State<PdfPost> {
+  // ตัวแปรต่างๆสำหรับการเพิ่มข้อมูล pdf
   String collection;
   String name = "";
   String url = "";
   String username, email;
   String type = "pdf";
+
+  // ตัวแปรสำหรับใช้งานฐานข้อมูล Firestore
   final firestore = FirebaseFirestore.instance;
 
+  // _formKey สำหรับ validate ข้อมูล
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _PdfPostState(this.collection);
@@ -43,6 +49,7 @@ class _PdfPostState extends State<PdfPost> {
   }
 
   Widget topicText() {
+    // ช่องกรอกชื่อหัวข้อ
     return TextFormField(
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
@@ -64,6 +71,7 @@ class _PdfPostState extends State<PdfPost> {
         ),
       ),
       validator: (String value) {
+        // ชื่อหัวข้อต้องถูกกรอก
         if (value.isNotEmpty) {
           return null;
         } else {
@@ -71,12 +79,14 @@ class _PdfPostState extends State<PdfPost> {
         }
       },
       onSaved: (String value) {
+        // validate สำเร็จ save ค่า
         name = value.trim();
       },
     );
   }
 
   Widget urlText() {
+    // ช่องกรอก url ของ pdf
     return TextFormField(
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
@@ -101,18 +111,22 @@ class _PdfPostState extends State<PdfPost> {
         if (value.contains('http') &&
             value.contains('://') &&
             value.contains('.')) {
+          // validate สิ่งที่ต้องมีใน url "https", "://", "."
+          // บังคับให้กรอกได้เฉพาะ url ที่ใช้โปรโตคอล https เท่านั้น
           return null;
         } else {
           return "กรุณาใส่ URL ให้ถูกต้อง";
         }
       },
       onSaved: (String value) {
+        // validate สำเร็จ save ค่า
         url = value.trim();
       },
     );
   }
 
   void postSuccessAlert() {
+    // dialog เมื่อโพสต์สำเร็จ
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -137,6 +151,7 @@ class _PdfPostState extends State<PdfPost> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
+                // กด OK ใน dialog เพื่อกลับสู่หน้าหลัก '/home_signedin'
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/home_signedin', (route) => false);
               },
@@ -179,15 +194,16 @@ class _PdfPostState extends State<PdfPost> {
               SizedBox(
                 height: screenHeight * 0.08,
               ),
-              topicText(),
+              topicText(), // ช่องกรอกชื่อหัวข้อ
               SizedBox(
                 height: screenHeight * 0.17,
               ),
-              urlText(),
+              urlText(), // ช่องกรอก url ของ pdf
               SizedBox(
                 height: screenHeight * 0.23,
               ),
               ElevatedButton(
+                // ปุ่มกดเพิ่มหัวข้อ
                 style: ElevatedButton.styleFrom(
                   primary: Colors.greenAccent.shade400,
                   onPrimary: Colors.white,
@@ -200,9 +216,13 @@ class _PdfPostState extends State<PdfPost> {
                   ),
                 ),
                 onPressed: () async {
+                  // เมื่อปุ่มถูกกดจะทำงานฟังก์ชัน onPressed
                   if (_formKey.currentState.validate()) {
+                    // เช็ค formKey validate ทั้งหมด
                     _formKey.currentState.save();
                     try {
+                      // เพิ่มข้อมูลลงใน collection นั้นๆของ firestore
+                      // ข้อมูลที่เพิ่มคือข้อมูลของ model website
                       await firestore.collection(collection).add({
                         'name': name,
                         'url': url,
@@ -210,8 +230,9 @@ class _PdfPostState extends State<PdfPost> {
                         'email': email,
                         'type': type
                       });
-                      postSuccessAlert();
+                      postSuccessAlert(); // แสดง dialog เมื่อเพิ่มข้อมูลสำเร็จ
                     } catch (e) {
+                      // หากเพิ่มข้อมูลไม่สำเร็จ print error message และ error code
                       String code = e.code;
                       String message = e.message;
                       print("ERROR : $message CODE: $code");

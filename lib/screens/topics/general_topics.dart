@@ -7,12 +7,14 @@ class GeneralTopics extends StatefulWidget {
 
 class _GeneralTopicsState extends State<GeneralTopics> {
   Container buildListview(String str) {
+    // buildListview แสดงหัวข้อหลักของ "ความรู้วิศวกรรมในงานก่อสร้าง"
     return Container(
       padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: Card(
         margin: EdgeInsets.all(0.0),
         child: ListTile(
           onTap: () {
+            // เมื่อถูกกด เช็คชื่อของ Card ที่ถูกกดแล้วให้วิ่งไปยังหน้านั้นๆ
             if (str == "คำศัพท์ภาษาอังกฤษทางวิศวกรรม") {
               Navigator.pushNamed(context, '/engineer_vocab');
             } else if (str == "งานโครงสร้าง") {
@@ -47,6 +49,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
+          // ตัวหนังสือบน appbar
           "ความรู้วิศวกรรมในงานก่อสร้าง",
           style: TextStyle(
             color: Colors.yellowAccent,
@@ -72,6 +75,7 @@ class _GeneralTopicsState extends State<GeneralTopics> {
               Expanded(
                 child: ListView(
                   children: [
+                    // สร้าง listview ตามข้อมูลด้านล่าง
                     buildListview("คำศัพท์ภาษาอังกฤษทางวิศวกรรม"),
                     buildListview("งานโครงสร้าง"),
                     buildListview("งานระบบ"),

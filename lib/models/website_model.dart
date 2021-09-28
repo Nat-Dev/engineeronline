@@ -1,5 +1,7 @@
 class WebsiteModel {
   // Field
+  // model ของ website ประกอบไปด้วย
+  // ชือหัวข้อ, url ของเว็บ, ชื่อผู้ใช้ของผู้โพสต์, อีเมลล์ของผู้โพสต์, หมวดหมู่ของหัวข้อ
   String name, url, username, email, type;
   // Method
   WebsiteModel(this.name, this.url, this.username, this.email, this.type);

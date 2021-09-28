@@ -16,6 +16,7 @@ class Standard extends StatefulWidget {
 }
 
 class _StandardState extends State<Standard> {
+  // การทำงานเหมือนกับ engineer_vocab.dart เปลี่ยนแค่ collection ที่ใช้ทำงาน
   List<Widget> widgets = [];
   List<dynamic> standardModels = [];
 

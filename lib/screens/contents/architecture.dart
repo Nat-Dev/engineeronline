@@ -9,9 +9,11 @@ class Architecture extends StatefulWidget {
 }
 
 class _ArchitectureState extends State<Architecture> {
+  // ตัวแปร scrollDirection ใช้กำหนดทิศทางการ scroll
   final scrollDirection = Axis.vertical;
 
   AutoScrollController controller;
+  // scroll ไปยัง index นั้นๆ ด้วยฟังก์ชันด้านล่าง
   Future _scrollToOne() async {
     await controller.scrollToIndex(12,
         preferPosition: AutoScrollPosition.begin);
@@ -68,6 +70,7 @@ class _ArchitectureState extends State<Architecture> {
   }
 
   Align buildChapter(String text) {
+    // Widget แสดงชื่อบท
     return Align(
       alignment: Alignment(0, 0),
       child: TextButton(
@@ -85,6 +88,7 @@ class _ArchitectureState extends State<Architecture> {
   }
 
   Align buildChapterButton(String text) {
+    // ปุ่มชื่อบท ที่สามารถกระโดดไปยังบทนั้นๆได้
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
@@ -129,6 +133,7 @@ class _ArchitectureState extends State<Architecture> {
   }
 
   Align buildSubChapter(String text) {
+    // Widget แสดง sub chapter
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
@@ -147,6 +152,7 @@ class _ArchitectureState extends State<Architecture> {
   }
 
   Align buildDetail(String text) {
+    // Widget เนื้อหาข้อมูล
     return Align(
       alignment: Alignment(-1, 0),
       child: TextButton(
@@ -172,6 +178,7 @@ class _ArchitectureState extends State<Architecture> {
   void initState() {
     super.initState();
     controller = AutoScrollController(
+        // กำหนดตัว scroll controller สำหรับปุ่ม กระโดดไปยังบทต่างๆ
         viewportBoundaryGetter: () =>
             Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: scrollDirection);
@@ -180,6 +187,7 @@ class _ArchitectureState extends State<Architecture> {
   @override
   Widget build(BuildContext context) {
     List contents = [
+      // contents ในที่นี้จะเป็น array เก็บทุกอย่าง header, chapter, subchapter, detail
       Align(
         alignment: Alignment(0, 0),
         child: TextButton(
@@ -359,6 +367,7 @@ class _ArchitectureState extends State<Architecture> {
             controller: controller,
             children: <Widget>[
               ...List.generate(contents.length, (index) {
+                // นำ contents มา generate บนหน้าจอ
                 return AutoScrollTag(
                   key: ValueKey(index),
                   controller: controller,

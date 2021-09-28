@@ -7,12 +7,14 @@ class TechniqueTopics extends StatefulWidget {
 
 class _TechniqueTopicsState extends State<TechniqueTopics> {
   Container buildListview(String str) {
+    // buildListview แสดงหัวข้อหลักของ "เทคนิคการก่อสร้าง"
     return Container(
       padding: new EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: Card(
         margin: EdgeInsets.all(0.0),
         child: ListTile(
           onTap: () {
+            // เมื่อถูกกด เช็คชื่อของ Card ที่ถูกกดแล้วให้วิ่งไปยังหน้านั้นๆ
             if (str == "งานเสาเข็ม") {
               Navigator.pushNamed(context, '/piling_work');
             } else if (str == "งานกำแพงกันดินระบบป้องกันดินพัง") {
@@ -61,6 +63,7 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: Text(
+          // ตัวหนังสือบน appbar
           "เทคนิคการก่อสร้าง",
           style: TextStyle(
             color: Colors.yellowAccent,
@@ -86,6 +89,7 @@ class _TechniqueTopicsState extends State<TechniqueTopics> {
               Expanded(
                 child: ListView(
                   children: [
+                    // สร้าง listview ตามข้อมูลด้านล่าง
                     buildListview("งานเสาเข็ม"),
                     buildListview("งานกำแพงกันดินระบบป้องกันดินพัง"),
                     buildListview("งานดินและฐานราก"),

@@ -32,9 +32,15 @@ import 'package:engineeronline/screens/topics/general_topics.dart';
 import 'package:engineeronline/screens/topics/technique_topics.dart';
 import 'package:engineeronline/screens/verify.dart';
 import 'package:flutter/material.dart';
+// import หน้าต่างที่ใช้ในแอป
+
+// ในไฟล์นี้ จะเป็นการกำหนดชื่อให้หน้าต่างแต่ละหน้าต่างของแอป
+// การเรียกใช้งานหน้าต่างแต่ละหน้าของแอปจะเรียกผ่านชื่อที่กำหนดไว้ในไฟล์นี้
+// จะมีเพียงบางหน้าต่างที่ไม่ได้เรียกใช้งานโดยใช้ชื่อในไฟล์นี้
 
 final Map<String, WidgetBuilder> routes = {
-  '/home': (BuildContext context) => Home(),
+  '/home': (BuildContext context) =>
+      Home(), // เช่น ชื่อ '/home' สำหรับหน้า Home()
   '/home_signedin': (BuildContext context) => HomeSignedIn(),
   '/authen': (BuildContext context) => Authen(),
   '/register': (BuildContext context) => Register(),
